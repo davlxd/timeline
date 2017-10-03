@@ -1,9 +1,10 @@
 import React from 'react'
+import RaisedButton from 'material-ui/RaisedButton'
 
-const Button = () => (
-  <div >
-    button
-  </div>
+import './style.css'
+
+const Button = ({ label }) => (
+  <RaisedButton label={label} className="Button" />
 )
 
 export default Button
