@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../components/Button'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import './style.css'
 
@@ -7,8 +7,8 @@ import './style.css'
 const Header = () => (
   <div className="Header">
     <div className="HeaderButtonGroup">
-      <Button label="Fork" primary="true" />
-      <Button label="Share" secondary="true"/>
+      <RaisedButton label="Fork" className="Button" />
+      <RaisedButton label="Share" className="Button" />
     </div>
   </div>
 )
