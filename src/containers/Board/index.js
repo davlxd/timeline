@@ -1,7 +1,7 @@
 import React from 'react'
-import { Stage, Layer, Arrow } from 'react-konva'
-import { grey800 } from 'material-ui/styles/colors'
+import { Stage, Layer } from 'react-konva'
 import EditPanel from '../EditPanel'
+import AxisArrow from '../AxisArrow'
 
 import TextBox from '../../components/TextBox'
 
@@ -18,17 +18,7 @@ class Board extends React.Component {
       <div>
         <Stage width={window.innerWidth} height={window.innerHeight}>
           <Layer>
-            <Arrow
-              x={0}
-              y={window.innerHeight / 2}
-              points={[0,0, window.innerWidth, 0]}
-              pointerLength={20}
-              pointerWidth={20}
-              fill={grey800}
-              stroke={grey800}
-              strokeWidth={4}
-              onClick={() => this.setState({ isPaneOpen: true })}
-            />
+            <AxisArrow />
             <TextBox
               text='Do you have some experience/proposals of "games" which you can play with your children, which would be on the one hand would make some fun for them, on the other would somehow develop their logical/thinking/mathematical skills.'
               midpoint={170}
@@ -58,13 +48,7 @@ class Board extends React.Component {
             />
           </Layer>
         </Stage>
-        <EditPanel
-          onRequestClose={ () => {
-              this.setState({ isPaneOpen: false });
-          }}
-          isPaneOpen={this.state.isPaneOpen}
-        />
-
+        <EditPanel />
       </div>
     );
   }
