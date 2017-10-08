@@ -4,17 +4,17 @@ import { grey800 } from 'material-ui/styles/colors';
 
 import './style.css'
 
-const TextBox = ({ text, midpoint, width, height, distance, aboveLine }) => {
-  let x = midpoint - width / 2
+const TextBox = ({ text, midPoint, width, height, distance, aboveLine }) => {
+  let x = midPoint - width / 2
   let y, linePoints
   if (aboveLine) {
     y = window.innerHeight / 2 - distance - height
-    linePoints = [midpoint, (window.innerHeight / 2), midpoint, (window.innerHeight / 2 - distance)]
+    linePoints = [midPoint, (window.innerHeight / 2), midPoint, (window.innerHeight / 2 - distance)]
   } else {
     y = window.innerHeight / 2 + distance
-    linePoints = [midpoint, (window.innerHeight / 2), midpoint, (window.innerHeight / 2 + distance)]
+    linePoints = [midPoint, (window.innerHeight / 2), midPoint, (window.innerHeight / 2 + distance)]
   }
-  console.log(y)
+
   return (
     <Group>
       <Text
