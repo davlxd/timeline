@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import SlidingPane from 'react-sliding-pane'
 import 'react-sliding-pane/dist/react-sliding-pane.css'
 
+import AxisArrowEditor from '../AxisArrowEditor'
+
 import { TOGGLE_EDIT_PANEL } from '../../actions'
 
 import './style.css'
@@ -18,8 +20,7 @@ let EditPanel = ({ isOpen, onRequestClose }) => (
       width='38.2%'
       onRequestClose={ onRequestClose }
       >
-        <div>And I am pane content. BTW, what rocks?</div>
-        <br />
+        <AxisArrowEditor />
     </SlidingPane>
   </div>
 )
