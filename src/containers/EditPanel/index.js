@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SlidingPane from 'react-sliding-pane'
-import 'react-sliding-pane/dist/react-sliding-pane.css'
+import Drawer from 'material-ui/Drawer'
 
 import AxisArrowEditor from '../AxisArrowEditor'
 
@@ -11,17 +10,15 @@ import './style.css'
 
 let EditPanel = ({ isOpen, onRequestClose }) => (
   <div >
-    <SlidingPane
-      className="some-custom-class"
-      overlayClassName='SlidePaneOverlay'
-      isOpen={ isOpen }
-      title='Hey, it is optional pane title.  I can be React component too.'
-      subtitle='Optional subtitle.'
+    <Drawer
+      docked={false}
       width='38.2%'
-      onRequestClose={ onRequestClose }
+      openSecondary={true}
+      open={isOpen}
+      onRequestChange={onRequestClose}
       >
-        <AxisArrowEditor />
-    </SlidingPane>
+      <AxisArrowEditor />
+    </Drawer>
   </div>
 )
 
