@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { Stage, Layer } from 'react-konva'
 import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
-
-import TextBox from '../../components/TextBox'
+import TextBox from '../TextBox'
 
 let Board = ({ textBoxList }) => {
   return (
@@ -31,12 +30,10 @@ let Board = ({ textBoxList }) => {
 const getTextBoxList = (state) => (
   state.data.events
   .filter(event => event.type === 'textbox')
-  .map((event) => {
-    return {
-      ...event,
-      midPoint: window.innerWidth / 2 + ((event.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * 80 // 80 is pix count per scale
-    }
-  })
+  .map((event) => ({
+    ...event,
+    midPoint: window.innerWidth / 2 + ((event.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * 80 // 80 is pix count per scale
+  }))
 )
 
 const mapStateToProps = (state) => ({

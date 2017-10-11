@@ -16,7 +16,13 @@ let AxisArrowEditor = ({ isOpen, onRequestClose }) => (
     </Paper>
 
     <Paper className="Card">
-      <div>And I am pane content. BTW, what rocks?</div>
+      <span> Central Timestamp </span>
+      <Slider className="Slider"/>
+    </Paper>
+
+    <Paper className="Card">
+      <span> Line Width </span>
+      <Slider className="Slider"/>
     </Paper>
 
   </div>

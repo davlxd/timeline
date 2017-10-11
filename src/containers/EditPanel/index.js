@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import Drawer from 'material-ui/Drawer'
 
 import AxisArrowEditor from '../AxisArrowEditor'
+import TextBoxEditor from '../TextBoxEditor'
 
 import { TOGGLE_EDIT_PANEL } from '../../actions'
 
 import './style.css'
 
-let EditPanel = ({ isOpen, onRequestClose }) => (
+let EditPanel = ({ isOpen, eventType, onRequestClose }) => (
   <div >
     <Drawer
       docked={false}
@@ -17,18 +18,26 @@ let EditPanel = ({ isOpen, onRequestClose }) => (
       open={isOpen}
       onRequestChange={onRequestClose}
       >
-      <AxisArrowEditor />
+        {(() => {
+          if (eventType === 'axisarrow') {
+            return <AxisArrowEditor />
+          } else if (eventType === 'textbox') {
+            return <TextBoxEditor />
+          }
+        })()}
     </Drawer>
   </div>
 )
 
 const mapStateToProps = (state) => ({
-  isOpen: state.ui.editPanelOpen
+  isOpen: state.ui.editPanelOpen,
+  eventType: state.ui.eventTypeOnEditPanel,
+  eventTimetamp: state.ui.eventTimestampOnEditPanel
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onRequestClose: () => {
-    dispatch(TOGGLE_EDIT_PANEL)
+    dispatch(TOGGLE_EDIT_PANEL())
   }
 })
 

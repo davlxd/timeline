@@ -1,10 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors';
 
+import { TOGGLE_EDIT_PANEL } from '../../actions'
+
 import './style.css'
 
-const TextBox = ({ text, midPoint, width, height, distance, aboveLine }) => {
+let TextBox = ({ when, type, text, midPoint, width, height, distance, aboveLine, dispatch }) => {
   let x = midPoint - width / 2
   let y, linePoints
   if (aboveLine) {
@@ -27,7 +30,6 @@ const TextBox = ({ text, midPoint, width, height, distance, aboveLine }) => {
         width={width}
         padding={20}
         align='center'
-
       />
       <Rect
         x={x}
@@ -41,6 +43,7 @@ const TextBox = ({ text, midPoint, width, height, distance, aboveLine }) => {
         shadowOffset={[10, 10]}
         shadowOpacity={0.2}
         cornerRadius={5}
+        onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, when))}
       />
       <Line
         points={linePoints}
@@ -49,5 +52,6 @@ const TextBox = ({ text, midPoint, width, height, distance, aboveLine }) => {
     </Group>
   )
 }
+TextBox = connect()(TextBox)
 
 export default TextBox

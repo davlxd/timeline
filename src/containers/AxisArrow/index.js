@@ -17,7 +17,7 @@ let AxisArrow = ({ dispatch }) => (
     fill={grey800}
     stroke={grey800}
     strokeWidth={4}
-    onClick={() => dispatch(TOGGLE_EDIT_PANEL)}
+    onClick={() => dispatch(TOGGLE_EDIT_PANEL('axisarrow'))}
   />
 )
 AxisArrow = connect()(AxisArrow)
