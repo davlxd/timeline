@@ -4,7 +4,6 @@ import Paper from 'material-ui/Paper'
 import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-import { grey400 } from 'material-ui/styles/colors';
 
 import './style.css'
 

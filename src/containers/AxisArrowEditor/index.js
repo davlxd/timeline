@@ -1,7 +1,6 @@
 import React from 'react'
 import Slider from 'material-ui/Slider'
 import Paper from 'material-ui/Paper'
-import { grey400 } from 'material-ui/styles/colors';
 
 import './style.css'
 
