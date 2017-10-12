@@ -14,6 +14,9 @@ const muiTheme = getMuiTheme({
     selectionColor: grey700,
     rippleColor: grey400
   },
+  textField: {
+    focusColor: grey700
+  }
 });
 
 const App = () => (

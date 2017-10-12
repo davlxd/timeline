@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper'
 import Slider from 'material-ui/Slider'
+import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import { grey400 } from 'material-ui/styles/colors';
 
@@ -12,7 +13,10 @@ let TextBoxEditor = ({ event }) => (
     <div className="Title">
       <h3>Text Box</h3>
     </div>
+    <RaisedButton label="Duplicate" className="Button" />
+    <RaisedButton label="Delete" className="Button" />
     <Paper className="Card">
+      <span> TEXT </span>
       <TextField
         hintText='Text here ...'
         multiLine={true}
