@@ -40,10 +40,23 @@ const initialState = {
 
 // calculate the scale
 
-
 const data = (state = initialState, action) => {
   switch (action.type) {
-    case 'TOGGLE_EDIT_PANEL':
+    case 'DUPLICATE_THIS_EVENT':
+      let newEvent = {
+        ...state.events.filter(event => event.id === action.id)[0],
+        id: state.nextEventId,
+        when: state.events.filter(event => event.id === action.id)[0].when + 86400000
+      }
+      return {
+        ...state,
+        nextEventId: state.nextEventId + 1,
+        events:[
+          ...state.events,
+          newEvent
+        ]
+      }
+    case 'DELETE_THIS_EVENT':
       return Object.assign({}, state, {
         editPanelOpen: !state.editPanelOpen
       })

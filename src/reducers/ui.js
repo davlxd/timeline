@@ -1,7 +1,7 @@
 const initialState = {
   editPanelOpen: false,
   eventTypeOnEditPanel: '',
-  eventTimestampOnEditPanel: 0
+  eventIdOnEditPanel: 0
 }
 
 
