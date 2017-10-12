@@ -14,7 +14,7 @@ let Board = ({ textBoxList }) => {
           {
             textBoxList.map(textBox =>
               <TextBox
-                key={textBox.when}
+                key={textBox.id}
                 {...textBox}
               />
             )

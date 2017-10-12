@@ -1,5 +1,5 @@
-export const TOGGLE_EDIT_PANEL = (editType = '', eventTimestamp = 0) => ({
+export const TOGGLE_EDIT_PANEL = (editType = '', id = 0) => ({
   type: 'TOGGLE_EDIT_PANEL',
   editType: editType,
-  when: eventTimestamp
+  id: id
 })

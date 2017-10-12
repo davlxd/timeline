@@ -11,7 +11,7 @@ const ui = (state = initialState, action) => {
       return Object.assign({}, state, {
         editPanelOpen: !state.editPanelOpen,
         eventTypeOnEditPanel: action.editType,
-        eventTimestampOnEditPanel: action.when
+        eventIdOnEditPanel: action.id
       })
     default:
       return state

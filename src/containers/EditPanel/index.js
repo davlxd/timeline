@@ -9,7 +9,7 @@ import { TOGGLE_EDIT_PANEL } from '../../actions'
 
 import './style.css'
 
-let EditPanel = ({ isOpen, eventType, onRequestClose }) => (
+let EditPanel = ({ isOpen, type, onRequestClose }) => (
   <div >
     <Drawer
       docked={false}
@@ -19,9 +19,9 @@ let EditPanel = ({ isOpen, eventType, onRequestClose }) => (
       onRequestChange={onRequestClose}
       >
         {(() => {
-          if (eventType === 'axisarrow') {
+          if (type === 'axisarrow') {
             return <AxisArrowEditor />
-          } else if (eventType === 'textbox') {
+          } else if (type === 'textbox') {
             return <TextBoxEditor />
           }
         })()}
@@ -31,8 +31,7 @@ let EditPanel = ({ isOpen, eventType, onRequestClose }) => (
 
 const mapStateToProps = (state) => ({
   isOpen: state.ui.editPanelOpen,
-  eventType: state.ui.eventTypeOnEditPanel,
-  eventTimetamp: state.ui.eventTimestampOnEditPanel
+  type: state.ui.eventTypeOnEditPanel
 })
 
 const mapDispatchToProps = (dispatch) => ({

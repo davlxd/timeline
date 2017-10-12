@@ -35,7 +35,7 @@ let TextBoxEditor = ({ event }) => (
 )
 
 const mapStateToProps = (state) => ({
-  event: state.data.events.filter(event => event.when === state.ui.eventTimestampOnEditPanel)[0]
+  event: state.data.events.filter(event => event.id === state.ui.eventIdOnEditPanel)[0]
 })
 
 const mapDispatchToProps = (dispatch) => ({

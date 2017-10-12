@@ -7,7 +7,7 @@ import { TOGGLE_EDIT_PANEL } from '../../actions'
 
 import './style.css'
 
-let TextBox = ({ when, type, text, midPoint, width, height, distance, aboveLine, dispatch }) => {
+let TextBox = ({ id, when, type, text, midPoint, width, height, distance, aboveLine, dispatch }) => {
   let x = midPoint - width / 2
   let y, linePoints
   if (aboveLine) {
@@ -43,7 +43,7 @@ let TextBox = ({ when, type, text, midPoint, width, height, distance, aboveLine,
         shadowOffset={[10, 10]}
         shadowOpacity={0.2}
         cornerRadius={5}
-        onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, when))}
+        onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, id))}
       />
       <Line
         points={linePoints}
