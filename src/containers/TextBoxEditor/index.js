@@ -5,11 +5,11 @@ import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
-import { DUPLICATE_THIS_EVENT, DELETE_THIS_EVENT } from '../../actions'
+import { DUPLICATE_THIS_EVENT, DELETE_THIS_EVENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
 
 import './style.css'
 
-let TextBoxEditor = ({ event, onDuplicate, onDelete }) => (
+let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
   <div>
     <div className="Title">
       <h3>Text Box</h3>
@@ -26,6 +26,7 @@ let TextBoxEditor = ({ event, onDuplicate, onDelete }) => (
         rowsMax={20}
         value={event.text}
         fullWidth={true}
+        onChange={(e, newText) => onChange(event.id, newText)}
     />
     </Paper>
 
@@ -46,6 +47,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDuplicate: (id) => {
     dispatch(DUPLICATE_THIS_EVENT(id))
+  },
+  onChange: (id, text) => {
+    console.log(id)
+    dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
   }
 })
 

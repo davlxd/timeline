@@ -42,6 +42,18 @@ const initialState = {
 
 const data = (state = initialState, action) => {
   switch (action.type) {
+    case 'TEXT_ON_TEXT_BOX_EDITOR_CHANGE':
+      let x =  {
+        ...state,
+        events: state.events.map(event => {
+          if (event.id !== action.id) return event
+          return {
+            ...event,
+            text: action.text
+          }
+        })
+      }
+      return x
     default:
       return state
   }

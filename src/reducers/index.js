@@ -42,6 +42,7 @@ const crossSliceReducer = (state, action) => {
         },
         ui: {
           ...state.ui,
+          eventTypeOnEditPanel: '',
           editPanelOpen: false
         }
       }
