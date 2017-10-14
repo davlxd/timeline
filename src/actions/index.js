@@ -19,3 +19,9 @@ export const TEXT_ON_TEXT_BOX_EDITOR_CHANGE = (id = 0, text = '') => ({
   id: id,
   text: text
 })
+
+export const UPDATE_TEXT_BOX_HEIGHT = (id = 0, height = 0) => ({
+  type: 'UPDATE_TEXT_BOX_HEIGHT',
+  id: id,
+  height: height
+})

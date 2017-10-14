@@ -34,6 +34,16 @@ let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
       <span> Timestamp </span>
       <Slider className="Slider"/>
     </Paper>
+
+    <Paper className="Card">
+      <span> Width </span>
+      <Slider className="Slider"/>
+    </Paper>
+
+    <Paper className="Card">
+      <span> Font size </span>
+      <Slider className="Slider"/>
+    </Paper>
   </div>
 )
 

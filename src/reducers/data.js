@@ -43,7 +43,7 @@ const initialState = {
 const data = (state = initialState, action) => {
   switch (action.type) {
     case 'TEXT_ON_TEXT_BOX_EDITOR_CHANGE':
-      let x =  {
+      return {
         ...state,
         events: state.events.map(event => {
           if (event.id !== action.id) return event
@@ -53,7 +53,17 @@ const data = (state = initialState, action) => {
           }
         })
       }
-      return x
+    case 'UPDATE_TEXT_BOX_HEIGHT':
+      return {
+        ...state,
+        events: state.events.map(event => {
+          if (event.id !== action.id) return event
+          return {
+            ...event,
+            height: action.height
+          }
+        })
+      }
     default:
       return state
   }
