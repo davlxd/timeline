@@ -14,8 +14,8 @@ class TextBox extends Component {
     }
   }
 
-  render() {
-    const { id, when, type, text, midPoint, width, height, distance, aboveLine, dispatch } = this.props
+  calcPosition() {
+    const { midPoint, width, height, distance, aboveLine } = this.props
 
     let x = midPoint - width / 2
     let y, linePoints
@@ -26,6 +26,16 @@ class TextBox extends Component {
       y = window.innerHeight / 2 + distance
       linePoints = [midPoint, (window.innerHeight / 2), midPoint, (window.innerHeight / 2 + distance)]
     }
+    return {
+      x,
+      y,
+      linePoints
+    }
+  }
+
+  render() {
+    const { id, type, text, width, height, dispatch } = this.props
+    const { x, y, linePoints} = this.calcPosition()
 
     return (
       <Group>
