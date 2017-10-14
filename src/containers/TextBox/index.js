@@ -32,6 +32,23 @@ class TextBox extends Component {
       linePoints
     }
   }
+  calcFromPosition(x, y) {
+    //TODO Avoid axisarrow
+    return {
+      midPoint : x,
+      distance : y,
+      aboveLine: true
+    }
+  }
+
+  onDragMove() {
+    console.log(this.canvasRect)
+    console.log(this.canvasText)
+    console.log('move')
+    this.canvasText.x(this.canvasRect.x())
+    this.canvasText.y(this.canvasRect.y())
+    return false
+  }
 
   render() {
     const { id, type, text, width, height, dispatch } = this.props
@@ -63,6 +80,9 @@ class TextBox extends Component {
           shadowOffset={[10, 10]}
           shadowOpacity={0.2}
           cornerRadius={5}
+          draggable={true}
+          ref={(rect) => {this.canvasRect = rect}}
+          onDragMove={this.onDragMove.bind(this)}
           onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, id))}
         />
         <Line
