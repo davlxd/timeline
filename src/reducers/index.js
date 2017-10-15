@@ -46,6 +46,22 @@ const crossSliceReducer = (state, action) => {
           editPanelOpen: false
         }
       }
+    case 'EVENT_BEING_DRAGGED':
+      const when = (((action.newPosition.midPoint - (window.innerWidth / 2)) / 80) * state.data.axisArrow.scale) + state.data.axisArrow.centralTime
+      return {
+        data:{
+          ...state.data,
+          events: state.data.events.map(event => {
+            if (event.id !== action.id) return event
+            return {
+              ...event,
+              ...action.newPosition,
+              when
+            }
+          })
+        },
+        ui: state.ui
+      }
     default:
       return state
   }

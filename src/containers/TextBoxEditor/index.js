@@ -59,7 +59,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(DUPLICATE_THIS_EVENT(id))
   },
   onChange: (id, text) => {
-    console.log(id)
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
   }
 })

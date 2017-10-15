@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors';
 
-import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT } from '../../actions'
+import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_BEING_DRAGGED } from '../../actions'
 
 import './style.css'
 
@@ -14,9 +14,7 @@ class TextBox extends Component {
     }
   }
 
-  calcPosition() {
-    const { midPoint, width, height, distance, aboveLine } = this.props
-
+  calcPosition({ midPoint, width, height, distance, aboveLine }) {
     let x = midPoint - width / 2
     let y, linePoints
     if (aboveLine) {
@@ -32,27 +30,48 @@ class TextBox extends Component {
       linePoints
     }
   }
-  calcFromPosition(x, y) {
-    //TODO Avoid axisarrow
-    return {
-      midPoint : x,
-      distance : y,
-      aboveLine: true
+
+  calcFromPosition(x, y, width, height) {
+    if (y > ((window.innerHeight / 2) - height) && y <= ((window.innerHeight / 2) - height / 2)) {
+      y = (window.innerHeight / 2) - height
+    } else if (y > ((window.innerHeight / 2) - height / 2) && y < (window.innerHeight / 2)) {
+      y = (window.innerHeight / 2)
+    }
+
+    if (y <= ((window.innerHeight / 2) - height / 2)) {
+      return {
+        distance : (window.innerHeight / 2) - height - y,
+        midPoint: x + (width / 2),
+        aboveLine: true
+      }
+    } else {
+      return {
+        distance : y - (window.innerHeight / 2),
+        midPoint: x + (width / 2),
+        aboveLine: false
+      }
     }
   }
 
   onDragMove() {
-    console.log(this.canvasRect)
-    console.log(this.canvasText)
-    console.log('move')
-    this.canvasText.x(this.canvasRect.x())
-    this.canvasText.y(this.canvasRect.y())
-    return false
+    const { width, height } = this.props
+    const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
+    const { distance, midPoint, aboveLine } = this.calcFromPosition(x, y, width, height)
+    const { linePoints } = this.calcPosition({ midPoint, width, height, distance, aboveLine })
+
+    this.canvasText.x(x)
+    this.canvasText.y(y)
+    this.canvasLine.points(linePoints)
+  }
+
+  onDragEnd() {
+    const { distance, midPoint, aboveLine } = this.calcFromPosition(this.canvasRect.x(), this.canvasRect.y(), this.props.width, this.props.height)
+    this.props.dispatch(EVENT_BEING_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
   }
 
   render() {
     const { id, type, text, width, height, dispatch } = this.props
-    const { x, y, linePoints} = this.calcPosition()
+    const { x, y, linePoints} = this.calcPosition(this.props)
 
     return (
       <Group>
@@ -83,11 +102,13 @@ class TextBox extends Component {
           draggable={true}
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onDragMove.bind(this)}
+          onDragEnd={this.onDragEnd.bind(this)}
           onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, id))}
         />
         <Line
           points={linePoints}
           stroke={grey800}
+          ref={(line) => {this.canvasLine = line}}
         />
       </Group>
     )
