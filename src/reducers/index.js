@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 
+import { PIXELS_PER_SCALE } from '../constants'
+
 import ui from './ui'
 import data from './data'
 
@@ -47,7 +49,7 @@ const crossSliceReducer = (state, action) => {
         }
       }
     case 'EVENT_BEING_DRAGGED':
-      const when = (((action.newPosition.midPoint - (window.innerWidth / 2)) / 80) * state.data.axisArrow.scale) + state.data.axisArrow.centralTime
+      const when = (((action.newPosition.midPoint - (window.innerWidth / 2)) / PIXELS_PER_SCALE) * state.data.axisArrow.scale) + state.data.axisArrow.centralTime
       return {
         data:{
           ...state.data,

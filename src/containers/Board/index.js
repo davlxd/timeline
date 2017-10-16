@@ -5,6 +5,8 @@ import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
 
+import { PIXELS_PER_SCALE } from '../../constants'
+
 let Board = ({ textBoxList }) => {
   return (
     <div>
@@ -32,7 +34,7 @@ const getTextBoxList = (state) => (
   .filter(event => event.type === 'textbox')
   .map((event) => ({
     ...event,
-    midPoint: window.innerWidth / 2 + ((event.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * 80 // 80 is pix count per scale
+    midPoint: window.innerWidth / 2 + ((event.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE
   }))
 )
 
