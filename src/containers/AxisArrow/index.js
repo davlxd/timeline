@@ -1,5 +1,5 @@
 import React from 'react'
-import { Arrow, Group, Line } from 'react-konva'
+import { Arrow, Group, Line, Text } from 'react-konva'
 import { connect } from 'react-redux'
 import { grey800 } from 'material-ui/styles/colors'
 
@@ -50,15 +50,19 @@ function* metricsTimestampGeneratror(centralTime, metricUnit) {
 function* metricMarkerXAxisGenerator(scale, centralTime, metricUnit) {
   const metricsTimestamp = metricsTimestampGeneratror(centralTime, metricUnit)
   while (true) {
-    let x = ((metricsTimestamp.next().value - centralTime) / scale) * PIXELS_PER_SCALE + window.innerWidth / 2
+    let timestamp = metricsTimestamp.next().value
+    let x = ((timestamp - centralTime) / scale) * PIXELS_PER_SCALE + window.innerWidth / 2
     if (x < window.innerWidth * -0.5 || x > window.innerWidth * 1.5) return
-    yield x
+    yield { timestamp, x }
   }
 }
 
 
 let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
   const metricMarkerXAxis = metricMarkerXAxisGenerator(scale, centralTime, approximateMetricUnit(scale))
+  const formatDate = (timestamp) => {
+    return new Date(timestamp).toISOString().slice(0, 10)
+  }
   return (
     <Group>
       <Arrow
@@ -73,13 +77,25 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
         onClick={onClick}
       />
       {
-        [...metricMarkerXAxis].map(x =>
-          <Line
-            key={x}
-            points={[x, (window.innerHeight / 2 - lineWidth / 2 - 2), x, (window.innerHeight / 2 + lineWidth / 2 + 2)]}
-            stroke={grey800}
-            strokeWidth={1}
-          />
+        [...metricMarkerXAxis].map(timestampAndX =>
+          <Group key={timestampAndX.x}>
+            <Line
+              points={[timestampAndX.x, (window.innerHeight / 2 - lineWidth / 2 - 2), timestampAndX.x, (window.innerHeight / 2 + lineWidth / 2 + 2)]}
+              stroke={grey800}
+              strokeWidth={1}
+            />
+            <Text
+              x={timestampAndX.x - 25}
+              y={(window.innerHeight / 2 - lineWidth / 2 + 4)}
+              text={formatDate(timestampAndX.timestamp)}
+              fontSize={10}
+              fontFamily='Calibri'
+              fill='#555'
+              width={50}
+              padding={1}
+              align='center'
+            />
+          </Group>
         )
       }
     </Group>
