@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { grey800 } from 'material-ui/styles/colors'
 
 import { TOGGLE_EDIT_PANEL } from '../../actions'
-import { PIXELS_PER_SCALE } from '../../constants'
+
+import { markerGenerator } from './markerGenerator'
 
 import './style.css'
 
@@ -15,51 +16,8 @@ const approximateMetricUnit = (scale) => { //TODO
   if (scale <= 30 * 24 * 60 * 60 * 1000 ) return 'M'
 }
 
-function* pendulumGenerator() {
-  let count = 1
-  let flag = 1
-
-  yield 0
-  while (true) {
-    yield flag * count
-    flag = -flag
-    if (flag > 0) count++
-  }
-}
-
-function* metricsTimestampGeneratror(centralTime, metricUnit) {
-  const d = new Date(centralTime)
-  const pendulum = pendulumGenerator()
-
-  while (true) {
-    if (metricUnit === 'min') {
-      yield new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes() + pendulum.next().value).getTime()
-    }
-    if (metricUnit === 'h') {
-      yield new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + pendulum.next().value).getTime()
-    }
-    if (metricUnit === 'd') {
-      yield new Date(d.getFullYear(), d.getMonth(), d.getDate() + pendulum.next().value).getTime()
-    }
-    if (metricUnit === 'M') {
-      yield new Date(d.getFullYear(), d.getMonth() + pendulum.next().value).getTime()
-    }
-  }
-}
-
-function* metricMarkerXAxisGenerator(scale, centralTime, metricUnit) {
-  const metricsTimestamp = metricsTimestampGeneratror(centralTime, metricUnit)
-  while (true) {
-    let timestamp = metricsTimestamp.next().value
-    let x = ((timestamp - centralTime) / scale) * PIXELS_PER_SCALE + window.innerWidth / 2
-    if (x < window.innerWidth * -0.5 || x > window.innerWidth * 1.5) return
-    yield { timestamp, x }
-  }
-}
-
-
 let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
-  const metricMarkerXAxis = metricMarkerXAxisGenerator(scale, centralTime, approximateMetricUnit(scale))
+  const markerGen = markerGenerator(scale, centralTime, approximateMetricUnit(scale))
   const formatDate = (timestamp) => {
     return new Date(timestamp).toISOString().slice(0, 10)
   }
@@ -77,7 +35,7 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
         onClick={onClick}
       />
       {
-        [...metricMarkerXAxis].map(timestampAndX =>
+        [...markerGen].map(timestampAndX =>
           <Group key={timestampAndX.x}>
             <Line
               points={[timestampAndX.x, (window.innerHeight / 2 - lineWidth / 2 - 2), timestampAndX.x, (window.innerHeight / 2 + lineWidth / 2 + 2)]}

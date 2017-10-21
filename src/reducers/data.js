@@ -2,7 +2,7 @@ const initialState = {
   axisArrow: {
     centralTime: new Date().getTime(),
     lineWidth: 4,
-    scale: 86400000
+    scale: (24 * 60 * 60 * 1000)
   },
   nextEventId: 4,
   events: [
