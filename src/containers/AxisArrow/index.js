@@ -44,7 +44,7 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
             />
             <Text
               x={timestampAndX.x - 25}
-              y={(window.innerHeight / 2 - lineWidth / 2 + 4)}
+              y={(window.innerHeight / 2 - lineWidth / 2 + 6)}
               text={formatDate(timestampAndX.timestamp)}
               fontSize={10}
               fontFamily='Calibri'

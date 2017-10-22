@@ -1,0 +1,9 @@
+.ZoomButtonGroup {
+  opacity: 0.2;
+  transition: visibility 0s, opacity 0.1s linear;
+}
+
+.ZoomButtonGroup:hover {
+  transition: visibility 0s, opacity 0.1s linear;
+  opacity: 1;
+}

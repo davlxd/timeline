@@ -65,6 +65,22 @@ const data = (state = initialState, action) => {
           }
         })
       }
+    case 'ZOOM_IN':
+      return {
+        ...state,
+        axisArrow: {
+          ...state.axisArrow,
+          scale: state.axisArrow.scale * 0.8
+        }
+      }
+    case 'ZOOM_OUT':
+      return {
+        ...state,
+        axisArrow: {
+          ...state.axisArrow,
+          scale: state.axisArrow.scale * 1.2
+        }
+      }
     default:
       return state
   }

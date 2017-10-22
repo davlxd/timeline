@@ -31,3 +31,11 @@ export const EVENT_BEING_DRAGGED = (id = 0, newPosition = {}) => ({
   id,
   newPosition
 })
+
+export const ZOOM_IN = {
+  type: 'ZOOM_IN'
+}
+
+export const ZOOM_OUT = {
+  type: 'ZOOM_OUT'
+}
