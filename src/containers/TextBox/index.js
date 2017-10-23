@@ -9,11 +9,18 @@ import './style.css'
 
 class TextBox extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       showTime: false
     }
   }
+
+  componentDidMount() {
+    if (this.props.height !== this.canvasText.getHeight()) {
+      this.props.dispatch(UPDATE_TEXT_BOX_HEIGHT(this.props.id, this.canvasText.getHeight()))
+    }
+  }
+
   componentDidUpdate(props) {
     if (props.height !== this.canvasText.getHeight()) {
       props.dispatch(UPDATE_TEXT_BOX_HEIGHT(props.id, this.canvasText.getHeight()))
@@ -87,7 +94,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { id, type, when, midPoint, text, width, height, dispatch } = this.props
+    const { id, type, when, midPoint, text, width, height, aboveLine, dispatch } = this.props
     const { x, y, linePoints} = this.calcPosition(this.props)
 
     return (
@@ -129,38 +136,34 @@ class TextBox extends Component {
           stroke={grey800}
           ref={(line) => {this.canvasLine = line}}
         />
-        {(() => {
-            if (this.state.showTime) {
-              return (
-                <Group>
-                  <Rect
-                    x={midPoint - 70}
-                    y={window.innerHeight / 2 + 7}
-                    // stroke={grey800}
-                    fill='#ffffff'
-                    width={140}
-                    height={16}
-                    cornerRadius={5}
-                  />
-                  <Text
-                    x={midPoint - 70}
-                    y={window.innerHeight / 2 + 7}
-                    text={new Date(when).toISOString()}
-                    fontSize={12}
-                    fontFamily='Calibri'
-                    fill='#555'
-                    width={140}
-                    padding={2}
-                    align='center'
-                  />
-                </Group>
-               )
-            }
-          })()}
+        <Group visible={this.state.showTime}>
+          <Rect
+            x={midPoint - 70}
+            y={aboveLine ? window.innerHeight / 2 + 7 : window.innerHeight / 2 - 20} // TODO involve lineWidth
+            fill='#ffffff'
+            // stroke='#000000'
+            width={140}
+            height={16}
+            cornerRadius={5}
+          />
+          <Text
+            x={midPoint - 70}
+            y={aboveLine ? window.innerHeight / 2 + 7 : window.innerHeight / 2 - 20} // TODO involve lineWidth
+            text={new Date(when).toISOString()}
+            fontSize={12}
+            fontFamily='Calibri'
+            fill='#555'
+            width={140}
+            padding={2}
+            align='center'
+          />
+        </Group>
       </Group>
     )
   }
 }
 TextBox = connect()(TextBox)
+// TODO read axisArrow.lineWidth
+// TODO and calc midPoint from here
 
 export default TextBox
