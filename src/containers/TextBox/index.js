@@ -8,6 +8,12 @@ import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_BEING_DRAGGED } from '
 import './style.css'
 
 class TextBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showTime: false
+    }
+  }
   componentDidUpdate(props) {
     if (props.height !== this.canvasText.getHeight()) {
       props.dispatch(UPDATE_TEXT_BOX_HEIGHT(props.id, this.canvasText.getHeight()))
@@ -69,8 +75,19 @@ class TextBox extends Component {
     this.props.dispatch(EVENT_BEING_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
   }
 
+  onMouseOver() {
+    this.setState({
+      showTime: true
+    })
+  }
+  onMouseOut() {
+    this.setState({
+      showTime: false
+    })
+  }
+
   render() {
-    const { id, type, text, width, height, dispatch } = this.props
+    const { id, type, when, midPoint, text, width, height, dispatch } = this.props
     const { x, y, linePoints} = this.calcPosition(this.props)
 
     return (
@@ -104,12 +121,42 @@ class TextBox extends Component {
           onDragMove={this.onDragMove.bind(this)}
           onDragEnd={this.onDragEnd.bind(this)}
           onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, id))}
+          onMouseOver={this.onMouseOver.bind(this)}
+          onMouseOut={this.onMouseOut.bind(this)}
         />
         <Line
           points={linePoints}
           stroke={grey800}
           ref={(line) => {this.canvasLine = line}}
         />
+        {(() => {
+            if (this.state.showTime) {
+              return (
+                <Group>
+                  <Rect
+                    x={midPoint - 70}
+                    y={window.innerHeight / 2 + 7}
+                    // stroke={grey800}
+                    fill='#ffffff'
+                    width={140}
+                    height={16}
+                    cornerRadius={5}
+                  />
+                  <Text
+                    x={midPoint - 70}
+                    y={window.innerHeight / 2 + 7}
+                    text={new Date(when).toISOString()}
+                    fontSize={12}
+                    fontFamily='Calibri'
+                    fill='#555'
+                    width={140}
+                    padding={2}
+                    align='center'
+                  />
+                </Group>
+               )
+            }
+          })()}
       </Group>
     )
   }
