@@ -32,6 +32,10 @@ export const EVENT_BEING_DRAGGED = (id = 0, newPosition = {}) => ({
   newPosition
 })
 
+export const DISABLE_AXISARROW_MARKERS = {
+  type: 'DISABLE_AXISARROW_MARKERS'
+}
+
 export const ZOOM_IN = {
   type: 'ZOOM_IN'
 }

@@ -29,6 +29,9 @@ function* timestampGenerator(centralTime, metricUnit) {
     if (metricUnit === 'M') {
       yield new Date(d.getFullYear(), d.getMonth() + pendulumGen.next().value).getTime()
     }
+    if (metricUnit === 'y') {
+      yield new Date(d.getFullYear() + pendulumGen.next().value, 0).getTime()
+    }
   }
 }
 

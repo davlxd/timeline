@@ -3,23 +3,30 @@ import { Arrow, Group, Line, Text } from 'react-konva'
 import { connect } from 'react-redux'
 import { grey800 } from 'material-ui/styles/colors'
 
-import { TOGGLE_EDIT_PANEL } from '../../actions'
+import { TOGGLE_EDIT_PANEL, DISABLE_AXISARROW_MARKERS } from '../../actions'
+import { MIN_MS, HOUR_MS, DAY_MS, MONTH30_MS, YEAR_MS } from '../../constants'
 
 import { markerGenerator } from './markerGenerator'
+import { markerFormater } from './markerFormater'
 
 import './style.css'
 
 const approximateMetricUnit = (scale) => { //TODO
-  if (scale <= 60 * 1000 ) return 'min'
-  if (scale <= 60 * 60 * 1000 ) return 'h'
-  if (scale <= 24 * 60 * 60 * 1000 ) return 'd'
-  if (scale <= 30 * 24 * 60 * 60 * 1000 ) return 'M'
+  if (scale <= MIN_MS ) return 'min'
+  if (scale <= HOUR_MS ) return 'h'
+  if (scale <= DAY_MS ) return 'd'
+  if (scale <= MONTH30_MS ) return 'M'
+  if (scale <= YEAR_MS ) return 'y'
+  return 'x'
 }
 
-let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
-  const markerGen = markerGenerator(scale, centralTime, approximateMetricUnit(scale))
-  const formatDate = (timestamp) => {
-    return new Date(timestamp).toISOString().slice(0, 10)
+let AxisArrow = ({ scale, centralTime, lineWidth, onClick, onScopeTooLarge }) => {
+  const metricUnit = approximateMetricUnit(scale)
+  let markerGen = []
+  if (metricUnit === 'x') {
+    onScopeTooLarge()
+  } else {
+    markerGen = markerGenerator(scale, centralTime, metricUnit)
   }
   return (
     <Group>
@@ -45,8 +52,8 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick }) => {
             <Text
               x={timestampAndX.x - 25}
               y={(window.innerHeight / 2 - lineWidth / 2 + 6)}
-              text={formatDate(timestampAndX.timestamp)}
-              fontSize={10}
+              text={markerFormater(timestampAndX.timestamp).marker}
+              fontSize={markerFormater(timestampAndX.timestamp).fontSize}
               fontFamily='Calibri'
               fill='#555'
               width={50}
@@ -67,6 +74,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onClick: () => {
     dispatch(TOGGLE_EDIT_PANEL('axisarrow'))
+  },
+  onScopeTooLarge: () => {
+    dispatch(DISABLE_AXISARROW_MARKERS)
   }
 })
 
