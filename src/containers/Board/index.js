@@ -11,7 +11,6 @@ import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
 
-import { PIXELS_PER_SCALE } from '../../constants'
 import { ZOOM_IN, ZOOM_OUT } from '../../actions'
 
 import './style.css'
@@ -19,6 +18,7 @@ import './style.css'
 const iconStyles = {
   fill: grey400,
 }
+
 const zoomIn = {
   position: 'absolute',
   right: 5,
@@ -61,12 +61,7 @@ let Board = ({ textBoxList, onZoomInClick, onZoomOutClick }) => {
 
 
 const getTextBoxList = (state) => (
-  state.data.events
-  .filter(event => event.type === 'textbox')
-  .map((event) => ({
-    ...event,
-    midPoint: window.innerWidth / 2 + ((event.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE
-  }))
+  state.data.events.filter(event => event.type === 'textbox')
 )
 
 const mapStateToProps = (state) => ({

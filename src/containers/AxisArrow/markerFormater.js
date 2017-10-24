@@ -9,6 +9,7 @@ const ordinalSuffixOf = (i) => {
 
 export const markerFormater = (timestamp) => {
   const [ _, m, d, y, t] = new Date(timestamp).toString().split(' ')
+  _.slice()
   if (t !== '00:00:00') return { marker: t.slice(0, 5), fontSize: 10 }
   if (d !== '01') return { marker: ordinalSuffixOf(d), fontSize: 13 }
   if (m !== 'Jan') return { marker: m, fontSize: 16 }

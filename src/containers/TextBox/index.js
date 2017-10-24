@@ -4,6 +4,11 @@ import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors';
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_BEING_DRAGGED } from '../../actions'
+import { localTimeInYMD } from '../../utils'
+
+import { PIXELS_PER_SCALE } from '../../constants'
+
+import { calcPosition, calcFromPosition } from './positionCalculation'
 
 import './style.css'
 
@@ -27,58 +32,23 @@ class TextBox extends Component {
     }
   }
 
-  calcPosition({ midPoint, width, height, distance, aboveLine }) {
-    let x = midPoint - width / 2
-    let y, linePoints
-    if (aboveLine) {
-      y = window.innerHeight / 2 - distance - height
-      linePoints = [midPoint, (window.innerHeight / 2), midPoint, (window.innerHeight / 2 - distance)]
-    } else {
-      y = window.innerHeight / 2 + distance
-      linePoints = [midPoint, (window.innerHeight / 2), midPoint, (window.innerHeight / 2 + distance)]
-    }
-    return {
-      x,
-      y,
-      linePoints
-    }
-  }
-
-  calcFromPosition(x, y, width, height) {
-    if (y > ((window.innerHeight / 2) - height) && y <= ((window.innerHeight / 2) - height / 2)) {
-      y = (window.innerHeight / 2) - height
-    } else if (y > ((window.innerHeight / 2) - height / 2) && y < (window.innerHeight / 2)) {
-      y = (window.innerHeight / 2)
-    }
-
-    if (y <= ((window.innerHeight / 2) - height / 2)) {
-      return {
-        distance : (window.innerHeight / 2) - height - y,
-        midPoint: x + (width / 2),
-        aboveLine: true
-      }
-    } else {
-      return {
-        distance : y - (window.innerHeight / 2),
-        midPoint: x + (width / 2),
-        aboveLine: false
-      }
-    }
-  }
-
   onDragMove() {
-    const { width, height } = this.props
+    const { width, height, scale, centralTime } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
-    const { distance, midPoint, aboveLine } = this.calcFromPosition(x, y, width, height)
-    const { linePoints } = this.calcPosition({ midPoint, width, height, distance, aboveLine })
+    const { distance, midPoint, aboveLine, when } = calcFromPosition(x, y, width, height, scale, centralTime)
+    const { linePoints } = calcPosition({ midPoint, width, height, distance, aboveLine })
 
     this.canvasText.x(x)
     this.canvasText.y(y)
     this.canvasLine.points(linePoints)
+    this.canvasMarkerRect.x(midPoint - 70)
+    this.canvasMarkerText.x(midPoint - 70)
+    this.canvasMarkerText.text(localTimeInYMD(when))
   }
 
   onDragEnd() {
-    const { distance, midPoint, aboveLine } = this.calcFromPosition(this.canvasRect.x(), this.canvasRect.y(), this.props.width, this.props.height)
+    const { width, height, scale, centralTime } = this.props
+    const { distance, midPoint, aboveLine } = calcFromPosition(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
     this.props.dispatch(EVENT_BEING_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
   }
 
@@ -94,8 +64,8 @@ class TextBox extends Component {
   }
 
   render() {
-    const { id, type, when, midPoint, text, width, height, aboveLine, dispatch } = this.props
-    const { x, y, linePoints} = this.calcPosition(this.props)
+    const { id, type, when, midPoint, text, width, height, aboveLine, axisArrowLineWidth, dispatch } = this.props
+    const { x, y, linePoints} = calcPosition(this.props)
 
     return (
       <Group>
@@ -139,30 +109,45 @@ class TextBox extends Component {
         <Group visible={this.state.showTime}>
           <Rect
             x={midPoint - 70}
-            y={aboveLine ? window.innerHeight / 2 + 7 : window.innerHeight / 2 - 20} // TODO involve lineWidth
+            y={aboveLine ? window.innerHeight / 2 + axisArrowLineWidth + 3 : window.innerHeight / 2 - axisArrowLineWidth - (3 + 14)}
             fill='#ffffff'
             // stroke='#000000'
             width={140}
             height={16}
             cornerRadius={5}
+            ref={(rect) => {this.canvasMarkerRect = rect}}
           />
           <Text
             x={midPoint - 70}
-            y={aboveLine ? window.innerHeight / 2 + 7 : window.innerHeight / 2 - 20} // TODO involve lineWidth
-            text={new Date(when).toISOString()}
+            y={aboveLine ? window.innerHeight / 2 + axisArrowLineWidth + 3 : window.innerHeight / 2 - axisArrowLineWidth - (3 + 14)}
+            text={localTimeInYMD(when)}
             fontSize={12}
             fontFamily='Calibri'
             fill='#555'
             width={140}
             padding={2}
             align='center'
+            ref={(text) => {this.canvasMarkerText = text}}
           />
         </Group>
       </Group>
     )
   }
 }
-TextBox = connect()(TextBox)
+
+const mapStateToProps = (state, ownProps) => ({
+  scale: state.data.axisArrow.scale,
+  centralTime: state.data.axisArrow.centralTime,
+  axisArrowLineWidth: state.data.axisArrow.lineWidth,
+  midPoint: window.innerWidth / 2 + ((ownProps.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE
+})
+
+TextBox = connect(
+  mapStateToProps,
+  null
+)(TextBox)
+
+
 // TODO read axisArrow.lineWidth
 // TODO and calc midPoint from here
 
