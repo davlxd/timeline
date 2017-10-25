@@ -26,8 +26,8 @@ export const UPDATE_TEXT_BOX_HEIGHT = (id = 0, height = 0) => ({
   height: height
 })
 
-export const EVENT_BEING_DRAGGED = (id = 0, newPosition = {}) => ({
-  type: 'EVENT_BEING_DRAGGED',
+export const EVENT_DRAGGED = (id = 0, newPosition = {}) => ({
+  type: 'EVENT_DRAGGED',
   id,
   newPosition
 })
