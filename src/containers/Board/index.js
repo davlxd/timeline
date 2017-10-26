@@ -10,10 +10,11 @@ import { grey400 } from 'material-ui/styles/colors'
 import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
+import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 
 import { PIXELS_PER_SCALE } from '../../constants'
-
 import { ZOOM_IN, ZOOM_OUT, STAGE_BEING_DRAGGED } from '../../actions'
+
 
 import './style.css'
 
@@ -35,20 +36,31 @@ const zoomOut = {
 
 
 class Board extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showTime: false
+    }
+  }
+
   onDragMove() {
-    console.log(this.canvasStageDragCapture.x())
-    console.log(this.canvasStageDragCapture.y())
     const centralTimeOffset = - (this.canvasStageDragCapture.x() * this.props.scale) / (PIXELS_PER_SCALE * 3)
     this.props.onStageBeingDragged(this.props.centralTime + centralTimeOffset)
+    this.setState({
+      showTime: true
+    })
   }
 
   onDragEnd() {
     this.canvasStageDragCapture.x(0)
     this.canvasStageDragCapture.y(0)
+    this.setState({
+      showTime: false
+    })
   }
 
   render() {
-    const { textBoxList, onZoomInClick, onZoomOutClick } = this.props
+    const { centralTime, textBoxList, onZoomInClick, onZoomOutClick } = this.props
     return (
       <div>
         <Stage
@@ -59,8 +71,6 @@ class Board extends Component {
             <Rect
               x={0}
               y={0}
-              // stroke='#000000'
-              // strokeWidth={2}
               width={window.innerWidth}
               height={window.innerHeight}
               draggable={true}
@@ -69,6 +79,12 @@ class Board extends Component {
               onDragEnd={this.onDragEnd.bind(this)}
             />
             <AxisArrow />
+            <DateTimeMarkerOnAxisArrow
+              visible={this.state.showTime}
+              when={centralTime}
+              midPoint={window.innerWidth / 2}
+              aboveLine={true}
+            />
             {
               textBoxList.map(textBox =>
                 <TextBox

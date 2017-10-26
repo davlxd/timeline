@@ -120,7 +120,7 @@ class TextBox extends Component {
           visible={this.state.showTime}
           when={this.state.when}
           midPoint={this.state.midPoint}
-          aboveLine={this.state.aboveLine}
+          aboveLine={!this.state.aboveLine}
         />
       </Group>
     )
