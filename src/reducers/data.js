@@ -81,6 +81,14 @@ const data = (state = initialState, action) => {
           scale: state.axisArrow.scale * 1.2
         }
       }
+    case 'STAGE_BEING_DRAGGED':
+      return {
+        ...state,
+        axisArrow: {
+          ...state.axisArrow,
+          centralTime: action.newCentralTime
+        }
+      }
     default:
       return state
   }

@@ -32,6 +32,11 @@ export const EVENT_DRAGGED = (id = 0, newPosition = {}) => ({
   newPosition
 })
 
+export const STAGE_BEING_DRAGGED = (newCentralTime = 0) => ({
+  type: 'STAGE_BEING_DRAGGED',
+  newCentralTime
+})
+
 export const DISABLE_AXISARROW_MARKERS = {
   type: 'DISABLE_AXISARROW_MARKERS'
 }
