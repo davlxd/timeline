@@ -4,19 +4,24 @@ import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors';
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_DRAGGED } from '../../actions'
-import { localTimeInYMD } from '../../utils'
 
 import { PIXELS_PER_SCALE } from '../../constants'
 
 import { calcPosition, calcFromPosition } from './positionCalculation'
+
+import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 
 import './style.css'
 
 class TextBox extends Component {
   constructor(props) {
     super(props)
+    const { when, midPoint, aboveLine } = props
     this.state = {
-      showTime: false
+      showTime: false,
+      when,
+      midPoint,
+      aboveLine
     }
   }
 
@@ -38,12 +43,17 @@ class TextBox extends Component {
     const { distance, midPoint, aboveLine, when } = calcFromPosition(x, y, width, height, scale, centralTime)
     const { linePoints } = calcPosition({ midPoint, width, height, distance, aboveLine })
 
+    this.setState({
+      when,
+      midPoint,
+      aboveLine
+    }) // Has to call setState first, don't know why
+
     this.canvasText.x(x)
     this.canvasText.y(y)
+    this.canvasRect.x(x)
+    this.canvasRect.y(y)
     this.canvasLine.points(linePoints)
-    this.canvasMarkerRect.x(midPoint - 70)
-    this.canvasMarkerText.x(midPoint - 70)
-    this.canvasMarkerText.text(localTimeInYMD(when))
   }
 
   onDragEnd() {
@@ -64,7 +74,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { id, type, when, midPoint, text, width, height, aboveLine, axisArrowLineWidth, dispatch } = this.props
+    const { id, type, text, width, height, dispatch } = this.props
     const { x, y, linePoints} = calcPosition(this.props)
 
     return (
@@ -106,30 +116,12 @@ class TextBox extends Component {
           stroke={grey800}
           ref={(line) => {this.canvasLine = line}}
         />
-        <Group visible={this.state.showTime}>
-          <Rect
-            x={midPoint - 70}
-            y={aboveLine ? window.innerHeight / 2 + axisArrowLineWidth + 3 : window.innerHeight / 2 - axisArrowLineWidth - (3 + 14)}
-            fill='#ffffff'
-            // stroke='#000000'
-            width={140}
-            height={16}
-            cornerRadius={5}
-            ref={(rect) => {this.canvasMarkerRect = rect}}
-          />
-          <Text
-            x={midPoint - 70}
-            y={aboveLine ? window.innerHeight / 2 + axisArrowLineWidth + 3 : window.innerHeight / 2 - axisArrowLineWidth - (3 + 14)}
-            text={localTimeInYMD(when)}
-            fontSize={12}
-            fontFamily='Calibri'
-            fill='#555'
-            width={140}
-            padding={2}
-            align='center'
-            ref={(text) => {this.canvasMarkerText = text}}
-          />
-        </Group>
+        <DateTimeMarkerOnAxisArrow
+          visible={this.state.showTime}
+          when={this.state.when}
+          midPoint={this.state.midPoint}
+          aboveLine={this.state.aboveLine}
+        />
       </Group>
     )
   }
