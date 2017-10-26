@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Stage, Layer } from 'react-konva'
+import { Stage, Layer, Rect } from 'react-konva'
 
 import IconButton from 'material-ui/IconButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -36,19 +36,15 @@ const zoomOut = {
 
 class Board extends Component {
   onDragMove() {
-    const props = this.props
-    if (typeof this.canvasStage.node.attrs.x === 'undefined' && typeof this.canvasStage.node.attrs.y === 'undefined') return
-    if (this.canvasStage.node.attrs.x === 0 && this.canvasStage.node.attrs.y === 0) return
-    const centralTimeOffset = - (this.canvasStage.node.attrs.x * props.scale) / PIXELS_PER_SCALE
-    props.onStageBeingDragged(props.centralTime + centralTimeOffset)
+    console.log(this.canvasStageDragCapture.x())
+    console.log(this.canvasStageDragCapture.y())
+    const centralTimeOffset = - (this.canvasStageDragCapture.x() * this.props.scale) / (PIXELS_PER_SCALE * 3)
+    this.props.onStageBeingDragged(this.props.centralTime + centralTimeOffset)
   }
 
   onDragEnd() {
-    console.log(this)
-    // console.log('xxxx stage onDragEnd')
-    // console.log(this.canvasStage)
-    // console.log(this.canvasStage)
-    // console.log(this.canvasStage.node.attrs)
+    this.canvasStageDragCapture.x(0)
+    this.canvasStageDragCapture.y(0)
   }
 
   render() {
@@ -58,12 +54,20 @@ class Board extends Component {
         <Stage
           width={window.innerWidth}
           height={window.innerHeight}
-          draggable={true}
-          onDragMove={this.onDragMove.bind(this)}
-          onDragEnd={this.onDragEnd.bind(this)}
-          ref={(stage) => {this.canvasStage = stage}}
           >
           <Layer>
+            <Rect
+              x={0}
+              y={0}
+              // stroke='#000000'
+              // strokeWidth={2}
+              width={window.innerWidth}
+              height={window.innerHeight}
+              draggable={true}
+              ref={(rect) => {this.canvasStageDragCapture = rect}}
+              onDragMove={this.onDragMove.bind(this)}
+              onDragEnd={this.onDragEnd.bind(this)}
+            />
             <AxisArrow />
             {
               textBoxList.map(textBox =>
