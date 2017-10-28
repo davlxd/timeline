@@ -63,6 +63,7 @@ class TextBox extends Component {
   }
 
   onMouseOver() {
+    this.onDragMove()
     this.setState({
       showTime: true
     })
