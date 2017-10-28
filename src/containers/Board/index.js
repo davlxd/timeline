@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Stage, Layer, Rect } from 'react-konva'
+import { Stage, Layer, Rect, Line } from 'react-konva'
 
 import IconButton from 'material-ui/IconButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
-import { grey400 } from 'material-ui/styles/colors'
+import { grey400, grey500 } from 'material-ui/styles/colors'
 
 import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
@@ -77,6 +77,13 @@ class Board extends Component {
               ref={(rect) => {this.canvasStageDragCapture = rect}}
               onDragMove={this.onDragMove.bind(this)}
               onDragEnd={this.onDragEnd.bind(this)}
+            />
+            <Line
+              visible={this.state.showTime}
+              points={[window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight]}
+              stroke={grey500}
+              strokeWidth={0.5}
+              ref={(line) => {this.canvasLine = line}}
             />
             <AxisArrow />
             <DateTimeMarkerOnAxisArrow
