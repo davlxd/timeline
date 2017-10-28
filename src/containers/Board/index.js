@@ -39,15 +39,19 @@ class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showTime: false
+      showTime: false,
+      prevCanvasStageDragCaptureX: 0
     }
   }
 
   onDragMove() {
-    const centralTimeOffset = - (this.canvasStageDragCapture.x() * this.props.scale) / (PIXELS_PER_SCALE * 3)
+    const currentCanvasStageDragCaptureX = this.canvasStageDragCapture.x()
+    const centralTimeOffset = - ((currentCanvasStageDragCaptureX - this.state.prevCanvasStageDragCaptureX) * this.props.scale) / (PIXELS_PER_SCALE)
     this.props.onStageBeingDragged(this.props.centralTime + centralTimeOffset)
+
     this.setState({
-      showTime: true
+      showTime: true,
+      prevCanvasStageDragCaptureX: currentCanvasStageDragCaptureX
     })
   }
 
@@ -55,7 +59,8 @@ class Board extends Component {
     this.canvasStageDragCapture.x(0)
     this.canvasStageDragCapture.y(0)
     this.setState({
-      showTime: false
+      showTime: false,
+      prevCanvasStageDragCaptureX: 0
     })
   }
 
