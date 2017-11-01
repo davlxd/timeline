@@ -138,7 +138,7 @@ class Board extends Component {
 
 
 const getTextBoxList = (state) => (
-  state.data.events.filter(event => event.type === 'textbox')
+  state.data.incidents.filter(incident => incident.type === 'textbox')
 )
 
 const mapStateToProps = (state) => ({

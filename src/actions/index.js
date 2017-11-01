@@ -4,13 +4,13 @@ export const TOGGLE_EDIT_PANEL = (editType = '', id = 0) => ({
   id: id
 })
 
-export const DUPLICATE_THIS_EVENT = (id = 0) => ({
-  type: 'DUPLICATE_THIS_EVENT',
+export const DUPLICATE_THIS_INCIDENT = (id = 0) => ({
+  type: 'DUPLICATE_THIS_INCIDENT',
   id: id
 })
 
-export const DELETE_THIS_EVENT = (id = 0) => ({
-  type: 'DELETE_THIS_EVENT',
+export const DELETE_THIS_INCIDENT = (id = 0) => ({
+  type: 'DELETE_THIS_INCIDENT',
   id: id
 })
 
@@ -26,8 +26,8 @@ export const UPDATE_TEXT_BOX_HEIGHT = (id = 0, height = 0) => ({
   height: height
 })
 
-export const EVENT_DRAGGED = (id = 0, newPosition = {}) => ({
-  type: 'EVENT_DRAGGED',
+export const INCIDENT_DRAGGED = (id = 0, newPosition = {}) => ({
+  type: 'INCIDENT_DRAGGED',
   id,
   newPosition
 })

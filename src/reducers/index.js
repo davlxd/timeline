@@ -15,54 +15,54 @@ const combinedReducer = combineReducers({
 
 const crossSliceReducer = (state, action) => {
   switch(action.type) {
-    case 'DUPLICATE_THIS_EVENT':
-      const targetEvent = state.data.events.filter(event => event.id === action.id)[0]
-      const newEvent = {
-        ...targetEvent,
-        id: state.data.nextEventId,
-        when: targetEvent.when + state.data.axisArrow.scale / 2
+    case 'DUPLICATE_THIS_INCIDENT':
+      const targetIncident = state.data.incidents.filter(incident => incident.id === action.id)[0]
+      const newIncident = {
+        ...targetIncident,
+        id: state.data.nextIncidentId,
+        when: targetIncident.when + state.data.axisArrow.scale / 2
       }
       return {
         data:{
           ...state.data,
-          nextEventId: state.data.nextEventId + 1,
-          events:[
-            ...state.data.events,
-            newEvent
+          nextIncidentId: state.data.nextIncidentId + 1,
+          incidents:[
+            ...state.data.incidents,
+            newIncident
           ]
         },
         ui: {
           ...state.ui,
           editPanel: {
             ...state.ui.editPanel,
-            eventId: newEvent.id
+            incidentId: newIncident.id
           }
         }
       }
-    case 'DELETE_THIS_EVENT':
+    case 'DELETE_THIS_INCIDENT':
       return {
         data:{
           ...state.data,
-          events: state.data.events.filter(event => event.id !== action.id)
+          incidents: state.data.incidents.filter(incident => incident.id !== action.id)
         },
         ui: {
           ...state.ui,
           editPanel: {
             ...state.ui.editPanel,
             open: false,
-            eventType: ''
+            incidentType: ''
           }
         }
       }
-    case 'EVENT_DRAGGED':
+    case 'INCIDENT_DRAGGED':
       const when = (((action.newPosition.midPoint - (window.innerWidth / 2)) / PIXELS_PER_SCALE) * state.data.axisArrow.scale) + state.data.axisArrow.centralTime
       return {
         data:{
           ...state.data,
-          events: state.data.events.map(event => {
-            if (event.id !== action.id) return event
+          incidents: state.data.incidents.map(incident => {
+            if (incident.id !== action.id) return incident
             return {
-              ...event,
+              ...incident,
               ...action.newPosition,
               when
             }

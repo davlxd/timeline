@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors'
 
-import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_DRAGGED } from '../../actions'
+import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, INCIDENT_DRAGGED } from '../../actions'
 
 import { PIXELS_PER_SCALE } from '../../constants'
 
@@ -65,7 +65,7 @@ class TextBox extends Component {
   onDragEnd() {
     const { width, height, scale, centralTime } = this.props
     const { distance, midPoint, aboveLine } = calcFromPosition(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
-    this.props.dispatch(EVENT_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
+    this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
   }
 
   onMouseOver() {

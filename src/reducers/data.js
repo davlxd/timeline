@@ -4,8 +4,8 @@ const initialState = {
     lineWidth: 4,
     scale: (24 * 60 * 60 * 1000)
   },
-  nextEventId: 4,
-  events: [
+  nextIncidentId: 4,
+  incidents: [
     {
       id: 1,
       when: (new Date().getTime() - 86400000 * 5),
@@ -46,10 +46,10 @@ const data = (state = initialState, action) => {
     case 'TEXT_ON_TEXT_BOX_EDITOR_CHANGE':
       return {
         ...state,
-        events: state.events.map(event => {
-          if (event.id !== action.id) return event
+        incidents: state.incidents.map(incident => {
+          if (incident.id !== action.id) return incident
           return {
-            ...event,
+            ...incident,
             text: action.text
           }
         })
@@ -57,10 +57,10 @@ const data = (state = initialState, action) => {
     case 'UPDATE_TEXT_BOX_HEIGHT':
       return {
         ...state,
-        events: state.events.map(event => {
-          if (event.id !== action.id) return event
+        incidents: state.incidents.map(incident => {
+          if (incident.id !== action.id) return incident
           return {
-            ...event,
+            ...incident,
             height: action.height
           }
         })

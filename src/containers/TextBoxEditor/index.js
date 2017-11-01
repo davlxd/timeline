@@ -5,17 +5,17 @@ import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
-import { DUPLICATE_THIS_EVENT, DELETE_THIS_EVENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
+import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
 
 import './style.css'
 
-let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
+let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
   <div>
     <div className="Title">
       <h3>Text Box</h3>
     </div>
-    <RaisedButton label="Duplicate" className="Button" onClick={() => onDuplicate(event.id)} />
-    <RaisedButton label="Delete" className="Button" onClick={() => onDelete(event.id)} />
+    <RaisedButton label="Duplicate" className="Button" onClick={() => onDuplicate(incident.id)} />
+    <RaisedButton label="Delete" className="Button" onClick={() => onDelete(incident.id)} />
 
     <Paper className="Card">
       <span> TEXT </span>
@@ -24,9 +24,9 @@ let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
         multiLine={true}
         rows={2}
         rowsMax={20}
-        value={event.text}
+        value={incident.text}
         fullWidth={true}
-        onChange={(e, newText) => onChange(event.id, newText)}
+        onChange={(e, newText) => onChange(incident.id, newText)}
     />
     </Paper>
 
@@ -48,15 +48,15 @@ let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
 )
 
 const mapStateToProps = (state) => ({
-  event: state.data.events.filter(event => event.id === state.ui.editPanel.eventId)[0]
+  incident: state.data.incidents.filter(incident => incident.id === state.ui.editPanel.incidentId)[0]
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onDelete: (id) => {
-    dispatch(DELETE_THIS_EVENT(id))
+    dispatch(DELETE_THIS_INCIDENT(id))
   },
   onDuplicate: (id) => {
-    dispatch(DUPLICATE_THIS_EVENT(id))
+    dispatch(DUPLICATE_THIS_INCIDENT(id))
   },
   onChange: (id, text) => {
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
