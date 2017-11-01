@@ -48,3 +48,14 @@ export const ZOOM_IN = {
 export const ZOOM_OUT = {
   type: 'ZOOM_OUT'
 }
+
+export const SHOW_CONTEXT_MENU = (mouseX = 0, mouseY = 0, eventTimestamp = 0) => ({
+  type: 'SHOW_CONTEXT_MENU',
+  mouseX,
+  mouseY,
+  eventTimestamp
+})
+
+export const CLOSE_CONTEXT_MENU_IF_ANY = {
+  type: 'CLOSE_CONTEXT_MENU_IF_ANY'
+}

@@ -11,10 +11,10 @@ import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
+import ContextMenu  from '../ContextMenu'
 
 import { PIXELS_PER_SCALE } from '../../constants'
-import { ZOOM_IN, ZOOM_OUT, STAGE_BEING_DRAGGED } from '../../actions'
-
+import { ZOOM_IN, ZOOM_OUT, STAGE_BEING_DRAGGED, SHOW_CONTEXT_MENU, CLOSE_CONTEXT_MENU_IF_ANY } from '../../actions'
 
 import './style.css'
 
@@ -40,7 +40,7 @@ class Board extends Component {
     super(props)
     this.state = {
       showTime: false,
-      prevCanvasStageDragCaptureX: 0
+      prevCanvasStageDragCaptureX: 0,
     }
   }
 
@@ -64,6 +64,18 @@ class Board extends Component {
     })
   }
 
+  onContentContextmenu(e) {
+    this.props.openContextMenu(e.evt.clientX, e.evt.clientY, e.evt.timeStamp)
+    e.evt.stopPropagation()
+    e.evt.stopImmediatePropagation()
+    e.evt.preventDefault()
+  }
+
+  onClickOnStage(e) {
+    if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
+    this.props.closeContextMenuIfAny()
+  }
+
   render() {
     const { centralTime, textBoxList, onZoomInClick, onZoomOutClick } = this.props
     return (
@@ -71,6 +83,8 @@ class Board extends Component {
         <Stage
           width={window.innerWidth}
           height={window.innerHeight}
+          onContentContextmenu={this.onContentContextmenu.bind(this)}
+          onClick={this.onClickOnStage.bind(this)}
           >
           <Layer>
             <Rect
@@ -105,6 +119,7 @@ class Board extends Component {
                 />
               )
             }
+            <ContextMenu />
           </Layer>
         </Stage>
         <EditPanel />
@@ -129,7 +144,8 @@ const getTextBoxList = (state) => (
 const mapStateToProps = (state) => ({
   textBoxList: getTextBoxList(state),
   centralTime: state.data.axisArrow.centralTime,
-  scale: state.data.axisArrow.scale
+  scale: state.data.axisArrow.scale,
+  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -141,6 +157,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onStageBeingDragged: (newCentralTime) => {
     dispatch(STAGE_BEING_DRAGGED(newCentralTime))
+  },
+  openContextMenu: (mouseX, mouseY, eventTimestamp) => {
+    dispatch(SHOW_CONTEXT_MENU(mouseX, mouseY, eventTimestamp))
+  },
+  closeContextMenuIfAny: () => {
+    dispatch(CLOSE_CONTEXT_MENU_IF_ANY)
   }
 })
 

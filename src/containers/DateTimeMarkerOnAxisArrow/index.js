@@ -10,7 +10,7 @@ let DateTimeMarkerOnAxisArrow = ({ visible, midPoint, when, aboveLine, axisArrow
     <Group visible={visible}>
       <Rect
         x={midPoint - 60}
-        y={aboveLine ? window.innerHeight / 2 - axisArrowLineWidth - (3 + 14) : window.innerHeight / 2 + axisArrowLineWidth + 3}
+        y={aboveLine ? window.innerHeight / 2 - axisArrowLineWidth - (3 + 14) : window.innerHeight / 2 + axisArrowLineWidth + 2}
         fill='#ffffff'
         // stroke='#000000'
         width={120}
@@ -19,7 +19,7 @@ let DateTimeMarkerOnAxisArrow = ({ visible, midPoint, when, aboveLine, axisArrow
       />
       <Text
         x={midPoint - 60}
-        y={aboveLine ? window.innerHeight / 2 - axisArrowLineWidth - (3 + 14) : window.innerHeight / 2 + axisArrowLineWidth + 3}
+        y={aboveLine ? window.innerHeight / 2 - axisArrowLineWidth - (3 + 14) : window.innerHeight / 2 + axisArrowLineWidth + 2}
         text={localTimeInYMD(when)}
         fontSize={12}
         fontFamily='Calibri'

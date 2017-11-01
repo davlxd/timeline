@@ -1,7 +1,7 @@
-import React, { Component }  from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Group, Text, Rect, Line } from 'react-konva'
-import { grey800 } from 'material-ui/styles/colors';
+import { grey800 } from 'material-ui/styles/colors'
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, EVENT_DRAGGED } from '../../actions'
 
@@ -37,6 +37,12 @@ class TextBox extends Component {
     }
   }
 
+  onClick(e) {
+    const { type, id } = this.props
+    if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
+    this.props.dispatch(TOGGLE_EDIT_PANEL(type, id))
+  }
+
   onDragMove() {
     const { width, height, scale, centralTime } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
@@ -68,6 +74,7 @@ class TextBox extends Component {
       showTime: true
     })
   }
+
   onMouseOut() {
     this.setState({
       showTime: false
@@ -75,7 +82,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { id, type, text, width, height, dispatch } = this.props
+    const { text, width, height } = this.props
     const { x, y, linePoints} = calcPosition(this.props)
 
     return (
@@ -108,7 +115,7 @@ class TextBox extends Component {
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onDragMove.bind(this)}
           onDragEnd={this.onDragEnd.bind(this)}
-          onClick={() => dispatch(TOGGLE_EDIT_PANEL(type, id))}
+          onClick={this.onClick.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}
         />
@@ -132,7 +139,8 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
-  midPoint: window.innerWidth / 2 + ((ownProps.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE
+  midPoint: window.innerWidth / 2 + ((ownProps.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE,
+  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
 TextBox = connect(

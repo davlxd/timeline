@@ -68,11 +68,12 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick, onScopeTooLarge }) =>
 }
 
 const mapStateToProps = (state) => ({
-  ...state.data.axisArrow
+  ...state.data.axisArrow,
+  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick: () => {
+  onToggleEditPanel: () => {
     dispatch(TOGGLE_EDIT_PANEL('axisarrow'))
   },
   onScopeTooLarge: () => {
@@ -82,7 +83,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 AxisArrow = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  (stateProps, dispatchProps, ownProps) => ({
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+    onClick(e) {
+      if (Math.abs(e.evt.timeStamp - stateProps.contextMenuEventTimestamp) < 500) return;
+      dispatchProps.onToggleEditPanel()
+    }
+  })
 )(AxisArrow)
 
 
