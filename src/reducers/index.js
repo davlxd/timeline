@@ -20,7 +20,7 @@ const crossSliceReducer = (state, action) => {
       const newEvent = {
         ...targetEvent,
         id: state.data.nextEventId,
-        when: targetEvent.when + 86400000
+        when: targetEvent.when + state.data.axisArrow.scale / 2
       }
       return {
         data:{
