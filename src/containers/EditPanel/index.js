@@ -30,8 +30,8 @@ let EditPanel = ({ isOpen, type, onRequestClose }) => (
 )
 
 const mapStateToProps = (state) => ({
-  isOpen: state.ui.editPanelOpen,
-  type: state.ui.eventTypeOnEditPanel
+  isOpen: state.ui.editPanel.open,
+  type: state.ui.editPanel.eventType
 })
 
 const mapDispatchToProps = (dispatch) => ({

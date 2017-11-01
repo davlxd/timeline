@@ -33,7 +33,10 @@ const crossSliceReducer = (state, action) => {
         },
         ui: {
           ...state.ui,
-          eventIdOnEditPanel: newEvent.id
+          editPanel: {
+            ...state.ui.editPanel,
+            eventId: newEvent.id
+          }
         }
       }
     case 'DELETE_THIS_EVENT':
@@ -44,8 +47,11 @@ const crossSliceReducer = (state, action) => {
         },
         ui: {
           ...state.ui,
-          eventTypeOnEditPanel: '',
-          editPanelOpen: false
+          editPanel: {
+            ...state.ui.editPanel,
+            open: false,
+            eventType: ''
+          }
         }
       }
     case 'EVENT_DRAGGED':

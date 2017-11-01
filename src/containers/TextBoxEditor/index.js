@@ -48,7 +48,7 @@ let TextBoxEditor = ({ event, onDuplicate, onDelete, onChange }) => (
 )
 
 const mapStateToProps = (state) => ({
-  event: state.data.events.filter(event => event.id === state.ui.eventIdOnEditPanel)[0]
+  event: state.data.events.filter(event => event.id === state.ui.editPanel.eventId)[0]
 })
 
 const mapDispatchToProps = (dispatch) => ({

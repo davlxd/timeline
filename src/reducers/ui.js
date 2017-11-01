@@ -1,8 +1,9 @@
 const initialState = {
-  editPanelOpen: false,
-  eventTypeOnEditPanel: '',
-  eventIdOnEditPanel: 0,
-
+  editPanel: {
+    open: false,
+    eventType: '',
+    eventId: 0
+  },
   contextMenu: {
     open: false,
     mouseX: 0,
@@ -15,11 +16,14 @@ const initialState = {
 const ui = (state = initialState, action) => {
   switch (action.type) {
     case 'TOGGLE_EDIT_PANEL':
-      return Object.assign({}, state, {
-        editPanelOpen: !state.editPanelOpen,
-        eventTypeOnEditPanel: action.editType,
-        eventIdOnEditPanel: action.id
-      })
+      return {
+        ...state,
+        editPanel: {
+          open: !state.editPanel.open,
+          eventType: action.editType,
+          eventId: action.id
+        }
+      }
     case 'SHOW_CONTEXT_MENU':
       return {
         ...state,
