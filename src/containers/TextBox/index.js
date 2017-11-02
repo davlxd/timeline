@@ -94,7 +94,7 @@ class TextBox extends Component {
           fontFamily='Calibri'
           fill='#555'
           width={width}
-          padding={20}
+          padding={10}
           align='center'
           ref={(text) => {this.canvasText = text}}
         />
