@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Group, Text, Rect, Line } from 'react-konva'
 import { grey800 } from 'material-ui/styles/colors'
 
+import Entry from './entry'
 
 let ContextMenu = ({ open, mouseX, mouseY }) => {
   const x = mouseX
@@ -25,54 +26,30 @@ let ContextMenu = ({ open, mouseX, mouseY }) => {
         shadowOpacity={0.2}
         cornerRadius={2}
       />
-      <Text
-          x={x}
-          y={y}
-          text={'\u2328 TextBox'}
-          fontSize={menuEntryTextSize}
-          fontFamily={menuEntryTextFontFamily}
-          fill='#555'
-          width={width}
-          padding={menuEntryPadding}
-          align='left'
-          ref={(text) => {this.canvasText = text}}
+      <Entry
+        x={x}
+        y={y}
+        icon={'\u2328'}
+        text='TextBox'
       />
-      <Text
-          x={x}
-          y={y + menuEntryTexHeight * 1}
-          text={'\u2328 Detached TextBox'}
-          fontSize={menuEntryTextSize}
-          fontFamily={menuEntryTextFontFamily}
-          fill='#555'
-          width={width}
-          padding={menuEntryPadding}
-          align='left'
-          ref={(text) => {this.canvasText = text}}
+      <Entry
+        x={x}
+        y={y + menuEntryTexHeight * 1}
+        icon={'\u2328'}
+        text='Detached TextBox'
       />
-      <Text
-          x={x}
-          y={y + menuEntryTexHeight * 2}
-          text={'\u27F7 Range'}
-          fontSize={menuEntryTextSize}
-          fontFamily={menuEntryTextFontFamily}
-          fill='#555'
-          width={width}
-          padding={menuEntryPadding}
-          align='left'
-          ref={(text) => {this.canvasText = text}}
+      <Entry
+        x={x}
+        y={y + menuEntryTexHeight * 2}
+        icon={'\u27F7'}
+        text='Range'
       />
-      <Text
-          x={x}
-          y={y + menuEntryTexHeight * 3}
-          text={'\u26CA Milestone'}
-          fontSize={menuEntryTextSize}
-          fontFamily={menuEntryTextFontFamily}
-          fill='#555'
-          width={width}
-          padding={menuEntryPadding}
-          align='left'
-          ref={(text) => {this.canvasText = text}}
-        />
+      <Entry
+        x={x}
+        y={y + menuEntryTexHeight * 3}
+        icon={'\u26CA'}
+        text='Milestone'
+      />
     </Group>
   )
 }
