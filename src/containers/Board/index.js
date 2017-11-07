@@ -80,7 +80,10 @@ class Board extends Component {
     })
   }
 
-<<<<<<< 7a84904f5dd606e0b3805626187a5de52de2d266
+  onDragEnd() {
+    this.onDragEndFancy()
+  }
+
   onContentContextmenu(e) {
     this.props.openContextMenu(e.evt.clientX, e.evt.clientY, e.evt.timeStamp)
     e.evt.stopPropagation()
@@ -91,10 +94,6 @@ class Board extends Component {
   onClickOnStage(e) {
     if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
     this.props.closeContextMenuIfAny()
-=======
-  onDragEnd() {
-    this.onDragEndFancy()
->>>>>>> Differentiate fancy & lessfancy drag on stage
   }
 
   render() {
