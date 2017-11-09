@@ -59,3 +59,10 @@ export const SHOW_CONTEXT_MENU = (mouseX = 0, mouseY = 0, eventTimestamp = 0) =>
 export const CLOSE_CONTEXT_MENU_IF_ANY = {
   type: 'CLOSE_CONTEXT_MENU_IF_ANY'
 }
+
+export const CREATE_INCIDENT_FROM_CONTEXT_MENU = (type = '', mouseX = 0, mouseY = 0) => ({
+  type: 'CREATE_INCIDENT_FROM_CONTEXT_MENU',
+  incidentType: type,
+  mouseX,
+  mouseY
+})

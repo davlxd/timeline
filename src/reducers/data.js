@@ -89,6 +89,11 @@ const data = (state = initialState, action) => {
           centralTime: action.newCentralTime
         }
       }
+    case 'CREATE_INCIDENT_FROM_CONTEXT_MENU':
+      console.log(action)
+      return {
+        ...state,
+      }
     default:
       return state
   }
