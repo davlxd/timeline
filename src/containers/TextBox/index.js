@@ -116,6 +116,7 @@ class TextBox extends Component {
           onDragMove={this.onDragMove.bind(this)}
           onDragEnd={this.onDragEnd.bind(this)}
           onClick={this.onClick.bind(this)}
+          onTap={this.onClick.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}
         />
