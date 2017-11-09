@@ -7,7 +7,7 @@ import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, INCIDENT_DRAGGED } from '../
 
 import { PIXELS_PER_SCALE } from '../../constants'
 
-import { calcPosition, calcFromPosition } from './positionCalculation'
+import { calcPosition, calcFromPosition } from '../../utils/positionCalculator'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 

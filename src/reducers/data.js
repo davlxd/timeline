@@ -1,3 +1,5 @@
+import { calcFromPosition } from '../utils/positionCalculator'
+
 const initialState = {
   axisArrow: {
     centralTime: new Date().getTime(),
@@ -21,10 +23,10 @@ const initialState = {
       when: (new Date().getTime() - 86400000 * 1),
       type: 'textbox',
       text: '中国共产党第十八次全国代表大会，是在我国改革发展关键阶段召开的一次十分重要的大会。将选举产生新一届中央领导集体。',
-      width:200,
-      height:160, // should be calc
-      distance:70,
-      aboveLine:false
+      width: 200,
+      height :160, // should be calc
+      distance: 70,
+      aboveLine: false
     },
     {
       id: 3,
@@ -39,7 +41,8 @@ const initialState = {
   ]
 }
 
-// calculate the scale
+const textBoxDefaultWidth = 200
+const textBoxDefaultHeight = 58 // observed after cacl by konvas
 
 const data = (state = initialState, action) => {
   switch (action.type) {
@@ -90,9 +93,24 @@ const data = (state = initialState, action) => {
         }
       }
     case 'CREATE_INCIDENT_FROM_CONTEXT_MENU':
-      console.log(action)
+      const { distance, aboveLine, when } = calcFromPosition(action.x, action.y, textBoxDefaultWidth, textBoxDefaultHeight, state.axisArrow.scale, state.axisArrow.centralTime)
+      const newIncident = {
+        id: state.nextIncidentId,
+        when,
+        type: action.incidentType,
+        text: '',
+        width: textBoxDefaultWidth,
+        height: textBoxDefaultHeight, // should be calc
+        distance,
+        aboveLine
+      }
       return {
         ...state,
+        nextIncidentId: state.nextIncidentId + 1,
+        incidents: [
+          ...state.incidents,
+          newIncident
+        ]
       }
     default:
       return state

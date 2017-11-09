@@ -1,7 +1,6 @@
 import React from 'react'
 import { Group, Rect, Text } from 'react-konva'
 
-
 let Entry = ({x, y, icon, text, onClick}) => {
   const iconWidth = 60, textWidth = 200, menuEntryTexHeight = 28, menuEntryTextFontFamily = 'Roboto, sans-serif'
   const menuEntryTextSize = 15, menuEntryPadding = 0
@@ -14,7 +13,7 @@ let Entry = ({x, y, icon, text, onClick}) => {
         fontSize={menuEntryTextSize}
         fontFamily={menuEntryTextFontFamily}
         fill='#555'
-        width={60}
+        width={iconWidth}
         padding={menuEntryPadding}
         align='center'
       />
