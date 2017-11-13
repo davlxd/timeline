@@ -5,9 +5,7 @@ import { grey800 } from 'material-ui/styles/colors'
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, INCIDENT_DRAGGED } from '../../actions'
 
-import { PIXELS_PER_SCALE } from '../../constants'
-
-import { calcPosition, calcFromPosition } from '../../utils/positionCalculator'
+import { calcPosition, calcFromPosition, timestampToX } from '../../utils/positionCalculator'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 
@@ -140,7 +138,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
-  midPoint: window.innerWidth / 2 + ((ownProps.when - state.data.axisArrow.centralTime) / state.data.axisArrow.scale) * PIXELS_PER_SCALE,
+  midPoint: timestampToX(ownProps.when, state.data.axisArrow),
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 

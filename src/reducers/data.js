@@ -20,8 +20,8 @@ const initialState = {
     },
     {
       id: 2,
-      start: (new Date().getTime() - 86400000 * 3),
-      end: (new Date().getTime() - 86400000 * 2),
+      start: (new Date().getTime() - 86400000 * 4),
+      end: (new Date().getTime() - 86400000 * 1.5),
       type: 'range',
       text: 'There is where we use this to do this',
       distance: 0,

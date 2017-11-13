@@ -1,5 +1,25 @@
 import { PIXELS_PER_SCALE } from '../constants'
+import { RANGE_HEIGHT } from '../containers/Range'
 
+export const timestampToX = (timestamp, axisArrow) => {
+  return window.innerWidth / 2 + ((timestamp - axisArrow.centralTime) / axisArrow.scale) * PIXELS_PER_SCALE
+}
+
+export const calcRangePosition = (startX, endX, distance, aboveLine, axisArrowLineWidth) => {
+  const rectX = startX <= endX ? startX : endX
+  const rectWidth = Math.abs(endX - startX)
+  let rectY
+  if (aboveLine) {
+    rectY = window.innerHeight / 2 - distance - RANGE_HEIGHT - axisArrowLineWidth / 2
+  } else {
+    rectY = window.innerHeight / 2 + distance + axisArrowLineWidth / 2
+  }
+  return {
+    rectX,
+    rectY,
+    rectWidth
+  }
+}
 
 export const calcPosition = ({ midPoint, width, height, distance, aboveLine }) => {
   let x = midPoint - width / 2
