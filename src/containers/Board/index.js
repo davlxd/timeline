@@ -10,6 +10,7 @@ import { grey400, grey500 } from 'material-ui/styles/colors'
 import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
+import Range from '../Range'
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 import ContextMenu  from '../ContextMenu'
 
@@ -97,7 +98,7 @@ class Board extends Component {
   }
 
   render() {
-    const { centralTime, textBoxList, onZoomInClick, onZoomOutClick } = this.props
+    const { centralTime, textBoxList, rangeList, onZoomInClick, onZoomOutClick } = this.props
     return (
       <div>
         <Stage
@@ -139,6 +140,14 @@ class Board extends Component {
                 />
               )
             }
+            {
+              rangeList.map(range =>
+                <Range
+                  key={range.id}
+                  {...range}
+                />
+              )
+            }
             <ContextMenu />
           </Layer>
         </Stage>
@@ -161,8 +170,13 @@ const getTextBoxList = (state) => (
   state.data.incidents.filter(incident => incident.type === 'textbox')
 )
 
+const getRangeList = (state) => (
+  state.data.incidents.filter(incident => incident.type === 'range')
+)
+
 const mapStateToProps = (state) => ({
   textBoxList: getTextBoxList(state),
+  rangeList: getRangeList(state),
   centralTime: state.data.axisArrow.centralTime,
   scale: state.data.axisArrow.scale,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
