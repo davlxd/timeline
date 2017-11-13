@@ -10,7 +10,7 @@ import Entry from './entry'
 let ContextMenu = ({ open, mouseX, mouseY, dispatch }) => {
   const x = mouseX
   const y = mouseY //TODO
-  const width = 200, height = 140, menuEntryTexHeight = 28
+  const width = 200, height = 110, menuEntryTexHeight = 28
 
   const onClick = (type, e) => {
     dispatch(CREATE_INCIDENT_FROM_CONTEXT_MENU(type, e.evt.clientX, e.evt.clientY))
@@ -42,20 +42,13 @@ let ContextMenu = ({ open, mouseX, mouseY, dispatch }) => {
       <Entry
         x={x}
         y={y + 20 + menuEntryTexHeight * 1}
-        icon={'\u2328'}
-        text='Detached TextBox'
-        onClick={(e) => onClick('detached-textbox', e)}
-      />
-      <Entry
-        x={x}
-        y={y + 20 + menuEntryTexHeight * 2}
         icon={'\u27F7'}
         text='Range'
         onClick={(e) => onClick('range', e)}
       />
       <Entry
         x={x}
-        y={y + 20 + menuEntryTexHeight * 3}
+        y={y + 20 + menuEntryTexHeight * 2}
         icon={'\u26CA'}
         text='Milestone'
         onClick={(e) => onClick('milestone', e)}
