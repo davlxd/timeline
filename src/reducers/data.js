@@ -24,7 +24,7 @@ const initialState = {
       end: (new Date().getTime() - 86400000 * 1.5),
       type: 'range',
       text: 'There is where we use this to do this',
-      distance: 0,
+      distance: 20,
       aboveLine: true
     },
     {

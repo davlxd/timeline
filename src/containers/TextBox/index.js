@@ -138,7 +138,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
-  midPoint: timestampToX(ownProps.when, state.data.axisArrow),
+  midPoint: timestampToX(ownProps.when, state.data.axisArrow.scale, state.data.axisArrow.centralTime),
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 

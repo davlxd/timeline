@@ -1,23 +1,57 @@
 import { PIXELS_PER_SCALE } from '../constants'
 import { RANGE_HEIGHT } from '../containers/Range'
 
-export const timestampToX = (timestamp, axisArrow) => {
-  return window.innerWidth / 2 + ((timestamp - axisArrow.centralTime) / axisArrow.scale) * PIXELS_PER_SCALE
+export const timestampToX = (timestamp, scale, centralTime) => {
+  return window.innerWidth / 2 + ((timestamp - centralTime) / scale) * PIXELS_PER_SCALE
+}
+
+export const xToTimestamp = (x, scale, centralTime) => {
+  return (((x - window.innerWidth / 2) / PIXELS_PER_SCALE) * scale) + centralTime
 }
 
 export const calcRangePosition = (startX, endX, distance, aboveLine, axisArrowLineWidth) => {
   const rectX = startX <= endX ? startX : endX
   const rectWidth = Math.abs(endX - startX)
-  let rectY
+  let rectY, startCordLinePoints, endCordLinePoints
   if (aboveLine) {
     rectY = window.innerHeight / 2 - distance - RANGE_HEIGHT - axisArrowLineWidth / 2
+    startCordLinePoints = [startX, rectY + RANGE_HEIGHT, startX,  (window.innerHeight / 2 - axisArrowLineWidth / 2)]
+    endCordLinePoints = [endX, rectY + RANGE_HEIGHT, endX,  (window.innerHeight / 2 - axisArrowLineWidth / 2)]
   } else {
     rectY = window.innerHeight / 2 + distance + axisArrowLineWidth / 2
+    startCordLinePoints = [startX, window.innerHeight / 2, startX,  (window.innerHeight / 2 + distance)]
+    endCordLinePoints = [endX, window.innerHeight / 2, endX,  (window.innerHeight / 2 + distance)]
   }
   return {
     rectX,
     rectY,
-    rectWidth
+    rectWidth,
+    startCordLinePoints,
+    endCordLinePoints
+  }
+}
+
+export const calcFromRangePosition = (rectX, rectY, rectWidth, height, scale, centralTime) => {
+  if (rectY > ((window.innerHeight / 2) - height) && rectY <= ((window.innerHeight / 2) - height / 2)) {
+    rectY = (window.innerHeight / 2) - height
+  } else if (rectY > ((window.innerHeight / 2) - height / 2) && rectY < (window.innerHeight / 2)) {
+    rectY = (window.innerHeight / 2)
+  } //TODO extract method
+
+  if (rectY <= ((window.innerHeight / 2) - height / 2)) {
+    return {
+      startX: rectX,
+      endX: rectX + rectWidth,
+      distance : (window.innerHeight / 2) - height - rectY,
+      aboveLine: true,
+    }
+  } else {
+    return {
+      startX: rectX,
+      endX: rectX + rectWidth,
+      distance : rectY - (window.innerHeight / 2),
+      aboveLine: false,
+    }
   }
 }
 
