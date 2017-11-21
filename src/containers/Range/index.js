@@ -5,31 +5,31 @@ import { Group, Rect, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
-import { calcRangePosition, timestampToX, xToTimestamp, calcFromRangePosition } from '../../utils/positionCalculator'
+import { dataToKanvaAttrForRange, timestampToX, xToTimestamp, konvaAttrToDataForRange } from '../../utils/positionCalculator'
 
 export const RANGE_HEIGHT = 30
 
 class Range extends Component {
-  onDragMove() {
+  onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    const { startX, endX, distance, aboveLine } = calcFromRangePosition(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = calcRangePosition(startX, endX, distance, aboveLine, axisArrowLineWidth)
+    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
+    const startX = timestampToX(start, scale, centralTime)
+    const endX = timestampToX(end, scale, centralTime)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(startX, endX, distance, aboveLine, axisArrowLineWidth)
 
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
   }
 
-  onDragEnd() {
-    const { width, height, scale, centralTime } = this.props
-    const { startX, endX, distance, aboveLine } = calcFromRangePosition(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
-    const start = xToTimestamp(startX)
-    const end = xToTimestamp(endX)
+  onRectDragEnd() {
+    const { scale, centralTime, axisArrowLineWidth } = this.props
+    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { start, end, distance, aboveLine }))
   }
 
   render() {
     const { startX, endX, distance, aboveLine, axisArrowLineWidth } = this.props
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = calcRangePosition(startX, endX, distance, aboveLine, axisArrowLineWidth)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(startX, endX, distance, aboveLine, axisArrowLineWidth)
 
     return (
       <Group>
@@ -44,8 +44,8 @@ class Range extends Component {
           fill={grey300}
           draggable={true}
           ref={(rect) => {this.canvasRect = rect}}
-          onDragMove={this.onDragMove.bind(this)}
-          onDragEnd={this.onDragEnd.bind(this)}
+          onDragMove={this.onRectDragMove.bind(this)}
+          onDragEnd={this.onRectDragEnd.bind(this)}
           // onClick={this.onClick.bind(this)}
           // onTap={this.onClick.bind(this)}
           // onMouseOver={this.onMouseOver.bind(this)}

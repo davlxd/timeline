@@ -9,7 +9,7 @@ export const xToTimestamp = (x, scale, centralTime) => {
   return (((x - window.innerWidth / 2) / PIXELS_PER_SCALE) * scale) + centralTime
 }
 
-export const calcRangePosition = (startX, endX, distance, aboveLine, axisArrowLineWidth) => {
+export const dataToKanvaAttrForRange = (startX, endX, distance, aboveLine, axisArrowLineWidth) => {
   const rectX = startX <= endX ? startX : endX
   const rectWidth = Math.abs(endX - startX)
   let rectY, startCordLinePoints, endCordLinePoints
@@ -31,7 +31,7 @@ export const calcRangePosition = (startX, endX, distance, aboveLine, axisArrowLi
   }
 }
 
-export const calcFromRangePosition = (rectX, rectY, rectWidth, height, scale, centralTime) => {
+export const konvaAttrToDataForRange = (rectX, rectY, rectWidth, height, scale, centralTime) => {
   if (rectY > ((window.innerHeight / 2) - height) && rectY <= ((window.innerHeight / 2) - height / 2)) {
     rectY = (window.innerHeight / 2) - height
   } else if (rectY > ((window.innerHeight / 2) - height / 2) && rectY < (window.innerHeight / 2)) {
@@ -40,15 +40,15 @@ export const calcFromRangePosition = (rectX, rectY, rectWidth, height, scale, ce
 
   if (rectY <= ((window.innerHeight / 2) - height / 2)) {
     return {
-      startX: rectX,
-      endX: rectX + rectWidth,
+      start: xToTimestamp(rectX, scale, centralTime),
+      end: xToTimestamp(rectX + rectWidth, scale, centralTime),
       distance : (window.innerHeight / 2) - height - rectY,
       aboveLine: true,
     }
   } else {
     return {
-      startX: rectX,
-      endX: rectX + rectWidth,
+      start: xToTimestamp(rectX, scale, centralTime),
+      end: xToTimestamp(rectX + rectWidth, scale, centralTime),
       distance : rectY - (window.innerHeight / 2),
       aboveLine: false,
     }
