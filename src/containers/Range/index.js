@@ -13,9 +13,7 @@ class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
-    const startX = timestampToX(start, scale, centralTime)
-    const endX = timestampToX(end, scale, centralTime)
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(startX, endX, distance, aboveLine, axisArrowLineWidth)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth)
 
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
@@ -28,8 +26,8 @@ class Range extends Component {
   }
 
   render() {
-    const { startX, endX, distance, aboveLine, axisArrowLineWidth } = this.props
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(startX, endX, distance, aboveLine, axisArrowLineWidth)
+    const { start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth } = this.props
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth)
 
     return (
       <Group>
@@ -71,8 +69,6 @@ class Range extends Component {
 const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
-  startX: timestampToX(ownProps.start, state.data.axisArrow.scale, state.data.axisArrow.centralTime),
-  endX: timestampToX(ownProps.end, state.data.axisArrow.scale, state.data.axisArrow.centralTime),
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
 })
 

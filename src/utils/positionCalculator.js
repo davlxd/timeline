@@ -9,7 +9,10 @@ export const xToTimestamp = (x, scale, centralTime) => {
   return (((x - window.innerWidth / 2) / PIXELS_PER_SCALE) * scale) + centralTime
 }
 
-export const dataToKanvaAttrForRange = (startX, endX, distance, aboveLine, axisArrowLineWidth) => {
+export const dataToKanvaAttrForRange = (start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth) => {
+  const startX = timestampToX(start, scale, centralTime)
+  const endX = timestampToX(end, scale, centralTime)
+  
   const rectX = startX <= endX ? startX : endX
   const rectWidth = Math.abs(endX - startX)
   let rectY, startCordLinePoints, endCordLinePoints
