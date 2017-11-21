@@ -12,8 +12,11 @@ export const RANGE_HEIGHT = 30
 class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth)
+    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
+      ...this.props,
+      ...newPropsCalcFromKonvaAttr
+    })
 
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
@@ -26,8 +29,7 @@ class Range extends Component {
   }
 
   render() {
-    const { start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth } = this.props
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(start, end, distance, aboveLine, scale, centralTime, axisArrowLineWidth)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(this.props)
 
     return (
       <Group>
