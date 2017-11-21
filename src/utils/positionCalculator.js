@@ -22,8 +22,8 @@ export const dataToKanvaAttrForRange = ({ start, end, distance, aboveLine, scale
     endCordLinePoints = [endX, rectY + RANGE_HEIGHT, endX,  (window.innerHeight / 2 - axisArrowLineWidth / 2)]
   } else {
     rectY = window.innerHeight / 2 + distance + axisArrowLineWidth / 2
-    startCordLinePoints = [startX, window.innerHeight / 2, startX,  (window.innerHeight / 2 + distance)]
-    endCordLinePoints = [endX, window.innerHeight / 2, endX,  (window.innerHeight / 2 + distance)]
+    startCordLinePoints = [startX, (window.innerHeight / 2 + axisArrowLineWidth / 2), startX,  (window.innerHeight / 2 + distance)]
+    endCordLinePoints = [endX,(window.innerHeight / 2 + axisArrowLineWidth / 2), endX,  (window.innerHeight / 2 + distance)]
   }
   return {
     rectX,
