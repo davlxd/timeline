@@ -5,7 +5,7 @@ import { grey800 } from 'material-ui/styles/colors'
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, INCIDENT_DRAGGED } from '../../actions'
 
-import { calcPosition, calcFromPosition, timestampToX } from '../../utils/positionCalculator'
+import { dataToKanvaAttrForTextBox, konvaAttrToDataForTextBox, timestampToX } from '../../utils/positionCalculator'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 
@@ -44,8 +44,8 @@ class TextBox extends Component {
   onDragMove() {
     const { width, height, scale, centralTime } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
-    const { distance, midPoint, aboveLine, when } = calcFromPosition(x, y, width, height, scale, centralTime)
-    const { linePoints } = calcPosition({ midPoint, width, height, distance, aboveLine })
+    const { distance, midPoint, aboveLine, when } = konvaAttrToDataForTextBox(x, y, width, height, scale, centralTime)
+    const { linePoints } = dataToKanvaAttrForTextBox({ midPoint, width, height, distance, aboveLine })
 
     this.setState({
       when,
@@ -62,7 +62,7 @@ class TextBox extends Component {
 
   onDragEnd() {
     const { width, height, scale, centralTime } = this.props
-    const { distance, midPoint, aboveLine } = calcFromPosition(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
+    const { distance, midPoint, aboveLine } = konvaAttrToDataForTextBox(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
   }
 
@@ -81,7 +81,7 @@ class TextBox extends Component {
 
   render() {
     const { text, width, height } = this.props
-    const { x, y, linePoints} = calcPosition(this.props)
+    const { x, y, linePoints} = dataToKanvaAttrForTextBox(this.props)
 
     return (
       <Group>

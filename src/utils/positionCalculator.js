@@ -58,7 +58,7 @@ export const konvaAttrToDataForRange = (rectX, rectY, rectWidth, height, scale, 
   }
 }
 
-export const calcPosition = ({ midPoint, width, height, distance, aboveLine }) => {
+export const dataToKanvaAttrForTextBox = ({ midPoint, width, height, distance, aboveLine }) => {
   let x = midPoint - width / 2
   let y, linePoints
   if (aboveLine) {
@@ -75,7 +75,7 @@ export const calcPosition = ({ midPoint, width, height, distance, aboveLine }) =
   }
 }
 
-export const calcFromPosition = (x, y, width, height, scale, centralTime) => {
+export const konvaAttrToDataForTextBox = (x, y, width, height, scale, centralTime) => {
   if (y > ((window.innerHeight / 2) - height) && y <= ((window.innerHeight / 2) - height / 2)) {
     y = (window.innerHeight / 2) - height
   } else if (y > ((window.innerHeight / 2) - height / 2) && y < (window.innerHeight / 2)) {

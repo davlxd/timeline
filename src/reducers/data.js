@@ -1,4 +1,4 @@
-import { calcFromPosition } from '../utils/positionCalculator'
+import { konvaAttrToDataForTextBox } from '../utils/positionCalculator'
 
 const initialState = {
   axisArrow: {
@@ -102,7 +102,8 @@ const data = (state = initialState, action) => {
         }
       }
     case 'CREATE_INCIDENT_FROM_CONTEXT_MENU':
-      const { distance, aboveLine, when } = calcFromPosition(action.x, action.y, textBoxDefaultWidth, textBoxDefaultHeight, state.axisArrow.scale, state.axisArrow.centralTime)
+      const { distance, aboveLine, when } = konvaAttrToDataForTextBox(action.x, action.y, textBoxDefaultWidth, textBoxDefaultHeight, state.axisArrow.scale, state.axisArrow.centralTime)
+      // TODO should be generic
       const newIncident = {
         id: state.nextIncidentId,
         when,
