@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { grey300, grey400, grey500 } from 'material-ui/styles/colors'
+import { grey300, grey400, grey800 } from 'material-ui/styles/colors'
 import { Group, Rect, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
-import { timestampToX, xToTimestamp } from '../../utils'
-import { dataToKanvaAttrForRange, konvaAttrToDataForRange } from './positionCalculator'
+import { dataToKanvaAttrForRange, konvaAttrToDataForRange, konvaAttrToDataAvoidAxisArrowForRange } from './positionCalculator'
 
 export const RANGE_HEIGHT = 30
 
@@ -14,23 +13,25 @@ class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
+    const { startCordLinePoints, endCordLinePoints, startBoundaryLinePoints, endBoundaryLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
     })
 
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
+    this.startBoundary.points(startBoundaryLinePoints)
+    this.endBoundary.points(endBoundaryLinePoints)
   }
 
   onRectDragEnd() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+    const { start, end, distance, aboveLine } = konvaAttrToDataAvoidAxisArrowForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { start, end, distance, aboveLine }))
   }
 
   render() {
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(this.props)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints, startBoundaryLinePoints, endBoundaryLinePoints } = dataToKanvaAttrForRange(this.props)
 
     return (
       <Group>
@@ -51,6 +52,18 @@ class Range extends Component {
           // onTap={this.onClick.bind(this)}
           // onMouseOver={this.onMouseOver.bind(this)}
           // onMouseOut={this.onMouseOut.bind(this)}
+        />
+        <Line
+          points={startBoundaryLinePoints}
+          stroke={grey800}
+          strokeWidth={3}
+          ref={(line) => {this.startBoundary = line}}
+        />
+        <Line
+          points={endBoundaryLinePoints}
+          stroke={grey800}
+          strokeWidth={3}
+          ref={(line) => {this.endBoundary = line}}
         />
         <Line
           points={startCordLinePoints}
