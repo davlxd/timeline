@@ -5,14 +5,15 @@ import { Group, Rect, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
-import { dataToKanvaAttrForRange, timestampToX, xToTimestamp, konvaAttrToDataForRange } from '../../utils/positionCalculator'
+import { timestampToX, xToTimestamp } from '../../utils'
+import { dataToKanvaAttrForRange, konvaAttrToDataForRange } from './positionCalculator'
 
 export const RANGE_HEIGHT = 30
 
 class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
+    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
     const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
@@ -24,7 +25,7 @@ class Range extends Component {
 
   onRectDragEnd() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime)
+    const { start, end, distance, aboveLine } = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { start, end, distance, aboveLine }))
   }
 

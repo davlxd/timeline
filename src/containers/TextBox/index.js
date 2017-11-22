@@ -5,7 +5,8 @@ import { grey800 } from 'material-ui/styles/colors'
 
 import { TOGGLE_EDIT_PANEL, UPDATE_TEXT_BOX_HEIGHT, INCIDENT_DRAGGED } from '../../actions'
 
-import { dataToKanvaAttrForTextBox, konvaAttrToDataForTextBox, timestampToX } from '../../utils/positionCalculator'
+import { dataToKanvaAttrForTextBox, konvaAttrToDataForTextBox } from './positionCalculator'
+import { timestampToX } from '../../utils'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 

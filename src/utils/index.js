@@ -1,3 +1,6 @@
+import { PIXELS_PER_SCALE } from '../constants'
+
+
 export const localTimeInYMD = (timestamp) => {
   const [ w, m, d, y, t] = new Date(timestamp).toString().split(' ')
   w.slice()
@@ -43,4 +46,13 @@ export const localTimeInYMD = (timestamp) => {
       M = '00'
   }
   return y + '-' + M + '-' + d + ' ' + t
+}
+
+
+export const timestampToX = (timestamp, scale, centralTime) => {
+  return window.innerWidth / 2 + ((timestamp - centralTime) / scale) * PIXELS_PER_SCALE
+}
+
+export const xToTimestamp = (x, scale, centralTime) => {
+  return (((x - window.innerWidth / 2) / PIXELS_PER_SCALE) * scale) + centralTime
 }

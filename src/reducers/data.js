@@ -1,4 +1,4 @@
-import { konvaAttrToDataForTextBox } from '../utils/positionCalculator'
+import { konvaAttrToDataForTextBox } from '../containers/TextBox/positionCalculator'
 
 const initialState = {
   axisArrow: {
