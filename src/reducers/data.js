@@ -1,4 +1,4 @@
-import { konvaAttrToDataForTextBox } from '../containers/TextBox/positionCalculator'
+import { newIncidentData } from './newIncident'
 
 const initialState = {
   axisArrow: {
@@ -50,8 +50,7 @@ const initialState = {
   ]
 }
 
-const textBoxDefaultWidth = 200
-const textBoxDefaultHeight = 58 // observed after cacl by konvas
+
 
 const data = (state = initialState, action) => {
   switch (action.type) {
@@ -102,24 +101,12 @@ const data = (state = initialState, action) => {
         }
       }
     case 'CREATE_INCIDENT_FROM_CONTEXT_MENU':
-      const { distance, aboveLine, when } = konvaAttrToDataForTextBox(action.x, action.y, textBoxDefaultWidth, textBoxDefaultHeight, state.axisArrow.scale, state.axisArrow.centralTime)
-      // TODO should be generic
-      const newIncident = {
-        id: state.nextIncidentId,
-        when,
-        type: action.incidentType,
-        text: '',
-        width: textBoxDefaultWidth,
-        height: textBoxDefaultHeight, // should be calc
-        distance,
-        aboveLine
-      }
       return {
         ...state,
         nextIncidentId: state.nextIncidentId + 1,
         incidents: [
           ...state.incidents,
-          newIncident
+          newIncidentData(action.x, action.y, action.incidentType, state.nextIncidentId, state.axisArrow)
         ]
       }
     default:
