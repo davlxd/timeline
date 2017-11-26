@@ -12,6 +12,20 @@ const combinedReducer = combineReducers({
   data
 })
 
+const incrementTimestamp = (targetIncident, scale) => {
+  if ('when' in targetIncident) {
+    return {
+      when: targetIncident.when + scale / 2
+    }
+  }
+
+  if ('start' in targetIncident && 'end' in targetIncident) {
+    return {
+      start: targetIncident.start + scale / 2,
+      end: targetIncident.end + scale / 2
+    }
+  }
+}
 
 const crossSliceReducer = (state, action) => {
   switch(action.type) {
@@ -20,7 +34,7 @@ const crossSliceReducer = (state, action) => {
       const newIncident = {
         ...targetIncident,
         id: state.data.nextIncidentId,
-        when: targetIncident.when + state.data.axisArrow.scale / 2
+        ...incrementTimestamp(targetIncident, state.data.axisArrow.scale)
       }
       return {
         data:{

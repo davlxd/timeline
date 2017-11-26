@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { grey300, grey400, grey800 } from 'material-ui/styles/colors'
+import { grey400, grey800 } from 'material-ui/styles/colors'
 import { Group, Rect, Text, Line } from 'react-konva'
 
-import { INCIDENT_DRAGGED } from '../../actions'
+import { INCIDENT_DRAGGED, TOGGLE_EDIT_PANEL } from '../../actions'
 
 import { timestampToX } from '../../utils'
 import { dataToKanvaAttrForRange, konvaAttrToDataForRange, konvaAttrToDataAvoidAxisArrowForRange } from './positionCalculator'
@@ -25,6 +25,12 @@ class Range extends Component {
       endX: timestampToX(end, scale, centralTime),
       aboveLine
     }
+  }
+
+  onClick(e) {
+    const { type, id } = this.props
+    if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
+    this.props.dispatch(TOGGLE_EDIT_PANEL(type, id))
   }
 
   repositionCanvasTextBackground() {
@@ -188,8 +194,8 @@ class Range extends Component {
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onRectDragMove.bind(this)}
           onDragEnd={this.onRectDragEnd.bind(this)}
-          // onClick={this.onClick.bind(this)}
-          // onTap={this.onClick.bind(this)}
+          onClick={this.onClick.bind(this)}
+          onTap={this.onClick.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}
         />
