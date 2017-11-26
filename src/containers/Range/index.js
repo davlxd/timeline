@@ -8,20 +8,23 @@ import { INCIDENT_DRAGGED } from '../../actions'
 import { dataToKanvaAttrForRange, konvaAttrToDataForRange, konvaAttrToDataAvoidAxisArrowForRange } from './positionCalculator'
 
 export const RANGE_HEIGHT = 30
+export const RANGE_BOUNDARY_WIDTH = 3
 
 class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.canvasRect.x(), this.canvasRect.y(), this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
-    const { startCordLinePoints, endCordLinePoints, startBoundaryLinePoints, endBoundaryLinePoints } = dataToKanvaAttrForRange({
+    const { startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
     })
 
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
-    this.startBoundary.points(startBoundaryLinePoints)
-    this.endBoundary.points(endBoundaryLinePoints)
+    this.startBoundary.x(this.canvasRect.x() - RANGE_BOUNDARY_WIDTH / 2)
+    this.startBoundary.y(this.canvasRect.y())
+    this.endBoundary.x(this.canvasRect.x() + this.canvasRect.width() - RANGE_BOUNDARY_WIDTH / 2)
+    this.endBoundary.y(this.canvasRect.y())
   }
 
   onRectDragEnd() {
@@ -30,37 +33,39 @@ class Range extends Component {
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { start, end, distance, aboveLine }))
   }
 
-  onStartBoundaryDragMove() {
+  onBoundaryDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
-    console.log(this.startBoundary)
-    const rectWidth = this.endBoundary.attrs.points[0] - this.startBoundary.attrs.points[0]
-    // console.log(rectWidth)
-    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(this.startBoundary.attrs.points[0], this.canvasRect.y(), rectWidth, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
 
-    const { startCordLinePoints, endCordLinePoints, startBoundaryLinePoints, endBoundaryLinePoints } = dataToKanvaAttrForRange({
+    const startBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.endBoundary : this.startBoundary
+    const endBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.startBoundary : this.endBoundary
+    const rectWidth = endBoundary.x() - startBoundary.x()
+
+    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(startBoundary.x() + RANGE_BOUNDARY_WIDTH / 2, this.canvasRect.y(), rectWidth, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+
+    const { startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
     })
 
+    this.canvasRect.x(startBoundary.x())
     this.canvasRect.width(rectWidth)
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
   }
 
-  onStartBoundaryDragEnd() {
+  onBoundaryDragEnd() {
+    const { scale, centralTime, axisArrowLineWidth } = this.props
 
-  }
+    const startBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.endBoundary : this.startBoundary
+    const endBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.startBoundary : this.endBoundary
+    const rectWidth = endBoundary.x() - startBoundary.x()
 
-  onEndBoundaryDragMove() {
-
-  }
-
-  onEndBoundaryDragEnd() {
-
+    const { start, end, distance, aboveLine } = konvaAttrToDataAvoidAxisArrowForRange(startBoundary.x() + RANGE_BOUNDARY_WIDTH / 2, this.canvasRect.y(), rectWidth, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+    this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { start, end, distance, aboveLine }))
   }
 
   render() {
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints, startBoundaryLinePoints, endBoundaryLinePoints } = dataToKanvaAttrForRange(this.props)
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(this.props)
 
     return (
       <Group>
@@ -82,23 +87,33 @@ class Range extends Component {
           // onMouseOver={this.onMouseOver.bind(this)}
           // onMouseOut={this.onMouseOut.bind(this)}
         />
-        <Line
-          points={startBoundaryLinePoints}
+        <Rect
+          x={rectX - RANGE_BOUNDARY_WIDTH / 2}
+          y={rectY}
           stroke={grey800}
-          strokeWidth={3}
+          strokeWidth={RANGE_BOUNDARY_WIDTH / 2}
+          width={RANGE_BOUNDARY_WIDTH}
+          height={RANGE_HEIGHT}
+          cornerRadius={0}
+          fill={grey800}
           draggable={true}
-          ref={(line) => {this.startBoundary = line}}
-          onDragMove={this.onStartBoundaryDragMove.bind(this)}
-          onDragEnd={this.onStartBoundaryDragEnd.bind(this)}
+          ref={(rect) => {this.startBoundary = rect}}
+          onDragMove={this.onBoundaryDragMove.bind(this)}
+          onDragEnd={this.onBoundaryDragEnd.bind(this)}
         />
-        <Line
-          points={endBoundaryLinePoints}
+        <Rect
+          x={rectX + rectWidth - RANGE_BOUNDARY_WIDTH / 2}
+          y={rectY}
           stroke={grey800}
-          strokeWidth={3}
+          strokeWidth={RANGE_BOUNDARY_WIDTH / 2}
+          width={RANGE_BOUNDARY_WIDTH}
+          height={RANGE_HEIGHT}
+          cornerRadius={0}
+          fill={grey800}
           draggable={true}
-          ref={(line) => {this.endBoundary = line}}
-          onDragMove={this.onEndBoundaryDragMove.bind(this)}
-          onDragEnd={this.onEndBoundaryDragEnd.bind(this)}
+          ref={(rect) => {this.endBoundary = rect}}
+          onDragMove={this.onBoundaryDragMove.bind(this)}
+          onDragEnd={this.onBoundaryDragEnd.bind(this)}
         />
         <Line
           points={startCordLinePoints}
