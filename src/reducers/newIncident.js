@@ -1,9 +1,6 @@
 import { konvaAttrToDataForTextBox } from '../containers/TextBox/positionCalculator'
 import { konvaAttrToDataForRange } from '../containers/Range/positionCalculator'
 
-import { RANGE_HEIGHT } from '../containers/Range'
-
-
 const TEXT_BOX_DEFAULT_WIDTH = 200
 const TEXT_BOX_DEFAULT_HEIGHT = 38
 const newTextBox = (x, y, incidentType, nextIncidentId, scale, centralTime) => {
@@ -22,7 +19,7 @@ const newTextBox = (x, y, incidentType, nextIncidentId, scale, centralTime) => {
 
 const RANGE_BOX_DEFAULT_WIDTH = 200
 const newRange = (x, y, incidentType, nextIncidentId, scale, centralTime, axisArrowLineWidth) => {
-  const { start, end, distance, aboveLine } = konvaAttrToDataForRange(x, y, RANGE_BOX_DEFAULT_WIDTH, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+  const { start, end, distance, aboveLine } = konvaAttrToDataForRange(x, y, RANGE_BOX_DEFAULT_WIDTH, scale, centralTime, axisArrowLineWidth)
   return {
     id: nextIncidentId,
     type: incidentType,

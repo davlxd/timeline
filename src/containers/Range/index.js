@@ -51,7 +51,7 @@ class Range extends Component {
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
-    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(x, y, this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(x, y, this.canvasRect.width(), scale, centralTime, axisArrowLineWidth)
     const { startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
@@ -93,7 +93,7 @@ class Range extends Component {
     const endBoundaryX = this.startBoundary.x() > this.endBoundary.x() ? this.startBoundary.x() : this.endBoundary.x()
     const rectWidth = endBoundaryX - startBoundaryX
 
-    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2, this.canvasRect.y(), rectWidth, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
+    const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2, this.canvasRect.y(), rectWidth, scale, centralTime, axisArrowLineWidth)
 
     const { startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange({
       ...this.props,

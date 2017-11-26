@@ -30,7 +30,8 @@ export const dataToKanvaAttrForRange = ({ start, end, distance, aboveLine, scale
   }
 }
 
-export const konvaAttrToDataForRange = (rectX, rectY, rectWidth, height, scale, centralTime, axisArrowLineWidth) => {
+export const konvaAttrToDataForRange = (rectX, rectY, rectWidth, scale, centralTime, axisArrowLineWidth) => {
+  const height = RANGE_HEIGHT
   if (rectY <= ((window.innerHeight / 2) - height / 2)) {
     return {
       start: xToTimestamp(rectX, scale, centralTime),
@@ -55,5 +56,5 @@ export const konvaAttrToDataAvoidAxisArrowForRange = (rectX, rectY, rectWidth, h
     rectY = (window.innerHeight / 2) + axisArrowLineWidth / 2
   }
 
-  return konvaAttrToDataForRange(rectX, rectY, rectWidth, height, scale, centralTime, axisArrowLineWidth)
+  return konvaAttrToDataForRange(rectX, rectY, rectWidth, scale, centralTime, axisArrowLineWidth)
 }
