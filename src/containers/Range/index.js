@@ -177,7 +177,7 @@ class Range extends Component {
           fill='#555'
           width={rectWidth}
           height={RANGE_HEIGHT}
-          padding={4}
+          padding={6}
           align='center'
           ref={(text) => {this.canvasText = text}}
         />
