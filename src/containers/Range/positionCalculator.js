@@ -50,9 +50,9 @@ export const konvaAttrToDataForRange = (rectX, rectY, rectWidth, scale, centralT
 }
 
 export const konvaAttrToDataAvoidAxisArrowForRange = (rectX, rectY, rectWidth, height, scale, centralTime, axisArrowLineWidth) => {
-  if (rectY > ((window.innerHeight / 2) - height) && rectY <= ((window.innerHeight / 2) - height / 2)) {
+  if (rectY > ((window.innerHeight / 2) - height - axisArrowLineWidth / 2) && rectY <= ((window.innerHeight / 2) - height / 2)) {
     rectY = (window.innerHeight / 2) - height - axisArrowLineWidth / 2
-  } else if (rectY > ((window.innerHeight / 2) - height / 2) && rectY < (window.innerHeight / 2)) {
+  } else if (rectY > ((window.innerHeight / 2) - height / 2) && rectY < (window.innerHeight / 2 + axisArrowLineWidth / 2)) {
     rectY = (window.innerHeight / 2) + axisArrowLineWidth / 2
   }
 
