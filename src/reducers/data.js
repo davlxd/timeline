@@ -23,7 +23,7 @@ const initialState = {
       start: (new Date().getTime() - 86400000 * 4),
       end: (new Date().getTime() - 86400000 * 1.5),
       type: 'range',
-      text: 'There is where we use this to do this',
+      text: 'This is where we use this to do this',
       distance: 20,
       aboveLine: true
     },

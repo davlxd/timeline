@@ -7,21 +7,24 @@ export const dataToKanvaAttrForRange = ({ start, end, distance, aboveLine, scale
 
   const rectX = startX <= endX ? startX : endX
   const rectWidth = Math.abs(endX - startX)
-  let rectY, startCordLinePoints, endCordLinePoints
+  let rectY, startCordLinePoints, endCordLinePoints, backgroundLinePoints
 
   if (aboveLine) {
     rectY = window.innerHeight / 2 - distance - RANGE_HEIGHT - axisArrowLineWidth / 2
     startCordLinePoints = [startX, rectY + RANGE_HEIGHT, startX,  (window.innerHeight / 2 - axisArrowLineWidth / 2)]
     endCordLinePoints = [endX, rectY + RANGE_HEIGHT, endX,  (window.innerHeight / 2 - axisArrowLineWidth / 2)]
+    backgroundLinePoints = [rectX, rectY + RANGE_HEIGHT / 2, rectX + rectWidth, rectY + RANGE_HEIGHT / 2]
   } else {
     rectY = window.innerHeight / 2 + distance + axisArrowLineWidth / 2
     startCordLinePoints = [startX, (window.innerHeight / 2 + axisArrowLineWidth / 2), startX,  (window.innerHeight / 2 + distance + axisArrowLineWidth / 2)]
     endCordLinePoints = [endX, (window.innerHeight / 2 + axisArrowLineWidth / 2), endX,  (window.innerHeight / 2 + distance + axisArrowLineWidth / 2)]
+    backgroundLinePoints = [rectX, rectY + RANGE_HEIGHT / 2, rectX + rectWidth, rectY + RANGE_HEIGHT / 2]
   }
   return {
     rectX,
     rectY,
     rectWidth,
+    backgroundLinePoints,
     startCordLinePoints,
     endCordLinePoints
   }

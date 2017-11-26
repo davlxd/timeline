@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { grey300, grey400, grey800 } from 'material-ui/styles/colors'
-import { Group, Rect, Line } from 'react-konva'
+import { Group, Rect, Text, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
@@ -25,14 +25,13 @@ class Range extends Component {
       endX: timestampToX(end, scale, centralTime),
       aboveLine
     }
-    console.log(this.state)
   }
 
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
     const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(x, y, this.canvasRect.width(), RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
-    const { startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
+    const { startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
     })
@@ -48,6 +47,9 @@ class Range extends Component {
 
     this.canvasRect.x(x)
     this.canvasRect.y(y)
+    this.canvasText.x(x)
+    this.canvasText.y(y)
+    this.backgroundLine.points(backgroundLinePoints)
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
     this.startBoundary.x(this.canvasRect.x() - RANGE_BOUNDARY_WIDTH / 2)
@@ -71,7 +73,7 @@ class Range extends Component {
 
     const newPropsCalcFromKonvaAttr = konvaAttrToDataForRange(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2, this.canvasRect.y(), rectWidth, RANGE_HEIGHT, scale, centralTime, axisArrowLineWidth)
 
-    const { startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange({
+    const { startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange({
       ...this.props,
       ...newPropsCalcFromKonvaAttr
     })
@@ -86,6 +88,9 @@ class Range extends Component {
 
     this.canvasRect.x(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2)
     this.canvasRect.width(rectWidth)
+    this.canvasText.x(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2)
+    this.canvasText.width(rectWidth)
+    this.backgroundLine.points(backgroundLinePoints)
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
     this.startBoundary.x(startBoundaryX)
@@ -95,6 +100,8 @@ class Range extends Component {
   onBoundaryDragEnd() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
 
+    console.log(this.canvasText)
+    console.log(this.canvasRect)
     const startBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.endBoundary : this.startBoundary
     const endBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.startBoundary : this.endBoundary
     const rectWidth = endBoundary.x() - startBoundary.x()
@@ -117,19 +124,39 @@ class Range extends Component {
   }
 
   render() {
-    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints } = dataToKanvaAttrForRange(this.props)
+    const { text } = this.props
+    const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange(this.props)
 
     return (
       <Group>
+        <Line
+          points={backgroundLinePoints}
+          stroke={grey400}
+          strokeWidth={0.5}
+          ref={(line) => {this.backgroundLine = line}}
+        />
+        <Text
+          x={rectX}
+          y={rectY}
+          text={text}
+          fontSize={18}
+          fontFamily='Calibri'
+          fill='#555'
+          width={rectWidth}
+          height={RANGE_HEIGHT}
+          padding={4}
+          align='center'
+          ref={(text) => {this.canvasText = text}}
+        />
         <Rect
           x={rectX}
           y={rectY}
-          stroke={grey300}
-          strokeWidth={0.5}
+          // stroke={grey300}
+          // strokeWidth={0.5}
           width={rectWidth}
           height={RANGE_HEIGHT}
           cornerRadius={0}
-          fill={grey300}
+          // fill={grey300}
           draggable={true}
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onRectDragMove.bind(this)}
