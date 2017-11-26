@@ -11,6 +11,7 @@ import EditPanel from '../EditPanel'
 import AxisArrow from '../AxisArrow'
 import TextBox from '../TextBox'
 import Range from '../Range'
+import Milestone from '../Milestone'
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 import ContextMenu  from '../ContextMenu'
 
@@ -98,7 +99,7 @@ class Board extends Component {
   }
 
   render() {
-    const { centralTime, textBoxList, rangeList, onZoomInClick, onZoomOutClick } = this.props
+    const { centralTime, textBoxList, rangeList, milestoneList, onZoomInClick, onZoomOutClick } = this.props
     return (
       <div>
         <Stage
@@ -148,6 +149,14 @@ class Board extends Component {
                 />
               )
             }
+            {
+              milestoneList.map(milestone =>
+                <Milestone
+                  key={milestone.id}
+                  {...milestone}
+                />
+              )
+            }
             <ContextMenu />
           </Layer>
         </Stage>
@@ -174,9 +183,14 @@ const getRangeList = (state) => (
   state.data.incidents.filter(incident => incident.type === 'range')
 )
 
+const getMilestoneList = (state) => (
+  state.data.incidents.filter(incident => incident.type === 'milestone')
+)
+
 const mapStateToProps = (state) => ({
   textBoxList: getTextBoxList(state),
   rangeList: getRangeList(state),
+  milestoneList: getMilestoneList(state),
   centralTime: state.data.axisArrow.centralTime,
   scale: state.data.axisArrow.scale,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp

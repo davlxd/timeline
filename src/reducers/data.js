@@ -6,7 +6,7 @@ const initialState = {
     lineWidth: 4,
     scale: (24 * 60 * 60 * 1000)
   },
-  nextIncidentId: 5,
+  nextIncidentId: 6,
   incidents: [
     {
       id: 1,
@@ -46,6 +46,13 @@ const initialState = {
       height: 240, // should be calc
       distance: 80,
       aboveLine: true
+    },
+    {
+      id: 5,
+      when: (new Date().getTime() + 86400000 * 2.2),
+      type: 'milestone',
+      distance: 80,
+      aboveLine: false
     }
   ]
 }
