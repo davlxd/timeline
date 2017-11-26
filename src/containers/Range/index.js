@@ -27,6 +27,21 @@ class Range extends Component {
     }
   }
 
+  repositionCanvasTextBackground() {
+    this.canvasTextBackground.x(this.canvasRect.x() + (this.canvasRect.width() - this.canvasText.getTextWidth()) / 2)
+    this.canvasTextBackground.y(this.canvasRect.y() + (this.canvasRect.height() - this.canvasText.getTextHeight()) / 2)
+    this.canvasTextBackground.width(this.canvasText.getTextWidth())
+    this.canvasTextBackground.height(this.canvasText.getTextHeight())
+  }
+
+  componentDidMount() {
+    this.repositionCanvasTextBackground()
+  }
+
+  componentDidUpdate(props) {
+    this.repositionCanvasTextBackground()
+  }
+
   onRectDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
@@ -49,6 +64,7 @@ class Range extends Component {
     this.canvasRect.y(y)
     this.canvasText.x(x)
     this.canvasText.y(y)
+    this.repositionCanvasTextBackground()
     this.backgroundLine.points(backgroundLinePoints)
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
@@ -90,6 +106,7 @@ class Range extends Component {
     this.canvasRect.width(rectWidth)
     this.canvasText.x(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2)
     this.canvasText.width(rectWidth)
+    this.repositionCanvasTextBackground()
     this.backgroundLine.points(backgroundLinePoints)
     this.startCord.points(startCordLinePoints)
     this.endCord.points(endCordLinePoints)
@@ -100,8 +117,6 @@ class Range extends Component {
   onBoundaryDragEnd() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
 
-    console.log(this.canvasText)
-    console.log(this.canvasRect)
     const startBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.endBoundary : this.startBoundary
     const endBoundary = this.startBoundary.x() > this.endBoundary.x() ? this.startBoundary : this.endBoundary
     const rectWidth = endBoundary.x() - startBoundary.x()
@@ -115,12 +130,14 @@ class Range extends Component {
     this.setState({
       showTime: true
     })
+    this.repositionCanvasTextBackground()
   }
 
   onMouseOut() {
     this.setState({
       showTime: false
     })
+    this.repositionCanvasTextBackground()
   }
 
   render() {
@@ -134,6 +151,16 @@ class Range extends Component {
           stroke={grey400}
           strokeWidth={0.5}
           ref={(line) => {this.backgroundLine = line}}
+        />
+        <Rect
+          x={rectX}
+          y={rectY}
+          width={rectWidth}
+          height={RANGE_HEIGHT}
+          cornerRadius={4}
+          fill='#ffffff'
+          draggable={true}
+          ref={(rect) => {this.canvasTextBackground = rect}}
         />
         <Text
           x={rectX}
