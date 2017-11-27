@@ -5,7 +5,6 @@ import { Group, Rect, Text, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED, TOGGLE_EDIT_PANEL } from '../../actions'
 
-import { timestampToX } from '../../utils'
 import { dataToKanvaAttrForRange, konvaAttrToDataForRange, konvaAttrToDataAvoidAxisArrowForRange } from './positionCalculator'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
@@ -16,13 +15,11 @@ export const RANGE_BOUNDARY_WIDTH = 3
 class Range extends Component {
   constructor(props) {
     super(props)
-    const { start, end, aboveLine, scale, centralTime } = props
+    const { start, end, aboveLine } = props
     this.state = {
       showTime: false,
       start,
       end,
-      startX: timestampToX(start, scale, centralTime),
-      endX: timestampToX(end, scale, centralTime),
       aboveLine
     }
   }
@@ -61,8 +58,6 @@ class Range extends Component {
       showTime: true,
       start: newPropsCalcFromKonvaAttr.start,
       end: newPropsCalcFromKonvaAttr.end,
-      startX: this.canvasRect.x(),
-      endX: this.canvasRect.x() + this.canvasRect.width(),
       aboveLine: newPropsCalcFromKonvaAttr.aboveLine
     })
 
@@ -104,8 +99,6 @@ class Range extends Component {
       showTime: true,
       start: newPropsCalcFromKonvaAttr.start,
       end: newPropsCalcFromKonvaAttr.end,
-      startX: startBoundaryX + RANGE_BOUNDARY_WIDTH / 2,
-      endX: endBoundaryX + RANGE_BOUNDARY_WIDTH / 2
     })
 
     this.canvasRect.x(startBoundaryX + RANGE_BOUNDARY_WIDTH / 2)
@@ -246,13 +239,11 @@ class Range extends Component {
         <DateTimeMarkerOnAxisArrow
           visible={this.state.showTime}
           when={this.state.start}
-          midPoint={this.state.startX}
           aboveLine={!this.state.aboveLine}
         />
         <DateTimeMarkerOnAxisArrow
           visible={this.state.showTime}
           when={this.state.end}
-          midPoint={this.state.endX}
           aboveLine={!this.state.aboveLine}
         />
       </Group>

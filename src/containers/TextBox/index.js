@@ -15,11 +15,10 @@ import './style.css'
 class TextBox extends Component {
   constructor(props) {
     super(props)
-    const { when, midPoint, aboveLine } = props
+    const { when, aboveLine } = props
     this.state = {
       showTime: false,
       when,
-      midPoint,
       aboveLine
     }
   }
@@ -50,7 +49,6 @@ class TextBox extends Component {
 
     this.setState({
       when,
-      midPoint,
       aboveLine
     }) // Has to call setState first, don't know why
 
@@ -127,7 +125,6 @@ class TextBox extends Component {
         <DateTimeMarkerOnAxisArrow
           visible={this.state.showTime}
           when={this.state.when}
-          midPoint={this.state.midPoint}
           aboveLine={!this.state.aboveLine}
         />
       </Group>

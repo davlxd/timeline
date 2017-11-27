@@ -6,8 +6,6 @@ import { Group, Label, Text, Tag, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
-import { timestampToX } from '../../utils'
-
 import { dataToKanvaAttrForMilestone, konvaAttrToDataForMilestone, konvaAttrToDataAvoidAxisArrowForMilestone } from './positionCalculator'
 
 import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
@@ -19,11 +17,10 @@ export const MILESTONE_POINTER_HEIGHT = 10
 class Milestone extends Component {
   constructor(props) {
     super(props)
-    const { when, aboveLine, scale, centralTime } = props
+    const { when, aboveLine } = props
     this.state = {
       showTime: false,
       when,
-      whenX: timestampToX(when, scale, centralTime),
       aboveLine
     }
   }
@@ -43,7 +40,6 @@ class Milestone extends Component {
     this.setState({
       showTime: true,
       when,
-      whenX: timestampToX(when, scale, centralTime),
       aboveLine
     })
 
@@ -114,7 +110,6 @@ class Milestone extends Component {
           <DateTimeMarkerOnAxisArrow
             visible={this.state.showTime}
             when={this.state.when}
-            midPoint={this.state.whenX}
             aboveLine={!this.state.aboveLine}
           />
       </Group>
