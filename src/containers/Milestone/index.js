@@ -6,13 +6,27 @@ import { Group, Label, Text, Tag, Line } from 'react-konva'
 
 import { INCIDENT_DRAGGED } from '../../actions'
 
+import { timestampToX } from '../../utils'
+
 import { dataToKanvaAttrForMilestone, konvaAttrToDataForMilestone, konvaAttrToDataAvoidAxisArrowForMilestone } from './positionCalculator'
+
+import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 
 export const MILESTONE_RECT_HEIGHT = 15
 export const MILESTONE_RECT_WIDTH = 10
 export const MILESTONE_POINTER_HEIGHT = 10
 
 class Milestone extends Component {
+  constructor(props) {
+    super(props)
+    const { when, distance, aboveLine, scale, centralTime } = props
+    this.state = {
+      showTime: false,
+      when,
+      whenX: timestampToX(when, scale, centralTime),
+      aboveLine
+    }
+  }
 
   onDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
@@ -23,6 +37,13 @@ class Milestone extends Component {
       ...this.props,
       when,
       distance,
+      aboveLine
+    })
+
+    this.setState({
+      showTime: true,
+      when,
+      whenX: timestampToX(when, scale, centralTime),
       aboveLine
     })
 
@@ -37,6 +58,19 @@ class Milestone extends Component {
     const { x, y } = { x: this.canvasLabel.x(), y: this.canvasLabel.y() }
     const { when, distance, aboveLine } = konvaAttrToDataAvoidAxisArrowForMilestone(x, y, scale, centralTime, axisArrowLineWidth)
     this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { when, distance, aboveLine }))
+  }
+
+  onMouseOver() {
+    this.onDragMove()
+    this.setState({
+      showTime: true
+    })
+  }
+
+  onMouseOut() {
+    this.setState({
+      showTime: false
+    })
   }
 
   render() {
@@ -55,6 +89,8 @@ class Milestone extends Component {
           ref={(label) => {this.canvasLabel = label}}
           onDragMove={this.onDragMove.bind(this)}
           onDragEnd={this.onDragEnd.bind(this)}
+          onMouseOver={this.onMouseOver.bind(this)}
+          onMouseOut={this.onMouseOut.bind(this)}
           draggable={true}
           >
             <Text
@@ -75,6 +111,12 @@ class Milestone extends Component {
               ref={(tag) => {this.canvasTag = tag}}
             />
           </Label>
+          <DateTimeMarkerOnAxisArrow
+            visible={this.state.showTime}
+            when={this.state.when}
+            midPoint={this.state.whenX}
+            aboveLine={!this.state.aboveLine}
+          />
       </Group>
     )
   }
