@@ -19,7 +19,7 @@ export const MILESTONE_POINTER_HEIGHT = 10
 class Milestone extends Component {
   constructor(props) {
     super(props)
-    const { when, distance, aboveLine, scale, centralTime } = props
+    const { when, aboveLine, scale, centralTime } = props
     this.state = {
       showTime: false,
       when,

@@ -1,5 +1,3 @@
-import { PIXELS_PER_SCALE } from '../../constants'
-
 import { MILESTONE_RECT_HEIGHT, MILESTONE_RECT_WIDTH, MILESTONE_POINTER_HEIGHT } from '../Milestone'
 
 import { timestampToX, xToTimestamp } from '../../utils'

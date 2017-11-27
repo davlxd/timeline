@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 
-import { PIXELS_PER_SCALE } from '../constants'
-
 import ui from './ui'
 import data from './data'
 
