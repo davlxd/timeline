@@ -4,8 +4,9 @@ import { grey800, grey400 } from 'material-ui/styles/colors'
 
 import { Group, Label, Text, Tag, Line } from 'react-konva'
 
-import { dataToKanvaAttrForMilestone, konvaAttrToDataForMilestone } from './positionCalculator'
+import { INCIDENT_DRAGGED } from '../../actions'
 
+import { dataToKanvaAttrForMilestone, konvaAttrToDataForMilestone, konvaAttrToDataAvoidAxisArrowForMilestone } from './positionCalculator'
 
 export const MILESTONE_RECT_HEIGHT = 15
 export const MILESTONE_RECT_WIDTH = 10
@@ -16,11 +17,13 @@ class Milestone extends Component {
   onDragMove() {
     const { scale, centralTime, axisArrowLineWidth } = this.props
     const { x, y } = { x: this.canvasLabel.x(), y: this.canvasLabel.y() }
-    const newPropsCalcFromKonvaAttr = konvaAttrToDataForMilestone(x, y, scale, centralTime, axisArrowLineWidth)
+    const { when, distance, aboveLine } = konvaAttrToDataForMilestone(x, y, scale, centralTime, axisArrowLineWidth)
 
     const { pointerDirection, cordLinePoints } = dataToKanvaAttrForMilestone({
       ...this.props,
-      ...newPropsCalcFromKonvaAttr
+      when,
+      distance,
+      aboveLine
     })
 
     this.canvasLabel.x(x)
@@ -30,7 +33,10 @@ class Milestone extends Component {
   }
 
   onDragEnd() {
-
+    const { scale, centralTime, axisArrowLineWidth } = this.props
+    const { x, y } = { x: this.canvasLabel.x(), y: this.canvasLabel.y() }
+    const { when, distance, aboveLine } = konvaAttrToDataAvoidAxisArrowForMilestone(x, y, scale, centralTime, axisArrowLineWidth)
+    this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { when, distance, aboveLine }))
   }
 
   render() {

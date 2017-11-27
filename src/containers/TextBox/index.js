@@ -63,8 +63,8 @@ class TextBox extends Component {
 
   onDragEnd() {
     const { width, height, scale, centralTime } = this.props
-    const { distance, midPoint, aboveLine } = konvaAttrToDataForTextBox(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
-    this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), midPoint, aboveLine }))
+    const { distance, when, aboveLine } = konvaAttrToDataForTextBox(this.canvasRect.x(), this.canvasRect.y(), width, height, scale, centralTime)
+    this.props.dispatch(INCIDENT_DRAGGED(this.props.id, { distance: (distance < 20 ? 20 : distance), when, aboveLine }))
   }
 
   onMouseOver() {

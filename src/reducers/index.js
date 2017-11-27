@@ -69,7 +69,6 @@ const crossSliceReducer = (state, action) => {
         }
       }
     case 'INCIDENT_DRAGGED':
-      const when = (((action.newPosition.midPoint - (window.innerWidth / 2)) / PIXELS_PER_SCALE) * state.data.axisArrow.scale) + state.data.axisArrow.centralTime
       return {
         data:{
           ...state.data,
@@ -78,7 +77,6 @@ const crossSliceReducer = (state, action) => {
             return {
               ...incident,
               ...action.newPosition,
-              when
             }
           })
         },
