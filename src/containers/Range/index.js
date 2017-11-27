@@ -255,6 +255,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
+  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
 Range = connect(
