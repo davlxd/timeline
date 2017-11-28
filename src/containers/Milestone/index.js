@@ -101,8 +101,8 @@ class Milestone extends Component {
               fill={grey800}
               pointerDirection={pointerDirection}
               shadowColor={grey800}
-              shadowBlur={5}
-              shadowOffset={5}
+              shadowBlur={2}
+              shadowOffset={2}
               shadowOpacity={0.5}
               ref={(tag) => {this.canvasTag = tag}}
             />

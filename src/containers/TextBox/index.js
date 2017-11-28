@@ -44,8 +44,13 @@ class TextBox extends Component {
   onDragMove() {
     const { width, height, scale, centralTime } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
-    const { distance, midPoint, aboveLine, when } = konvaAttrToDataForTextBox(x, y, width, height, scale, centralTime)
-    const { linePoints } = dataToKanvaAttrForTextBox({ midPoint, width, height, distance, aboveLine })
+    const { when, distance, aboveLine } = konvaAttrToDataForTextBox(x, y, width, height, scale, centralTime)
+    const { linePoints } = dataToKanvaAttrForTextBox({
+      ...this.props,
+      when,
+      distance,
+      aboveLine
+    })
 
     this.setState({
       when,
@@ -136,7 +141,6 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
-  midPoint: timestampToX(ownProps.when, state.data.axisArrow.scale, state.data.axisArrow.centralTime),
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
