@@ -5,18 +5,18 @@ import { timestampToX, xToTimestamp } from '../../utils'
 export const dataToKanvaAttrForTextBox = ({ when, width, height, distance, aboveLine, scale, centralTime }) => {
   const whenX = timestampToX(when, scale, centralTime)
   const x = whenX - width / 2
-  let y, linePoints
+  let y, cordLinePoints
   if (aboveLine) {
     y = window.innerHeight / 2 - distance - height
-    linePoints = [whenX, (window.innerHeight / 2), whenX, (window.innerHeight / 2 - distance)]
+    cordLinePoints = [whenX, (window.innerHeight / 2), whenX, (window.innerHeight / 2 - distance)]
   } else {
     y = window.innerHeight / 2 + distance
-    linePoints = [whenX, (window.innerHeight / 2), whenX, (window.innerHeight / 2 + distance)]
+    cordLinePoints = [whenX, (window.innerHeight / 2), whenX, (window.innerHeight / 2 + distance)]
   }
   return {
     x,
     y,
-    linePoints
+    cordLinePoints
   }
 }
 

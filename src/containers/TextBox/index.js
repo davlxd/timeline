@@ -45,7 +45,7 @@ class TextBox extends Component {
     const { width, height, scale, centralTime } = this.props
     const { x, y } = { x: this.canvasRect.x(), y: this.canvasRect.y() }
     const { when, distance, aboveLine } = konvaAttrToDataForTextBox(x, y, width, height, scale, centralTime)
-    const { linePoints } = dataToKanvaAttrForTextBox({
+    const { cordLinePoints } = dataToKanvaAttrForTextBox({
       ...this.props,
       when,
       distance,
@@ -61,7 +61,7 @@ class TextBox extends Component {
     this.canvasText.y(y)
     this.canvasRect.x(x)
     this.canvasRect.y(y)
-    this.canvasLine.points(linePoints)
+    this.cord.points(cordLinePoints)
   }
 
   onDragEnd() {
@@ -85,7 +85,7 @@ class TextBox extends Component {
 
   render() {
     const { text, width, height } = this.props
-    const { x, y, linePoints} = dataToKanvaAttrForTextBox(this.props)
+    const { x, y, cordLinePoints} = dataToKanvaAttrForTextBox(this.props)
 
     return (
       <Group>
@@ -123,9 +123,9 @@ class TextBox extends Component {
           onMouseOut={this.onMouseOut.bind(this)}
         />
         <Line
-          points={linePoints}
+          points={cordLinePoints}
           stroke={grey800}
-          ref={(line) => {this.canvasLine = line}}
+          ref={(line) => {this.cord = line}}
         />
         <DateTimeMarkerOnAxisArrow
           visible={this.state.showTime}
