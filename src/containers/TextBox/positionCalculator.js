@@ -1,5 +1,3 @@
-import { PIXELS_PER_SCALE } from '../../constants'
-
 import { timestampToX, xToTimestamp } from '../../utils'
 
 export const dataToKanvaAttrForTextBox = ({ when, width, height, distance, aboveLine, scale, centralTime }) => {
