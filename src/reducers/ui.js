@@ -9,6 +9,9 @@ const initialState = {
     mouseX: 0,
     mouseY: 0,
     eventTimestamp: 0
+  },
+  restRequest: {
+    isFetching: false
   }
 }
 
@@ -41,6 +44,14 @@ const ui = (state = initialState, action) => {
           open: false,
           mouseX: 0,
           mouseY: 0
+        }
+      }
+    case 'REQUESTING_LINE':
+      return {
+        ...state,
+        restRequest: {
+          ...state.restRequest,
+          isFetching: false
         }
       }
     default:

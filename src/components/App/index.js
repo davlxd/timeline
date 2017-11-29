@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
+
+import { FETCH_LINE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -21,9 +25,7 @@ const muiTheme = getMuiTheme({
 
 class App extends Component {
   componentDidMount() {
-    console.log(this.props)
-    console.log('id: ' + this.props.match.params.id)
-    console.log('view: ' + this.props.match.path.startsWith('/view'))
+    this.props.dispatch(FETCH_LINE(this.props.match.params.id))
   }
 
   render() {
@@ -39,4 +41,8 @@ class App extends Component {
   }
 }
 
+App = connect(
+  null,
+  null
+)(App)
 export default App
