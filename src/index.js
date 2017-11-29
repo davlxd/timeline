@@ -2,9 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
-import store, { history } from './store'
+import { Route, Switch } from 'react-router'
 
-import { Route } from 'react-router'
+import store, { history } from './store'
 
 import registerServiceWorker from './registerServiceWorker'
 
@@ -18,13 +18,13 @@ import './index.css'
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-        <div>
+        <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/gallery" component={Gallery}/>
           <Route exact path="/line/:id" component={App}/>
           <Route exact path="/view/:id" component={App}/>
           <Route component={GenericNotFound} />
-        </div>
+        </Switch>
       </ConnectedRouter>
   </Provider>,
   document.getElementById('root'));
