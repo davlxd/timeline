@@ -12,7 +12,7 @@ const iconStyles = {
 const Footer = () => (
   <div className="Footer">
     <div className="FooterButtonGroup">
-      <FloatingActionButton href="mailto: tl@lxd.me" mini={true} backgroundColor="white" iconStyle={iconStyles}>
+      <FloatingActionButton href="mailto: feedback@timeline.ink" mini={true} backgroundColor="white" iconStyle={iconStyles}>
         <ActionFeedback />
       </FloatingActionButton>
     </div>
