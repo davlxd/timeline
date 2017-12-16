@@ -9,7 +9,7 @@ export const dataToKanvaAttrForMilestone = ({ when, distance, aboveLine, scale, 
   let y, cordLinePoints, pointerDirection
   if (aboveLine) {
     y = window.innerHeight / 2 - distance - TOTAL_HEIGHT - axisArrowLineWidth / 2
-    cordLinePoints = [whenX, (window.innerHeight / 2 - distance), whenX, (window.innerHeight / 2 - axisArrowLineWidth / 2)]
+    cordLinePoints = [whenX, (window.innerHeight / 2 - distance - axisArrowLineWidth / 2), whenX, (window.innerHeight / 2 - axisArrowLineWidth / 2)]
     pointerDirection = 'down'
   } else {
     y = window.innerHeight / 2 + distance + MILESTONE_POINTER_HEIGHT + axisArrowLineWidth / 2
