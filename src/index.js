@@ -14,7 +14,6 @@ import App from './components/App'
 import GenericNotFound from './components/GenericNotFound'
 import './index.css'
 
-document.title = 'Timeline'
 
 render(
   <Provider store={store}>
