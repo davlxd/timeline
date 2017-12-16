@@ -83,7 +83,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { text, width, height, displayBorder, attachCord } = this.props
+    const { text, width, fontSize, height, displayBorder, borderWidth, attachCord } = this.props
     const { x, y, cordLinePoints} = dataToKanvaAttrForTextBox(this.props)
 
     return (
@@ -92,7 +92,7 @@ class TextBox extends Component {
           x={x}
           y={y}
           text={text}
-          fontSize={18}
+          fontSize={fontSize}
           fontFamily='Calibri'
           fill='#555'
           width={width}
@@ -105,7 +105,7 @@ class TextBox extends Component {
           y={y}
           stroke={grey800}
           strokeEnabled={displayBorder}
-          strokeWidth={2}
+          strokeWidth={borderWidth}
           width={width}
           height={height}
           shadowColor={grey800}

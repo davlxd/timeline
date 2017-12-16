@@ -38,13 +38,19 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
         min={20}
         max={window.innerWidth}
         value={incident.width}
-        onChange={(e, newValue) => onConfigChange(incident.id, {width: newValue})}
+        onChange={(e, newValue) => onConfigChange(incident.id, { width: newValue })}
       />
     </Paper>
 
     <Paper className="Card">
       <span> Font Size </span>
-      <Slider className="Slider"/>
+      <Slider
+        className="Slider"
+        min={5}
+        max={100}
+        value={incident.fontSize}
+        onChange={(e, newValue) => onConfigChange(incident.id, { fontSize: newValue })}
+      />
     </Paper>
 
     <Paper className="Card">
@@ -57,7 +63,13 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
 
     <Paper className="Card">
       <span> Border Width </span>
-      <Slider className="Slider"/>
+      <Slider
+        className="Slider"
+        min={0.1}
+        max={8}
+        value={incident.borderWidth}
+        onChange={(e, newValue) => onConfigChange(incident.id, { borderWidth: newValue })}
+      />
     </Paper>
 
     <Paper className="Card">

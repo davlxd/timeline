@@ -4,6 +4,8 @@ import { konvaAttrToDataForMilestone } from '../containers/Milestone/positionCal
 
 const TEXT_BOX_DEFAULT_WIDTH = 200
 const TEXT_BOX_DEFAULT_HEIGHT = 38
+const TEXT_BOX_DEFAULT_FONT_SIZE = 18
+const TEXT_BOX_DEFAULT_BORDER_WIDTH = 2
 const newTextBox = (x, y, incidentType, nextIncidentId, scale, centralTime) => {
   const { distance, aboveLine, when } = konvaAttrToDataForTextBox(x, y, TEXT_BOX_DEFAULT_WIDTH, TEXT_BOX_DEFAULT_HEIGHT, scale, centralTime)
   return {
@@ -12,11 +14,16 @@ const newTextBox = (x, y, incidentType, nextIncidentId, scale, centralTime) => {
     type: incidentType,
     text: 'TextBox',
     width: TEXT_BOX_DEFAULT_WIDTH,
+    fontSize: TEXT_BOX_DEFAULT_FONT_SIZE,
     height: TEXT_BOX_DEFAULT_HEIGHT,
+    displayBorder: true,
+    borderWidth: TEXT_BOX_DEFAULT_BORDER_WIDTH,
     distance,
-    aboveLine
+    aboveLine,
+    attachCord: true
   }
 }
+
 
 const RANGE_BOX_DEFAULT_WIDTH = 200
 const newRange = (x, y, incidentType, nextIncidentId, scale, centralTime, axisArrowLineWidth) => {
