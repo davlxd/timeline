@@ -226,13 +226,13 @@ class Range extends Component {
         />
         <Line
           points={startCordLinePoints}
-          stroke={grey400}
+          stroke={grey800}
           strokeWidth={0.5}
           ref={(line) => {this.startCord = line}}
         />
         <Line
           points={endCordLinePoints}
-          stroke={grey400}
+          stroke={grey800}
           strokeWidth={0.5}
           ref={(line) => {this.endCord = line}}
         />

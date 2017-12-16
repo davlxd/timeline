@@ -124,6 +124,7 @@ class TextBox extends Component {
         <Line
           points={cordLinePoints}
           stroke={grey800}
+          strokeWidth={0.5}
           ref={(line) => {this.cord = line}}
         />
         <DateTimeMarkerOnAxisArrow

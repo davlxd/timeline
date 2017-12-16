@@ -75,7 +75,7 @@ class Milestone extends Component {
       <Group>
         <Line
           points={cordLinePoints}
-          stroke={grey400}
+          stroke={grey800}
           strokeWidth={0.5}
           ref={(line) => {this.cordLine = line}}
         />
