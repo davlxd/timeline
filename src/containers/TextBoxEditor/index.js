@@ -6,11 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
 
-import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
+import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE, CONFIG_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
 
 import './style.css'
 
-let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
+let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigChange }) => (
   <div>
     <div className="Title">
       <h2>Text Box</h2>
@@ -27,7 +27,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
         rowsMax={20}
         value={incident.text}
         fullWidth={true}
-        onChange={(e, newText) => onChange(incident.id, newText)}
+        onChange={(e, newText) => onTextChange(incident.id, newText)}
     />
     </Paper>
 
@@ -42,12 +42,24 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
     </Paper>
 
     <Paper className="Card">
+      <Checkbox
+        label="Display Border"
+        checked={incident.displayBorder}
+        onCheck={(e, isChecked) => onConfigChange(incident.id, isChecked ? { displayBorder: true } : { attachCord: false, displayBorder: false } )}
+      />
+    </Paper>
+
+    <Paper className="Card">
       <span> Border Width </span>
       <Slider className="Slider"/>
     </Paper>
 
     <Paper className="Card">
-      <Checkbox label="Attach Cord"/>
+      <Checkbox
+        label="Attach Cord"
+        checked={incident.attachCord}
+        onCheck={(e, isChecked) => onConfigChange(incident.id, isChecked ? { attachCord: true, displayBorder: true } : { attachCord: false })}
+      />
     </Paper>
 
   </div>
@@ -64,8 +76,12 @@ const mapDispatchToProps = (dispatch) => ({
   onDuplicate: (id) => {
     dispatch(DUPLICATE_THIS_INCIDENT(id))
   },
-  onChange: (id, text) => {
+  onTextChange: (id, text) => {
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
+  },
+  onConfigChange: (id, newConfig) => {
+    console.log(newConfig)
+    dispatch(CONFIG_ON_TEXT_BOX_EDITOR_CHANGE(id, newConfig))
   }
 })
 

@@ -83,7 +83,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { text, width, height } = this.props
+    const { text, width, height, displayBorder, attachCord } = this.props
     const { x, y, cordLinePoints} = dataToKanvaAttrForTextBox(this.props)
 
     return (
@@ -104,6 +104,7 @@ class TextBox extends Component {
           x={x}
           y={y}
           stroke={grey800}
+          strokeEnabled={displayBorder}
           strokeWidth={2}
           width={width}
           height={height}
@@ -122,6 +123,7 @@ class TextBox extends Component {
           onMouseOut={this.onMouseOut.bind(this)}
         />
         <Line
+          visible={attachCord}
           points={cordLinePoints}
           stroke={grey800}
           strokeWidth={0.5}
