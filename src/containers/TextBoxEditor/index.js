@@ -33,7 +33,13 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
 
     <Paper className="Card">
       <span> Box Width </span>
-      <Slider className="Slider"/>
+      <Slider
+        className="Slider"
+        min={20}
+        max={window.innerWidth}
+        value={incident.width}
+        onChange={(e, newValue) => onConfigChange(incident.id, {width: newValue})}
+      />
     </Paper>
 
     <Paper className="Card">

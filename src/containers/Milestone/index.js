@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { grey800, grey400 } from 'material-ui/styles/colors'
+import { grey800 } from 'material-ui/styles/colors'
 
 import { Group, Label, Text, Tag, Line } from 'react-konva'
 
