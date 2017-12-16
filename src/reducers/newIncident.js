@@ -1,5 +1,6 @@
 import { konvaAttrToDataForTextBox } from '../containers/TextBox/positionCalculator'
 import { konvaAttrToDataForRange } from '../containers/Range/positionCalculator'
+import { konvaAttrToDataForMilestone } from '../containers/Milestone/positionCalculator'
 
 const TEXT_BOX_DEFAULT_WIDTH = 200
 const TEXT_BOX_DEFAULT_HEIGHT = 38
@@ -31,11 +32,24 @@ const newRange = (x, y, incidentType, nextIncidentId, scale, centralTime, axisAr
   }
 }
 
+const newMilestone = (x, y, incidentType, nextIncidentId, scale, centralTime, axisArrowLineWidth) => {
+  const { when, distance, aboveLine } = konvaAttrToDataForMilestone(x, y, scale, centralTime, axisArrowLineWidth)
+  return {
+    id: nextIncidentId,
+    type: incidentType,
+    when,
+    distance,
+    aboveLine
+  }
+}
+
 
 export const newIncidentData = (x, y, incidentType, nextIncidentId, { scale, centralTime, lineWidth }) => {
   if (incidentType === 'textbox') {
     return newTextBox(x, y, incidentType, nextIncidentId, scale, centralTime)
   } else if (incidentType === 'range'){
     return newRange(x, y, incidentType, nextIncidentId, scale, centralTime, lineWidth)
+  } else if (incidentType === 'milestone'){
+    return newMilestone(x, y, incidentType, nextIncidentId, scale, centralTime, lineWidth)
   }
 }
