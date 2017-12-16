@@ -17,8 +17,8 @@ export const REQUEST_LINE_ERROR = (id, error) => ({
 export const FETCH_LINE = (id = '') => {
   return dispatch => {
     dispatch(REQUESTING_LINE)
-    return fetch(`http://localhost:4000/${id}`)
-      .then(response => response.json)
+    return fetch(`https://5kcqqq1fc7.execute-api.ap-southeast-2.amazonaws.com/beta/timelines/${id}`)
+      .then(response => response.json())
       .then(data => dispatch(RECEIVE_LINE(id, data)))
       .catch(error => dispatch(REQUEST_LINE_ERROR(id, error)))
   }
