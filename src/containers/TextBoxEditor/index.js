@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
+import Checkbox from 'material-ui/Checkbox'
 
 import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
 
@@ -12,13 +13,13 @@ import './style.css'
 let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
   <div>
     <div className="Title">
-      <h3>Text Box</h3>
+      <h2>Text Box</h2>
     </div>
     <RaisedButton label="Duplicate" className="Button" onClick={() => onDuplicate(incident.id)} />
     <RaisedButton label="Delete" className="Button" onClick={() => onDelete(incident.id)} />
 
     <Paper className="Card">
-      <span> TEXT </span>
+      <span> Text </span>
       <TextField
         hintText='Text here ...'
         multiLine={true}
@@ -31,19 +32,24 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
     </Paper>
 
     <Paper className="Card">
-      <span> Timestamp </span>
+      <span> Box Width </span>
       <Slider className="Slider"/>
     </Paper>
 
     <Paper className="Card">
-      <span> Width </span>
+      <span> Font Size </span>
       <Slider className="Slider"/>
     </Paper>
 
     <Paper className="Card">
-      <span> Font size </span>
+      <span> Border Width </span>
       <Slider className="Slider"/>
     </Paper>
+
+    <Paper className="Card">
+      <Checkbox label="Attach Cord"/>
+    </Paper>
+
   </div>
 )
 

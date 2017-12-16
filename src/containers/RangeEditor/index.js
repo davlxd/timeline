@@ -6,17 +6,18 @@ import TextField from 'material-ui/TextField'
 
 import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
 
+import './style.css'
 
 let RangeEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
   <div>
     <div className="Title">
-      <h3>Text Box</h3>
+      <h2>Range</h2>
     </div>
     <RaisedButton label="Duplicate" className="Button" onClick={() => onDuplicate(incident.id)} />
     <RaisedButton label="Delete" className="Button" onClick={() => onDelete(incident.id)} />
 
     <Paper className="Card">
-      <span> RANGE TEXT </span>
+      <span> Range Text </span>
       <TextField
         hintText='Text here ...'
         multiLine={true}

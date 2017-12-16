@@ -18,6 +18,10 @@ const muiTheme = getMuiTheme({
     selectionColor: grey700,
     rippleColor: grey400
   },
+  checkbox: {
+    boxColor: grey700,
+    checkedColor: grey700
+  },
   textField: {
     focusColor: grey700
   }
