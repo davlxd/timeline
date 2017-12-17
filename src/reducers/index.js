@@ -83,7 +83,10 @@ const crossSliceReducer = (state, action) => {
     case 'RECEIVE_LINE':
       console.log('action')
       console.log(action)
-      return state
+      return {
+        data: action.data.data,
+        ui: state.ui
+      }
     case 'REQUEST_LINE_ERROR':
       console.log('action')
       console.log(action)

@@ -23,7 +23,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
       <TextField
         hintText='Text here ...'
         multiLine={true}
-        rows={2}
+        rows={1}
         rowsMax={20}
         value={incident.text}
         fullWidth={true}
