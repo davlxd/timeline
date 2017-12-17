@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Rx from 'rxjs/Rx'
 
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
@@ -29,8 +30,6 @@ const muiTheme = getMuiTheme({
 });
 
 const updateLine = (id, data) => {
-  console.log(id)
-  console.log(data)
   fetch(
     `https://5kcqqq1fc7.execute-api.ap-southeast-2.amazonaws.com/beta/timelines/${id}`,
     {
@@ -45,7 +44,9 @@ const updateLine = (id, data) => {
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(FETCH_LINE(this.props.match.params.id))
-    this.context.store.subscribe(() => updateLine(this.props.match.params.id, this.context.store.getState().data))
+    Rx.Observable.from(this.context.store)
+      .debounceTime(2000)
+      .subscribe(state => updateLine(this.props.match.params.id, state.data))
   }
 
   render() {
