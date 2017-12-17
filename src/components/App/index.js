@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Header from '../../containers/Header'
@@ -27,9 +28,24 @@ const muiTheme = getMuiTheme({
   }
 });
 
+const updateLine = (id, data) => {
+  console.log(id)
+  console.log(data)
+  fetch(
+    `https://5kcqqq1fc7.execute-api.ap-southeast-2.amazonaws.com/beta/timelines/${id}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    })
+      .then(response => console.log(response))
+      .catch(error => console.error(error))
+}
+
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(FETCH_LINE(this.props.match.params.id))
+    this.context.store.subscribe(() => updateLine(this.props.match.params.id, this.context.store.getState().data))
   }
 
   render() {
@@ -44,9 +60,12 @@ class App extends Component {
     )
   }
 }
+App.contextTypes = { store: PropTypes.object }
 
 App = connect(
   null,
   null
 )(App)
+
+
 export default App
