@@ -12,6 +12,9 @@ const initialState = {
   },
   restRequest: {
     isFetching: false
+  },
+  youHaveNoPermissionSnackbar: {
+    open: false,
   }
 }
 
@@ -52,6 +55,22 @@ const ui = (state = initialState, action) => {
         restRequest: {
           ...state.restRequest,
           isFetching: false
+        }
+      }
+    case 'OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR':
+      return {
+        ...state,
+        youHaveNoPermissionSnackbar: {
+          ...state.youHaveNoPermissionSnackbar,
+          open: true
+        }
+      }
+    case 'CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR':
+      return {
+        ...state,
+        youHaveNoPermissionSnackbar: {
+          ...state.youHaveNoPermissionSnackbar,
+          open: false
         }
       }
     default:

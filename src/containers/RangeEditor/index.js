@@ -17,7 +17,7 @@ let RangeEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
     <RaisedButton label="Delete" className="Button" onClick={() => onDelete(incident.id)} />
 
     <Paper className="Card">
-      <span> Range Text </span>
+      <span className="CardTitle"> Range Text </span>
       <TextField
         hintText='Text here ...'
         multiLine={true}

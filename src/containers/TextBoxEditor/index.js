@@ -19,7 +19,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
     <RaisedButton label="Delete" className="Button" onClick={() => onDelete(incident.id)} />
 
     <Paper className="Card">
-      <span> Text </span>
+      <span className="CardTitle"> Text </span>
       <TextField
         hintText='Text here ...'
         multiLine={true}
@@ -32,7 +32,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
     </Paper>
 
     <Paper className="Card">
-      <span> Box Width </span>
+      <span className="CardTitle"> Box Width </span>
       <Slider
         className="Slider"
         min={20}
@@ -43,7 +43,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
     </Paper>
 
     <Paper className="Card">
-      <span> Font Size </span>
+      <span className="CardTitle"> Font Size </span>
       <Slider
         className="Slider"
         min={5}
@@ -62,7 +62,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
     </Paper>
 
     <Paper className="Card">
-      <span> Border Width </span>
+      <span className="CardTitle"> Border Width </span>
       <Slider
         className="Slider"
         min={0.1}
