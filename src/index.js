@@ -12,6 +12,8 @@ import Home from './components/Home'
 import Gallery from './components/Gallery'
 import App from './components/App'
 import GenericNotFound from './components/GenericNotFound'
+import TermsOfService from './components/TermsOfService'
+import PrivacyPolicy from './components/PrivacyPolicy'
 import './index.css'
 
 
@@ -23,6 +25,8 @@ render(
           <Route exact path="/gallery" component={Gallery}/>
           <Route exact path="/line/:id" component={App}/>
           <Route exact path="/view/:id" component={App}/>
+          <Route exact path="/terms" component={TermsOfService}/>
+          <Route exact path="/privacy" component={PrivacyPolicy}/>
           <Route component={GenericNotFound} />
         </Switch>
       </ConnectedRouter>
