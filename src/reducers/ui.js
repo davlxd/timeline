@@ -1,4 +1,5 @@
 const initialState = {
+  editable: false,
   editPanel: {
     open: false,
     incidentType: '',

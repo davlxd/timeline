@@ -5,7 +5,6 @@ import { Stage, Layer, Rect, Line } from 'react-konva'
 import IconButton from 'material-ui/IconButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
-import Snackbar from 'material-ui/Snackbar'
 import { grey400, grey500 } from 'material-ui/styles/colors'
 
 import EditPanel from '../EditPanel'
@@ -17,7 +16,7 @@ import DateTimeMarkerOnAxisArrow from '../DateTimeMarkerOnAxisArrow'
 import ContextMenu  from '../ContextMenu'
 
 import { PIXELS_PER_SCALE } from '../../constants'
-import { ZOOM_IN, ZOOM_OUT, STAGE_BEING_DRAGGED, SHOW_CONTEXT_MENU, CLOSE_CONTEXT_MENU_IF_ANY, CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR } from '../../actions'
+import { ZOOM_IN, ZOOM_OUT, STAGE_BEING_DRAGGED, SHOW_CONTEXT_MENU, CLOSE_CONTEXT_MENU_IF_ANY } from '../../actions'
 
 import './style.css'
 
@@ -100,7 +99,7 @@ class Board extends Component {
   }
 
   render() {
-    const { centralTime, textBoxList, rangeList, milestoneList, onZoomInClick, onZoomOutClick, youHaveNoPermissionSnackbarOpen, onYouHaveNoPermissionSnackbarClose } = this.props
+    const { centralTime, textBoxList, rangeList, milestoneList, onZoomInClick, onZoomOutClick } = this.props
     return (
       <div>
         <Stage
@@ -162,12 +161,6 @@ class Board extends Component {
           </Layer>
         </Stage>
         <EditPanel />
-        <Snackbar
-          open={youHaveNoPermissionSnackbarOpen}
-          message="You have no edit permission to this timeline, your changes will not be saved"
-          autoHideDuration={2000}
-          onRequestClose={onYouHaveNoPermissionSnackbarClose}
-        />
         <div className="ZoomButtonGroup">
           <IconButton iconStyle={iconStyles} style={zoomIn} onClick={onZoomInClick}>
             <ContentAdd />
@@ -200,8 +193,7 @@ const mapStateToProps = (state) => ({
   milestoneList: getMilestoneList(state),
   centralTime: state.data.axisArrow.centralTime,
   scale: state.data.axisArrow.scale,
-  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp,
-  youHaveNoPermissionSnackbarOpen: state.ui.youHaveNoPermissionSnackbar.open
+  contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -219,9 +211,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   closeContextMenuIfAny: () => {
     dispatch(CLOSE_CONTEXT_MENU_IF_ANY)
-  },
-  onYouHaveNoPermissionSnackbarClose: () => {
-    dispatch(CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR)
   }
 })
 

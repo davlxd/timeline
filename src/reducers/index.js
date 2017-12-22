@@ -81,22 +81,24 @@ const crossSliceReducer = (state, action) => {
         ui: state.ui
       }
     case 'RECEIVE_LINE':
-      console.log('action')
-      console.log(action)
       return {
         data: action.data.data,
-        ui: state.ui
+        ui: {
+          ...state.ui,
+          editable: action.data.edit
+        }
       }
     case 'REQUEST_LINE_ERROR':
-      console.log('action')
-      console.log(action)
       return state
     default:
       return state
   }
 }
 
+
+
 export default (state, action) => {
+  console.log(action)
   const intermediateState = combinedReducer(state, action)
   return crossSliceReducer(intermediateState, action)
 }

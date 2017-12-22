@@ -75,11 +75,3 @@ export const CREATE_INCIDENT_FROM_CONTEXT_MENU = (type = '', mouseX = 0, mouseY 
   x: mouseX,
   y: mouseY
 })
-
-export const OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR = {
-  type: 'OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR'
-}
-
-export const CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR = {
-  type: 'CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR'
-}

@@ -98,7 +98,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
   },
   onConfigChange: (id, newConfig) => {
-    console.log(newConfig)
     dispatch(CONFIG_ON_TEXT_BOX_EDITOR_CHANGE(id, newConfig))
   }
 })

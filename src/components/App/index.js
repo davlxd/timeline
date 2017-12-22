@@ -7,7 +7,7 @@ import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
 
-import { FETCH_LINE, OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR } from '../../actions'
+import { FETCH_LINE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -37,9 +37,6 @@ const updateLine = (id, data, unauthorizedCallback) => {
       body: JSON.stringify(data)
     })
       .then(response => {
-        if (response.status === 401) {
-          unauthorizedCallback()
-        }
         console.log(response)
       })
       .catch(error => console.error(error))
@@ -53,9 +50,7 @@ class App extends Component {
       .map(state => state.data)
       .distinctUntilChanged()
       .debounceTime(2000)
-      .subscribe(data => updateLine(this.props.match.params.id, data, () => {
-        this.props.dispatch(OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR)
-      }))
+      .subscribe(data => updateLine(this.props.match.params.id, data))
   }
 
   render() {
