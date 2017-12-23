@@ -76,11 +76,6 @@ export const CREATE_INCIDENT_FROM_CONTEXT_MENU = (type = '', mouseX = 0, mouseY 
   y: mouseY
 })
 
-export const DISPLAY_BANNER_MESSAGE = (message = '') => ({
-  type: 'DISPLAY_BANNER_MESSAGE',
-  message
-})
-
 export const OPEN_FORK_DIALOG = {
   type: 'OPEN_FORK_DIALOG'
 }

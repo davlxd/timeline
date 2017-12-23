@@ -10,15 +10,16 @@ import Banner from '../../containers/Banner'
 import ForkDialog from '../../containers/ForkDialog'
 import ShareDialog from '../../containers/ShareDialog'
 
-import { FETCH_LINE, DISPLAY_BANNER_MESSAGE } from '../../actions'
+import { FETCH_LINE, UPDATE_LINE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { grey400, grey600, grey700, grey800 } from 'material-ui/styles/colors'
+import { grey400, grey700, grey800 } from 'material-ui/styles/colors'
 
 import './style.scss'
 
 const muiTheme = getMuiTheme({
+  // fontFamily: 'Calibri',
   slider: {
     selectionColor: grey700,
     rippleColor: grey400
@@ -36,24 +37,6 @@ const muiTheme = getMuiTheme({
   }
 })
 
-const updateLine = (id, data, unauthorizedCallback) => {
-  fetch(
-    `https://5kcqqq1fc7.execute-api.ap-southeast-2.amazonaws.com/beta/timelines/${id}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    })
-      .then(response => {
-        console.log(response)
-        if (response.status === 401) {
-          unauthorizedCallback()
-        }
-        console.log(response)
-      })
-      .catch(error => console.error(error))
-}
-
-
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(FETCH_LINE(this.props.match.params.id))
@@ -61,9 +44,7 @@ class App extends Component {
       .map(state => state.data)
       .distinctUntilChanged()
       .debounceTime(2000)
-      .subscribe(data => updateLine(this.props.match.params.id, data, () => {
-        this.props.dispatch(DISPLAY_BANNER_MESSAGE("You don't have edit permission to this timeline"))
-      }))
+      .subscribe(data => this.props.dispatch(UPDATE_LINE(this.props.match.params.id, data)))
   }
 
   render() {
