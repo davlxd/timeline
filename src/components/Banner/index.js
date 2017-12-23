@@ -10,7 +10,6 @@ class Banner extends Component {
   }
 
   componentWillUpdate({ message }) {
-    console.log(this)
     this.historyMessageList.push(message)
   }
 
@@ -18,7 +17,7 @@ class Banner extends Component {
     return (
       <div>
         {
-          this.historyMessageList.map((msg, index) =>
+          this.historyMessageList.filter(msg => !!msg).map((msg, index) =>
             <div key ={index} className='BannerMessage'>
               {msg}
             </div>

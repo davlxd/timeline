@@ -1,12 +1,15 @@
 .BannerMessage {
   position: absolute;
-  width:100%;
-  padding-top: 4px;
+  width: 100%;
+  padding: 4px 0px 4px 0px;
   text-align: center;
   opacity: 0;
+  font-family: 'Calibri';
+  font-size: 18px;
+  background-color: #eeeeee;
 
-  -webkit-animation: fadeinout 3s linear forwards;
-  animation: fadeinout 3s linear forwards;
+  -webkit-animation: fadeinout 4s linear forwards;
+  animation: fadeinout 4s linear forwards;
 }
 
 
