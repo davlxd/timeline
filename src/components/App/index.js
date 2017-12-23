@@ -8,6 +8,7 @@ import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
 import Banner from '../../containers/Banner'
 import ForkDialog from '../../containers/ForkDialog'
+import ShareDialog from '../../containers/ShareDialog'
 
 import { FETCH_LINE, DISPLAY_BANNER_MESSAGE } from '../../actions'
 
@@ -72,6 +73,7 @@ class App extends Component {
           <Banner />
           <Header />
           <ForkDialog />
+          <ShareDialog />
           <Board />
           <Footer />
         </div>

@@ -19,6 +19,9 @@ const initialState = {
   },
   forkDialog: {
     show: false
+  },
+  shareDialog: {
+    show: false
   }
 }
 
@@ -79,6 +82,20 @@ const ui = (state = initialState, action) => {
       return {
         ...state,
         forkDialog: {
+          show: false
+        }
+      }
+    case 'OPEN_SHARE_DIALOG':
+      return {
+        ...state,
+        shareDialog: {
+          show: true
+        }
+      }
+    case 'CLOSE_SHARE_DIALOG':
+      return {
+        ...state,
+        shareDialog: {
           show: false
         }
       }
