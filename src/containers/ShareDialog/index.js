@@ -22,7 +22,7 @@ let ShareDialog = ({ show, onShareDialogClose }) => {
       open={show}
       onRequestClose={onShareDialogClose}
       >
-        <p className="X">You can share this timeline with editor link or viewer link: </p>
+        <p className="X">You can share this timeline with <tt>editor link</tt> or <tt>viewer link</tt>: </p>
         <p><tt>
           editor link: <a href="https://timeline.ink/line/5384ff46e950491993b88aba3286fda8">https://timeline.ink/line/5384ff46e950491993b88aba3286fda8</a>
         <br/>
