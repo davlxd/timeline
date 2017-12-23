@@ -11,6 +11,7 @@ class Banner extends Component {
 
   componentWillUpdate({ message }) {
     this.historyMessageList.push(message)
+    console.log(this.historyMessageList)
   }
 
   render() {

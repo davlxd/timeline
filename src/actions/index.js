@@ -80,3 +80,11 @@ export const DISPLAY_BANNER_MESSAGE = (message = '') => ({
   type: 'DISPLAY_BANNER_MESSAGE',
   message
 })
+
+export const OPEN_FORK_DIALOG = {
+  type: 'OPEN_FORK_DIALOG'
+}
+
+export const CLOSE_FORK_DIALOG = {
+  type: 'CLOSE_FORK_DIALOG'
+}

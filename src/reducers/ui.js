@@ -16,6 +16,9 @@ const initialState = {
   },
   banner: {
     message: '',
+  },
+  forkDialog: {
+    show: false
   }
 }
 
@@ -63,6 +66,20 @@ const ui = (state = initialState, action) => {
         ...state,
         banner: {
           message: action.message
+        }
+      }
+    case 'OPEN_FORK_DIALOG':
+      return {
+        ...state,
+        forkDialog: {
+          show: true
+        }
+      }
+    case 'CLOSE_FORK_DIALOG':
+      return {
+        ...state,
+        forkDialog: {
+          show: false
         }
       }
     default:

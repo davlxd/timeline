@@ -6,13 +6,14 @@ import Rx from 'rxjs/Rx'
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
-import Banner from '../../components/Banner'
+import Banner from '../../containers/Banner'
+import ForkDialog from '../../containers/ForkDialog'
 
 import { FETCH_LINE, DISPLAY_BANNER_MESSAGE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { grey400, grey700 } from 'material-ui/styles/colors'
+import { grey400, grey600, grey700, grey800 } from 'material-ui/styles/colors'
 
 import './style.scss'
 
@@ -27,8 +28,12 @@ const muiTheme = getMuiTheme({
   },
   textField: {
     focusColor: grey700
+  },
+  flatButton: {
+    primaryTextColor: grey800,
+    secondaryTextColor: grey400
   }
-});
+})
 
 const updateLine = (id, data, unauthorizedCallback) => {
   fetch(
@@ -66,6 +71,7 @@ class App extends Component {
         <div className="App">
           <Banner />
           <Header />
+          <ForkDialog />
           <Board />
           <Footer />
         </div>
