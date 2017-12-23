@@ -14,8 +14,8 @@ const initialState = {
   restRequest: {
     isFetching: false
   },
-  youHaveNoPermissionSnackbar: {
-    open: false,
+  banner: {
+    message: '',
   }
 }
 
@@ -58,20 +58,11 @@ const ui = (state = initialState, action) => {
           isFetching: false
         }
       }
-    case 'OPEN_YOU_HAVE_NO_PERMISSION_SNACKBAR':
+    case 'DISPLAY_BANNER_MESSAGE':
       return {
         ...state,
-        youHaveNoPermissionSnackbar: {
-          ...state.youHaveNoPermissionSnackbar,
-          open: true
-        }
-      }
-    case 'CLOSE_YOU_HAVE_NO_PERMISSION_SNACKBAR':
-      return {
-        ...state,
-        youHaveNoPermissionSnackbar: {
-          ...state.youHaveNoPermissionSnackbar,
-          open: false
+        banner: {
+          message: action.message
         }
       }
     default:

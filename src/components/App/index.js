@@ -6,9 +6,9 @@ import Rx from 'rxjs/Rx'
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
-import BannerMessage from '../../components/BannerMessage'
+import Banner from '../../components/Banner'
 
-import { FETCH_LINE } from '../../actions'
+import { FETCH_LINE, DISPLAY_BANNER_MESSAGE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -39,6 +39,10 @@ const updateLine = (id, data, unauthorizedCallback) => {
     })
       .then(response => {
         console.log(response)
+        if (response.status === 401) {
+          unauthorizedCallback()
+        }
+        console.log(response)
       })
       .catch(error => console.error(error))
 }
@@ -51,14 +55,16 @@ class App extends Component {
       .map(state => state.data)
       .distinctUntilChanged()
       .debounceTime(2000)
-      .subscribe(data => updateLine(this.props.match.params.id, data))
+      .subscribe(data => updateLine(this.props.match.params.id, data, () => {
+        this.props.dispatch(DISPLAY_BANNER_MESSAGE("You don't have edit permission to this timeline"))
+      }))
   }
 
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
-          <BannerMessage />
+          <Banner />
           <Header />
           <Board />
           <Footer />
