@@ -6,6 +6,7 @@ import Rx from 'rxjs/Rx'
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
+import BannerMessage from '../../components/BannerMessage'
 
 import { FETCH_LINE } from '../../actions'
 
@@ -57,6 +58,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
+          <BannerMessage />
           <Header />
           <Board />
           <Footer />
