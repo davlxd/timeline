@@ -2,6 +2,7 @@ const initialState = {
   editable: false,
   editId: null,
   viewId: null,
+  redirect: false,
   editPanel: {
     open: false,
     incidentType: '',
@@ -100,6 +101,11 @@ const ui = (state = initialState, action) => {
         shareDialog: {
           show: false
         }
+      }
+    case 'REDIRECT_FINISH':
+      return {
+        ...state,
+        redirect: false
       }
     default:
       return state

@@ -90,6 +90,17 @@ const crossSliceReducer = (state, action) => {
           viewId: action.data.viewId
         }
       }
+    case 'RECEIVE_FORKED_LINE':
+      return {
+        data: action.data.data,
+        ui: {
+          ...state.ui,
+          editable: action.data.editable,
+          editId: action.data.editId,
+          viewId: action.data.viewId,
+          redirect: true
+        }
+      }
     case 'REQUEST_LINE_ERROR':
       return state
     default:

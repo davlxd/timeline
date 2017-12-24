@@ -80,14 +80,14 @@ export const OPEN_FORK_DIALOG = {
   type: 'OPEN_FORK_DIALOG'
 }
 
-export const CLOSE_FORK_DIALOG = {
-  type: 'CLOSE_FORK_DIALOG'
-}
-
 export const OPEN_SHARE_DIALOG = {
   type: 'OPEN_SHARE_DIALOG'
 }
 
 export const CLOSE_SHARE_DIALOG = {
   type: 'CLOSE_SHARE_DIALOG'
+}
+
+export const REDIRECT_FINISH = {
+  type: 'REDIRECT_FINISH'
 }

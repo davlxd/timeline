@@ -32,7 +32,7 @@ let ShareDialog = ({ show, editId, viewId, onShareDialogClose }) => {
           {editId &&
             <div><tt>editor link: <a href={"https://timeline.ink/line/" + editId}>https://timeline.ink/line/{editId}</a></tt><br /></div>
           }
-          <tt>viewer link: <a href={"https://timeline.ink/view/" + viewId}>https://timeline.ink/view/{viewId}</a></tt>
+          <tt>viewer link: <a href={"https://timeline.ink/view/" + viewId}>https://timeline.ink/line/{viewId}</a></tt>
         </p>
 
         {editId ? (

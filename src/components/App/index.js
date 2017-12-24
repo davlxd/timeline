@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Rx from 'rxjs/Rx'
+import { push } from 'react-router-redux'
 
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
@@ -10,7 +11,7 @@ import Banner from '../../containers/Banner'
 import ForkDialog from '../../containers/ForkDialog'
 import ShareDialog from '../../containers/ShareDialog'
 
-import { FETCH_LINE, UPDATE_LINE } from '../../actions'
+import { FETCH_LINE, UPDATE_LINE, REDIRECT_FINISH, DISPLAY_BANNER_MESSAGE } from '../../actions'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -47,6 +48,14 @@ class App extends Component {
       .subscribe(data => this.props.dispatch(UPDATE_LINE(this.props.match.params.id, data)))
   }
 
+  componentWillUpdate({ redirect, editId }) {
+    if (redirect) {
+      this.props.dispatch(push('/line/' + editId))
+      this.props.dispatch(DISPLAY_BANNER_MESSAGE("This is your new timeline"))
+      this.props.dispatch(REDIRECT_FINISH)
+    }
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -64,8 +73,13 @@ class App extends Component {
 }
 App.contextTypes = { store: PropTypes.object }
 
+const mapStateToProps = (state) => ({
+  redirect: state.ui.redirect,
+  editId: state.ui.editId
+})
+
 App = connect(
-  null,
+  mapStateToProps,
   null
 )(App)
 

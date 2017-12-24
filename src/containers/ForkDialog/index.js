@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-import { CLOSE_FORK_DIALOG } from '../../actions'
+import { FORK_LINE, CLOSE_FORK_DIALOG } from '../../actions'
 
-let ForkDialog = ({ show, onForkDialogClose }) => {
+let ForkDialog = ({ show, onForkLine, onForkDialogClose }) => {
   const actions = [
       <FlatButton
         label="Cancel"
@@ -16,7 +16,7 @@ let ForkDialog = ({ show, onForkDialogClose }) => {
       <FlatButton
         label="Create"
         primary={true}
-        onClick={onForkDialogClose}
+        onClick={onForkLine}
       />
     ]
   return (
@@ -33,18 +33,31 @@ let ForkDialog = ({ show, onForkDialogClose }) => {
 }
 
 const mapStateToProps = (state) => ({
-  show: state.ui.forkDialog.show
+  show: state.ui.forkDialog.show,
+  editId: state.ui.editId,
+  viewId: state.ui.viewId
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onForkDialogClose: () => {
     dispatch(CLOSE_FORK_DIALOG)
+  },
+  _onForkLine: (id) => {
+    dispatch(FORK_LINE(id))
   }
 })
 
 ForkDialog = connect(
   mapStateToProps,
   mapDispatchToProps,
+  (stateProps, dispatchProps, ownProps) => ({
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+    onForkLine: () => {
+      dispatchProps._onForkLine(stateProps.editId ? stateProps.editId : stateProps.viewId)
+    }
+  })
 )(ForkDialog)
 
 
