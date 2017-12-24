@@ -85,7 +85,9 @@ const crossSliceReducer = (state, action) => {
         data: action.data.data,
         ui: {
           ...state.ui,
-          editable: action.data.edit
+          editable: action.data.editable,
+          editId: action.data.editId,
+          viewId: action.data.viewId
         }
       }
     case 'REQUEST_LINE_ERROR':
