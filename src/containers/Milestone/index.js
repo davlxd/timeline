@@ -4,7 +4,7 @@ import { grey800 } from 'material-ui/styles/colors'
 
 import { Group, Label, Text, Tag, Line } from 'react-konva'
 
-import { INCIDENT_DRAGGED } from '../../actions'
+import { INCIDENT_DRAGGED, TOGGLE_EDIT_PANEL } from '../../actions'
 
 import { dataToKanvaAttrForMilestone, konvaAttrToDataForMilestone, konvaAttrToDataAvoidAxisArrowForMilestone } from './positionCalculator'
 
@@ -23,6 +23,12 @@ class Milestone extends Component {
       when,
       aboveLine
     }
+  }
+
+  onClick(e) {
+    const { type, id } = this.props
+    if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
+    this.props.dispatch(TOGGLE_EDIT_PANEL(type, id, (e.evt.clientX <= (window.innerWidth / 2))))
   }
 
   onDragMove() {
@@ -87,6 +93,8 @@ class Milestone extends Component {
           onDragEnd={this.onDragEnd.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
           onMouseOut={this.onMouseOut.bind(this)}
+          onClick={this.onClick.bind(this)}
+          onTap={this.onClick.bind(this)}
           draggable={true}
           >
             <Text

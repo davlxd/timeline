@@ -5,6 +5,7 @@ import Drawer from 'material-ui/Drawer'
 import AxisArrowEditor from '../AxisArrowEditor'
 import TextBoxEditor from '../TextBoxEditor'
 import RangeEditor from '../RangeEditor'
+import MilestoneEditor from '../MilestoneEditor'
 
 import { TOGGLE_EDIT_PANEL } from '../../actions'
 
@@ -26,6 +27,8 @@ let EditPanel = ({ isOpen, type, onRequestClose, openFromRight }) => (
             return <TextBoxEditor />
           } else if (type === 'range') {
             return <RangeEditor />
+          } else if (type === 'milestone') {
+            return <MilestoneEditor />
           }
         })()}
     </Drawer>
