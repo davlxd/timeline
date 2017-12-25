@@ -44,8 +44,7 @@ export const _localTimeInYMD = (timestamp) => {
     default:
       M = '00'
   }
-  // return y + '-' + M + '-' + d + ' ' + t
-  return y + '-' + M + '-' + d
+  return y + '-' + M + '-' + d + ' ' + t
 }
 
 export const localTimeInYMD = (timestamp, scale) => {

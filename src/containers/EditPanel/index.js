@@ -10,14 +10,14 @@ import { TOGGLE_EDIT_PANEL } from '../../actions'
 
 import './style.css'
 
-let EditPanel = ({ isOpen, type, onRequestClose }) => (
+let EditPanel = ({ isOpen, type, onRequestClose, openFromRight }) => (
   <div >
     <Drawer
       docked={false}
       width='38.2%'
-      openSecondary={true}
+      openSecondary={openFromRight}
       open={isOpen}
-      onRequestChange={onRequestClose}
+      onRequestChange={onRequestClose(openFromRight)}
       >
         {(() => {
           if (type === 'axisarrow') {
@@ -34,13 +34,14 @@ let EditPanel = ({ isOpen, type, onRequestClose }) => (
 
 const mapStateToProps = (state) => ({
   isOpen: state.ui.editPanel.open,
-  type: state.ui.editPanel.incidentType
+  type: state.ui.editPanel.incidentType,
+  openFromRight: state.ui.editPanel.openFromRight
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onRequestClose: () => {
-    dispatch(TOGGLE_EDIT_PANEL())
-  }
+  onRequestClose: (openFromRight) => (
+    () => dispatch(TOGGLE_EDIT_PANEL('', 0, openFromRight))
+  )
 })
 
 EditPanel = connect(

@@ -74,7 +74,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onToggleEditPanel: () => {
-    dispatch(TOGGLE_EDIT_PANEL('axisarrow'))
+    dispatch(TOGGLE_EDIT_PANEL('axisarrow', 0, true))
   },
   onScopeTooLarge: () => {
     dispatch(DISABLE_AXISARROW_MARKERS)

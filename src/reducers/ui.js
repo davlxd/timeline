@@ -6,7 +6,8 @@ const initialState = {
   editPanel: {
     open: false,
     incidentType: '',
-    incidentId: 0
+    incidentId: 0,
+    openFromRight: true
   },
   contextMenu: {
     open: false,
@@ -37,7 +38,8 @@ const ui = (state = initialState, action) => {
         editPanel: {
           open: !state.editPanel.open,
           incidentType: action.editType,
-          incidentId: action.id
+          incidentId: action.id,
+          openFromRight: action.clickOnLeftHalfScreen
         }
       }
     case 'SHOW_CONTEXT_MENU':

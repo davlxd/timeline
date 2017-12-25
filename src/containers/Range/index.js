@@ -27,7 +27,7 @@ class Range extends Component {
   onClick(e) {
     const { type, id } = this.props
     if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
-    this.props.dispatch(TOGGLE_EDIT_PANEL(type, id))
+    this.props.dispatch(TOGGLE_EDIT_PANEL(type, id, (e.evt.clientX <= (window.innerWidth / 2))))
   }
 
   repositionCanvasTextBackground() {

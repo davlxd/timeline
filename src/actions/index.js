@@ -1,10 +1,11 @@
 export * from './restRequest'
 
 
-export const TOGGLE_EDIT_PANEL = (editType = '', id = 0) => ({
+export const TOGGLE_EDIT_PANEL = (editType = '', id = 0, clickOnLeftHalfScreen) => ({
   type: 'TOGGLE_EDIT_PANEL',
-  editType: editType,
-  id: id
+  editType,
+  id,
+  clickOnLeftHalfScreen
 })
 
 export const DUPLICATE_THIS_INCIDENT = (id = 0) => ({
