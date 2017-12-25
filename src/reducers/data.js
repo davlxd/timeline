@@ -22,7 +22,7 @@ const data = (state = initialState, action) => {
           }
         })
       }
-    case 'CONFIG_ON_TEXT_BOX_EDITOR_CHANGE':
+    case 'CONFIG_ON_EDITOR_CHANGE':
       return {
         ...state,
         incidents: state.incidents.map(incident => {

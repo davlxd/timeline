@@ -99,7 +99,7 @@ class Board extends Component {
   }
 
   render() {
-    const { centralTime, textBoxList, rangeList, milestoneList, onZoomInClick, onZoomOutClick } = this.props
+    const { centralTime, incidentList, onZoomInClick, onZoomOutClick } = this.props
     return (
       <div>
         <Stage
@@ -134,29 +134,27 @@ class Board extends Component {
               aboveLine={true}
             />
             {
-              textBoxList.map(textBox =>
-                <TextBox
-                  key={textBox.id}
-                  {...textBox}
-                />
-              )
+              incidentList.map(incident => {
+                if (incident.type === 'textbox') {
+                  return <TextBox
+                    key={incident.id}
+                    {...incident}
+                  />
+                } else if (incident.type === 'range') {
+                  return <Range
+                    key={incident.id}
+                    {...incident}
+                  />
+                } else if (incident.type === 'milestone') {
+                  return <Milestone
+                    key={incident.id}
+                    {...incident}
+                  />
+                }
+                return <Stage />;
+              })
             }
-            {
-              rangeList.map(range =>
-                <Range
-                  key={range.id}
-                  {...range}
-                />
-              )
-            }
-            {
-              milestoneList.map(milestone =>
-                <Milestone
-                  key={milestone.id}
-                  {...milestone}
-                />
-              )
-            }
+
             <ContextMenu />
           </Layer>
         </Stage>
@@ -174,23 +172,8 @@ class Board extends Component {
   }
 }
 
-
-const getTextBoxList = (state) => (
-  state.data.incidents.filter(incident => incident.type === 'textbox')
-)
-
-const getRangeList = (state) => (
-  state.data.incidents.filter(incident => incident.type === 'range')
-)
-
-const getMilestoneList = (state) => (
-  state.data.incidents.filter(incident => incident.type === 'milestone')
-)
-
 const mapStateToProps = (state) => ({
-  textBoxList: getTextBoxList(state),
-  rangeList: getRangeList(state),
-  milestoneList: getMilestoneList(state),
+  incidentList: state.data.incidents,
   centralTime: state.data.axisArrow.centralTime,
   scale: state.data.axisArrow.scale,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp

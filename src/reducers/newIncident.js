@@ -26,12 +26,14 @@ const newTextBox = (x, y, incidentType, nextIncidentId, scale, centralTime) => {
 
 
 const RANGE_BOX_DEFAULT_WIDTH = 200
+const RANGE_DEFAULT_FONT_SIZE = 18
 const newRange = (x, y, incidentType, nextIncidentId, scale, centralTime, axisArrowLineWidth) => {
   const { start, end, distance, aboveLine } = konvaAttrToDataForRange(x, y, RANGE_BOX_DEFAULT_WIDTH, scale, centralTime, axisArrowLineWidth)
   return {
     id: nextIncidentId,
     type: incidentType,
     text: 'Ranger',
+    fontSize: RANGE_DEFAULT_FONT_SIZE,
     start,
     end,
     distance,

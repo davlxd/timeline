@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper'
+import Slider from 'material-ui/Slider'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
-import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
+import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE, CONFIG_ON_EDITOR_CHANGE } from '../../actions'
 
 import './style.css'
 
-let RangeEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
+let RangeEditor = ({ incident, onDuplicate, onDelete, onChange, onConfigChange }) => (
   <div>
     <div className="Title">
       <h2>Range</h2>
@@ -29,6 +30,17 @@ let RangeEditor = ({ incident, onDuplicate, onDelete, onChange }) => (
         onChange={(e, newText) => onChange(incident.id, newText)}
     />
     </Paper>
+
+    <Paper className="Card">
+      <span className="CardTitle"> Font Size </span>
+      <Slider
+        className="Slider"
+        min={5}
+        max={100}
+        value={incident.fontSize}
+        onChange={(e, newValue) => onConfigChange(incident.id, { fontSize: newValue })}
+      />
+    </Paper>
   </div>
 )
 
@@ -45,6 +57,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChange: (id, text) => {
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
+  },
+  onConfigChange: (id, newConfig) => {
+    dispatch(CONFIG_ON_EDITOR_CHANGE(id, newConfig))
   }
 })
 

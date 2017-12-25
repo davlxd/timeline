@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
 
-import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE, CONFIG_ON_TEXT_BOX_EDITOR_CHANGE } from '../../actions'
+import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_CHANGE, CONFIG_ON_EDITOR_CHANGE } from '../../actions'
 
 import './style.css'
 
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(TEXT_ON_TEXT_BOX_EDITOR_CHANGE(id, text))
   },
   onConfigChange: (id, newConfig) => {
-    dispatch(CONFIG_ON_TEXT_BOX_EDITOR_CHANGE(id, newConfig))
+    dispatch(CONFIG_ON_EDITOR_CHANGE(id, newConfig))
   }
 })
 

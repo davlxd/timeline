@@ -140,8 +140,9 @@ class Range extends Component {
   }
 
   render() {
-    const { text } = this.props
+    const { text, fontSize } = this.props
     const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange(this.props)
+    const textPadding = (RANGE_HEIGHT - fontSize) / 2
 
     return (
       <Group>
@@ -165,12 +166,12 @@ class Range extends Component {
           x={rectX}
           y={rectY}
           text={text}
-          fontSize={18}
+          fontSize={fontSize}
           fontFamily='Calibri'
           fill='#555'
           width={rectWidth}
           height={RANGE_HEIGHT}
-          padding={6}
+          padding={textPadding}
           align='center'
           ref={(text) => {this.canvasText = text}}
         />

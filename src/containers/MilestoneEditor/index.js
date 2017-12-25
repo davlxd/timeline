@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
 
 import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT } from '../../actions'
 

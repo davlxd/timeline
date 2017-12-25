@@ -24,8 +24,8 @@ export const TEXT_ON_TEXT_BOX_EDITOR_CHANGE = (id = 0, text = '') => ({
   text: text
 })
 
-export const CONFIG_ON_TEXT_BOX_EDITOR_CHANGE = (id = 0, newConfig = {}) => ({
-  type: 'CONFIG_ON_TEXT_BOX_EDITOR_CHANGE',
+export const CONFIG_ON_EDITOR_CHANGE = (id = 0, newConfig = {}) => ({
+  type: 'CONFIG_ON_EDITOR_CHANGE',
   id,
   newConfig
 })
