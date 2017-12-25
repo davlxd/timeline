@@ -60,6 +60,8 @@ class TextBox extends Component {
     this.canvasText.y(y)
     this.canvasRect.x(x)
     this.canvasRect.y(y)
+    this.canvasRectBackdrop.x(x)
+    this.canvasRectBackdrop.y(y)
     this.cord.points(cordLinePoints)
   }
 
@@ -88,6 +90,15 @@ class TextBox extends Component {
 
     return (
       <Group>
+        <Rect
+          x={x}
+          y={y}
+          fill='#ffffff'
+          width={width}
+          height={height}
+          cornerRadius={5}
+          ref={(rect) => {this.canvasRectBackdrop = rect}}
+        />
         <Text
           x={x}
           y={y}
