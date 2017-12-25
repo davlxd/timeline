@@ -33,6 +33,7 @@ let RangeEditor = ({ incident, onDuplicate, onDelete, onChange, onConfigChange }
 
     <Paper className="Card">
       <span className="CardTitle"> Font Size </span>
+      <span> {incident.fontSize} </span>
       <Slider
         className="Slider"
         min={5}

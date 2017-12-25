@@ -34,6 +34,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
 
     <Paper className="Card">
       <span className="CardTitle"> Box Width </span>
+      <span> {incident.width} </span>
       <Slider
         className="Slider"
         min={20}
@@ -45,6 +46,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
 
     <Paper className="Card">
       <span className="CardTitle"> Font Size </span>
+      <span> {incident.fontSize} </span>
       <Slider
         className="Slider"
         min={5}
@@ -64,6 +66,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
 
     <Paper className="Card">
       <span className="CardTitle"> Border Width </span>
+      <span> {incident.borderWidth} </span>
       <Slider
         className="Slider"
         min={0.1}
