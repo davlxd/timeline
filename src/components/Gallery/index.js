@@ -37,7 +37,6 @@ const Gallery = () => (
          </Paper>
        </div>
      </MuiThemeProvider>
-
    </div>
 )
 
