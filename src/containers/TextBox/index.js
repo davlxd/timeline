@@ -104,7 +104,7 @@ class TextBox extends Component {
           y={y}
           text={text}
           fontSize={fontSize}
-          fontFamily='Calibri'
+          fontFamily='"Times New Roman", Georgia, Serif'
           fill='#555'
           width={width}
           padding={10}

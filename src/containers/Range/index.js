@@ -167,7 +167,7 @@ class Range extends Component {
           y={rectY}
           text={text}
           fontSize={fontSize}
-          fontFamily='Calibri'
+          fontFamily='"Times New Roman", Georgia, Serif'
           fill='#555'
           width={rectWidth}
           height={RANGE_HEIGHT}

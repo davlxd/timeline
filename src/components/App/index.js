@@ -20,7 +20,6 @@ import { grey400, grey700, grey800 } from 'material-ui/styles/colors'
 import './style.scss'
 
 const muiTheme = getMuiTheme({
-  // fontFamily: 'Calibri',
   slider: {
     selectionColor: grey700,
     rippleColor: grey400

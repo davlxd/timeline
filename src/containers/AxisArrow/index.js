@@ -54,7 +54,7 @@ let AxisArrow = ({ scale, centralTime, lineWidth, onClick, onScopeTooLarge }) =>
               y={(window.innerHeight / 2 - lineWidth / 2 + 6)}
               text={markerFormater(timestampAndX.timestamp).marker}
               fontSize={markerFormater(timestampAndX.timestamp).fontSize}
-              fontFamily='Calibri'
+              fontFamily='"Times New Roman", Georgia, Serif'
               fill='#555'
               width={50}
               padding={1}

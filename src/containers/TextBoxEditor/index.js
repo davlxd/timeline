@@ -27,7 +27,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
         rowsMax={20}
         value={incident.text}
         fullWidth={true}
-        inputStyle={{fontFamily: 'Calibri', fontSize: 18}}
+        inputStyle={{fontFamily: '"Times New Roman", Georgia, Serif', fontSize: 18}}
         onChange={(e, newText) => onTextChange(incident.id, newText)}
     />
     </Paper>

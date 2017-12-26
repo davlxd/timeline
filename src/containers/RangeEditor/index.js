@@ -26,7 +26,7 @@ let RangeEditor = ({ incident, onDuplicate, onDelete, onChange, onConfigChange }
         rowsMax={20}
         value={incident.text}
         fullWidth={true}
-        inputStyle={{fontFamily: 'Calibri', fontSize: 18}}
+        inputStyle={{fontFamily: '"Times New Roman", Georgia, Serif', fontSize: 18}}
         onChange={(e, newText) => onChange(incident.id, newText)}
     />
     </Paper>
