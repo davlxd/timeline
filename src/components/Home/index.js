@@ -15,6 +15,11 @@ const Home = () => (
       <span className="button try"><a className="button-link" href="/line/ca8455706902446396d381363bd869a7">Try it out!</a></span>
       <span className="button gallery"><a className="button-link" href="/gallery">Browse Gallery</a></span>
     </div>
+    <div className="footers">
+      <span className="footer"><a className="footer-link" href="/terms">Terms of Service</a></span>
+      <span className="footer"><a className="footer-link" href="/privacy">Privacy Policy</a></span>
+      <span className="footer"><a className="footer-link" href="/thanks">Thanks</a></span>
+    </div>
   </div>
 )
 

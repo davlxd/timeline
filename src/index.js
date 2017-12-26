@@ -14,6 +14,7 @@ import App from './components/App'
 import GenericNotFound from './components/GenericNotFound'
 import TermsOfService from './components/TermsOfService'
 import PrivacyPolicy from './components/PrivacyPolicy'
+import Thanks from './components/Thanks'
 import './index.css'
 
 
@@ -27,6 +28,7 @@ render(
           <Route exact path="/view/:id" component={App}/>
           <Route exact path="/terms" component={TermsOfService}/>
           <Route exact path="/privacy" component={PrivacyPolicy}/>
+          <Route exact path="/thanks" component={Thanks}/>
           <Route component={GenericNotFound} />
         </Switch>
       </ConnectedRouter>
