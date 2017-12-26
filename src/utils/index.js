@@ -1,4 +1,4 @@
-import { PIXELS_PER_SCALE, MONTH30_MS } from '../constants'
+import { PIXELS_PER_SCALE, DAY_MS } from '../constants'
 
 export const _localTimeInYMD = (timestamp) => {
   const [ w, m, d, y, t] = new Date(timestamp).toString().split(' ')
@@ -91,7 +91,7 @@ export const localTimeInYMD = (timestamp, scale) => {
     default:
       M = '00'
   }
-  if (scale >= MONTH30_MS) {
+  if (scale >= DAY_MS) {
     return y + '-' + M + '-' + d
   }
   return y + '-' + M + '-' + d + ' ' + t
