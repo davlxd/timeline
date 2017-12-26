@@ -38,6 +38,10 @@
   .bgv {
     display: none;
   }
+
+  .buttons {
+    font-size: 10px;
+  }
 }
 
 .fg {
@@ -74,6 +78,13 @@
   z-index: 2;
 }
 
+@media (max-width: 767px) {
+  .buttons {
+    font-size: 25px;
+  }
+}
+
+
 .button {
   cursor: pointer;
   padding: 10px;
@@ -94,6 +105,17 @@
 .try {
   margin-right: 50px;
 }
+
 .gallery{
   margin-left: 50px;
+}
+
+
+@media (max-width: 767px) {
+  .try {
+    margin-right: 20px;
+  }
+  .gallery{
+    margin-left: 20px;
+  }
 }
