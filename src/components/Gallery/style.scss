@@ -1,9 +1,57 @@
-.Card {
-  padding: 15px 20px 10px 20px;
-  margin: 15px 10px 10px 10px;
+.GalleryContainer {
+  width: 100%;
+  text-align:center;
 }
 
-.CardTitle {
-  font-weight: bold;
-  font-size: 17px;
+.Picture {
+  position: relative;
+  height: auto;
+  width: 45%;
+  margin: 2.5%;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+}
+
+@media (max-width: 767px) {
+  .Picture {
+    width: 90%;
+  }
+}
+
+.Picture img {
+  width: 100%;
+}
+
+.Veil {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+  line-height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+.Veil span {
+  position: relative;
+  top: 80%;
+  color: #000000;
+  font-size: 30px;
+  font-family: 'Times New Roman', Georgia, Serif;
+  // transform: translateY(-50%);
+  display: none;
+  -webkit-transition: display 0.3s;
+  transition: display 0.3s;
+}
+.Veil:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  span {
+    display: block;
+  }
 }
