@@ -89,6 +89,8 @@
 .button {
   cursor: pointer;
   padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
   -webkit-transition: background-color 0.3s, color 0.3s;
   transition: background-color 0.3s, color 0.3s;
 }
