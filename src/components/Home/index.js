@@ -4,7 +4,7 @@ import './style.css'
 
 const Home = () => (
   <div className="bg">
-    <video className="bgv" loop autoPlay>
+    <video className="bgv" loop autoPlay poster="/one-shot-fast.jpg">
       <source src={process.env.PUBLIC_URL + '/one-shot-fast.mp4'} type="video/mp4" />
       {/* <source src={this.state.videoURL} type="video/ogg" /> */}
       Your browser does not support the video tag.
