@@ -87,7 +87,11 @@ const crossSliceReducer = (state, action) => {
           ...state.ui,
           editable: action.data.editable,
           editId: action.data.editId,
-          viewId: action.data.viewId
+          viewId: action.data.viewId,
+          restRequest: {
+            ...state.restRequest,
+            isFetching: false
+          }
         }
       }
     case 'RECEIVE_FORKED_LINE':
@@ -98,6 +102,10 @@ const crossSliceReducer = (state, action) => {
           editable: action.data.editable,
           editId: action.data.editId,
           viewId: action.data.viewId,
+          restRequest: {
+            ...state.restRequest,
+            isFetching: false
+          },
           redirect: true
         }
       }

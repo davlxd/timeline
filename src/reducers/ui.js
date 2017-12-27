@@ -66,7 +66,7 @@ const ui = (state = initialState, action) => {
         ...state,
         restRequest: {
           ...state.restRequest,
-          isFetching: false
+          isFetching: true
         }
       }
     case 'DISPLAY_BANNER_MESSAGE':

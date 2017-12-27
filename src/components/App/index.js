@@ -7,6 +7,7 @@ import { push } from 'react-router-redux'
 import Header from '../../containers/Header'
 import Board from '../../containers/Board'
 import Footer from '../../components/Footer'
+import LoadingBar from '../../containers/LoadingBar'
 import Banner from '../../containers/Banner'
 import ForkDialog from '../../containers/ForkDialog'
 import ShareDialog from '../../containers/ShareDialog'
@@ -59,6 +60,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className="App">
+          <LoadingBar />
           <Banner />
           <Header />
           <ForkDialog />

@@ -73,6 +73,7 @@ export const UPDATE_LINE = (id, data) => {
 export const FORK_LINE = (id) => {
   return dispatch => {
     dispatch(CLOSE_FORK_DIALOG)
+    dispatch(REQUESTING_LINE)
     return fetch(
       `https://5kcqqq1fc7.execute-api.ap-southeast-2.amazonaws.com/beta/timelines/${id}`,
       {
