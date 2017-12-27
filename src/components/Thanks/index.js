@@ -11,6 +11,7 @@ const Thanks = () => (
        <li><a href="https://konvajs.github.io/">Konvajs</a>, license under <a href="https://github.com/konvajs/konva/wiki/License">MIT</a>.</li>
        <li><a href="https://reactjs.org/">React</a>, license under <a href="https://github.com/facebook/react#license">MIT</a>.</li>
        <li><a href="https://redux.js.org/">Redux</a>, license under <a href="https://redux.js.org/#license">MIT</a>.</li>
+       <li><a href="https://wordpress.com/">WordPress</a>, from <a href="https://automattic.com/">Automattic</a>.</li>
      </ul>
    </div>
 )
