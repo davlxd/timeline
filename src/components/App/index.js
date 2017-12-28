@@ -56,7 +56,7 @@ class App extends Component {
   componentWillUpdate({ redirect, editId }) {
     if (redirect) {
       this.props.dispatch(push('/line/' + editId))
-      this.props.dispatch(DISPLAY_BANNER_MESSAGE("This is your new timeline"))
+      this.props.dispatch(DISPLAY_BANNER_MESSAGE("This is your new timeline, please keep the link safe!"))
       this.props.dispatch(REDIRECT_FINISH)
     }
   }

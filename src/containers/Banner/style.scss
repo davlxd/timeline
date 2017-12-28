@@ -8,15 +8,17 @@
   font-size: 18px;
   background-color: #eeeeee;
 
-  -webkit-animation: fadeinout 4s linear forwards;
-  animation: fadeinout 4s linear forwards;
+  -webkit-animation: fadeinout 5s linear forwards;
+  animation: fadeinout 5s linear forwards;
 }
 
 
 @-webkit-keyframes fadeinout {
   20% { opacity: 1; }
+  60% { opacity: 1; }
 }
 
 @keyframes fadeinout {
   20% { opacity: 1; }
+  60% { opacity: 1; }
 }
