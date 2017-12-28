@@ -49,7 +49,7 @@ let ContextMenu = ({ open, mouseX, mouseY, dispatch }) => {
       <Entry
         x={x}
         y={y + 20 + menuEntryTexHeight * 2}
-        icon={'\u26CA'}
+        icon={'\u25BC'}
         text='Milestone'
         onClick={(e) => onClick('milestone', e)}
       />
