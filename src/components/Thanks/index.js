@@ -12,7 +12,7 @@ const Thanks = () => (
        <li><a href="https://reactjs.org/">React</a>, licensed under <a href="https://github.com/facebook/react#license">MIT</a>.</li>
        <li><a href="https://redux.js.org/">Redux</a>, licensed under <a href="https://redux.js.org/#license">MIT</a>.</li>
        <li><a href="https://wordpress.com/">WordPress</a>, from <a href="https://automattic.com/">Automattic</a>.</li>
-       <li><a href="http://www.material-ui.com">Material-UI</a>, licensed under <a href="https://github.com/mui-org/material-ui#license">MIT</a>.</li>
+       <li><a href="https://github.com/mui-org/material-ui">Material-UI</a>, licensed under <a href="https://github.com/mui-org/material-ui#license">MIT</a>.</li>
      </ul>
    </div>
 )
