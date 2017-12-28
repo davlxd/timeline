@@ -25,7 +25,10 @@ class Range extends Component {
   }
 
   onClick(e) {
-    const { type, id } = this.props
+    const { type, id, editable } = this.props
+    if (!editable) {
+      return;
+    }
     if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
     this.props.dispatch(TOGGLE_EDIT_PANEL(type, id, (e.evt.clientX <= (window.innerWidth / 2))))
   }
@@ -140,7 +143,7 @@ class Range extends Component {
   }
 
   render() {
-    const { text, fontSize } = this.props
+    const { text, fontSize, editable } = this.props
     const { rectX, rectY, rectWidth, startCordLinePoints, endCordLinePoints, backgroundLinePoints } = dataToKanvaAttrForRange(this.props)
     const textPadding = (RANGE_HEIGHT - fontSize) / 2
 
@@ -184,7 +187,7 @@ class Range extends Component {
           height={RANGE_HEIGHT}
           cornerRadius={0}
           // fill={grey300}
-          draggable={true}
+          draggable={editable}
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onRectDragMove.bind(this)}
           onDragEnd={this.onRectDragEnd.bind(this)}
@@ -202,7 +205,7 @@ class Range extends Component {
           height={RANGE_HEIGHT}
           cornerRadius={0}
           fill={grey800}
-          draggable={true}
+          draggable={editable}
           ref={(rect) => {this.startBoundary = rect}}
           onDragMove={this.onBoundaryDragMove.bind(this)}
           onDragEnd={this.onBoundaryDragEnd.bind(this)}
@@ -218,7 +221,7 @@ class Range extends Component {
           height={RANGE_HEIGHT}
           cornerRadius={0}
           fill={grey800}
-          draggable={true}
+          draggable={editable}
           ref={(rect) => {this.endBoundary = rect}}
           onDragMove={this.onBoundaryDragMove.bind(this)}
           onDragEnd={this.onBoundaryDragEnd.bind(this)}
@@ -256,6 +259,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
+  editable: state.ui.editable,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 

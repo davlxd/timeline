@@ -26,7 +26,10 @@ class Milestone extends Component {
   }
 
   onClick(e) {
-    const { type, id } = this.props
+    const { type, id, editable } = this.props
+    if (!editable) {
+      return;
+    }
     if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
     this.props.dispatch(TOGGLE_EDIT_PANEL(type, id, (e.evt.clientX <= (window.innerWidth / 2))))
   }
@@ -76,6 +79,7 @@ class Milestone extends Component {
   }
 
   render() {
+    const { editable } = this.props
     const { x, y, pointerDirection, cordLinePoints } = dataToKanvaAttrForMilestone(this.props)
     return (
       <Group>
@@ -95,7 +99,7 @@ class Milestone extends Component {
           onMouseOut={this.onMouseOut.bind(this)}
           onClick={this.onClick.bind(this)}
           onTap={this.onClick.bind(this)}
-          draggable={true}
+          draggable={editable}
           >
             <Text
               width={MILESTONE_RECT_WIDTH}
@@ -129,6 +133,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
+  editable: state.ui.editable
 })
 
 Milestone = connect(

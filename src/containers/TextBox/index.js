@@ -35,7 +35,10 @@ class TextBox extends Component {
   }
 
   onClick(e) {
-    const { type, id } = this.props
+    const { type, id, editable } = this.props
+    if (!editable) {
+      return;
+    }
     if (Math.abs(e.evt.timeStamp - this.props.contextMenuEventTimestamp) < 500) return;
     this.props.dispatch(TOGGLE_EDIT_PANEL(type, id, (e.evt.clientX <= (window.innerWidth / 2))))
   }
@@ -85,7 +88,7 @@ class TextBox extends Component {
   }
 
   render() {
-    const { text, width, fontSize, height, displayBorder, borderWidth, attachCord } = this.props
+    const { text, width, fontSize, height, displayBorder, borderWidth, attachCord, editable } = this.props
     const { x, y, cordLinePoints} = dataToKanvaAttrForTextBox(this.props)
 
     return (
@@ -124,7 +127,7 @@ class TextBox extends Component {
           shadowOffset={[10, 10]}
           shadowOpacity={0.2}
           cornerRadius={5}
-          draggable={true}
+          draggable={editable}
           ref={(rect) => {this.canvasRect = rect}}
           onDragMove={this.onDragMove.bind(this)}
           onDragEnd={this.onDragEnd.bind(this)}
@@ -154,6 +157,7 @@ const mapStateToProps = (state, ownProps) => ({
   scale: state.data.axisArrow.scale,
   centralTime: state.data.axisArrow.centralTime,
   axisArrowLineWidth: state.data.axisArrow.lineWidth,
+  editable: state.ui.editable,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 

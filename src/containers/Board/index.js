@@ -87,6 +87,10 @@ class Board extends Component {
   }
 
   onContentContextmenu(e) {
+    const { editable } = this.props
+    if (!editable) {
+      return;
+    }
     this.props.openContextMenu(e.evt.clientX, e.evt.clientY, e.evt.timeStamp)
     e.evt.stopPropagation()
     e.evt.stopImmediatePropagation()
@@ -176,6 +180,7 @@ const mapStateToProps = (state) => ({
   incidentList: state.data.incidents,
   centralTime: state.data.axisArrow.centralTime,
   scale: state.data.axisArrow.scale,
+  editable: state.ui.editable,
   contextMenuEventTimestamp: state.ui.contextMenu.eventTimestamp
 })
 
