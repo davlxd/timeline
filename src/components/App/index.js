@@ -46,6 +46,11 @@ class App extends Component {
       .distinctUntilChanged()
       .debounceTime(2000)
       .subscribe(data => this.props.dispatch(UPDATE_LINE(this.props.match.params.id, data)))
+
+    Rx.Observable.fromEvent(window, 'resize')
+      .debounceTime(500)
+      .subscribe(() => window.location.reload())
+    // window.addEventListener('resize', () => window.location.reload())
   }
 
   componentWillUpdate({ redirect, editId }) {
