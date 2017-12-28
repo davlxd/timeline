@@ -29,7 +29,6 @@ class Banner extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state.data.axisArrow,
   message: state.ui.banner.message
 })
 
