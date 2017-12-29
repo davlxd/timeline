@@ -1,0 +1,23 @@
+.StatusCode {
+  font-size: 300px;
+  text-decoration: bold;
+  margin: 10px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.StatusCodeExplanation {
+  font-size: 30px;
+  margin: 10px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .StatusCode {
+    font-size: 200px;
+  }
+  .StatusCodeExplanation {
+    font-size: 20px;
+  }
+}
