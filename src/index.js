@@ -13,12 +13,14 @@ import Gallery from './components/Gallery'
 import App from './components/App'
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
+import MyAccount from './components/MyAccount'
+import MyLines from './components/MyLines'
 import GenericNotFound from './components/GenericNotFound'
 import TermsOfService from './components/TermsOfService'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import Thanks from './components/Thanks'
-import './index.css'
 
+import './index.css'
 
 render(
   <Provider store={store}>
@@ -27,6 +29,8 @@ render(
           <Route exact path="/" component={Home}/>
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/login" component={LogIn}/>
+          <Route exact path="/my/lines" component={MyLines}/>
+          <Route exact path="/my/account" component={MyAccount}/>
           <Route exact path="/gallery" component={Gallery}/>
           <Route exact path="/line/:id" component={App}/>
           <Route exact path="/view/:id" component={App}/>
