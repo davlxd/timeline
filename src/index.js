@@ -11,6 +11,8 @@ import registerServiceWorker from './registerServiceWorker'
 import Home from './components/Home'
 import Gallery from './components/Gallery'
 import App from './components/App'
+import SignUp from './components/SignUp'
+import LogIn from './components/LogIn'
 import GenericNotFound from './components/GenericNotFound'
 import TermsOfService from './components/TermsOfService'
 import PrivacyPolicy from './components/PrivacyPolicy'
@@ -23,6 +25,8 @@ render(
     <ConnectedRouter history={history}>
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/signup" component={SignUp}/>
+          <Route exact path="/login" component={LogIn}/>
           <Route exact path="/gallery" component={Gallery}/>
           <Route exact path="/line/:id" component={App}/>
           <Route exact path="/view/:id" component={App}/>

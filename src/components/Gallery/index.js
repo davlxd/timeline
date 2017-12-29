@@ -11,7 +11,7 @@ const Gallery = () => (
        <div className="GalleryContainer">
          <Paper className="Picture">
            <img src={process.env.PUBLIC_URL + '/gallery/project2.png'} alt="Project Template"></img>
-           <a href="/view/c142e91778da487280c8ceb7c716535b">
+           <a href="/line/c142e91778da487280c8ceb7c716535b">
              <div className="Veil"><span>Project Template</span></div>
            </a>
          </Paper>

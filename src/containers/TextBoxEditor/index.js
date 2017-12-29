@@ -10,6 +10,11 @@ import { DUPLICATE_THIS_INCIDENT, DELETE_THIS_INCIDENT, TEXT_ON_TEXT_BOX_EDITOR_
 
 import './style.css'
 
+const checkboxLabelStyle = {
+  fontWeight: 'bold',
+  fontSize: 17
+}
+
 let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigChange }) => (
   <div>
     <div className="Title">
@@ -60,6 +65,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
       <Checkbox
         label="Display Border"
         checked={incident.displayBorder}
+        labelStyle={checkboxLabelStyle}
         onCheck={(e, isChecked) => onConfigChange(incident.id, isChecked ? { displayBorder: true } : { attachCord: false, displayBorder: false } )}
       />
     </Paper>
@@ -80,6 +86,7 @@ let TextBoxEditor = ({ incident, onDuplicate, onDelete, onTextChange, onConfigCh
       <Checkbox
         label="Attach Cord"
         checked={incident.attachCord}
+        labelStyle={checkboxLabelStyle}
         onCheck={(e, isChecked) => onConfigChange(incident.id, isChecked ? { attachCord: true, displayBorder: true } : { attachCord: false })}
       />
     </Paper>
